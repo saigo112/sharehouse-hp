@@ -1,7 +1,7 @@
 export type MicroCMSImage = {
   url: string;
-  height: number;
-  width: number;
+  height?: number;
+  width?: number;
 };
 
 export type HeroContent = {
@@ -25,12 +25,14 @@ export type Project = {
   description: string;
   image: MicroCMSImage;
   status: string;
+  content?: string;
 };
 
 export type Diary = {
   id: string;
   image: MicroCMSImage;
   caption: string;
+  content?: string;
 };
 
 export type Voice = {
@@ -67,4 +69,7 @@ export type LPData = {
   diaries?: Diary[];
   voices?: Voice[];
   recruitment?: RecruitmentInfo[];
+
+  // CTA
+  entryFormUrl?: string;
 };
