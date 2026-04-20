@@ -15,6 +15,7 @@ import {
 } from "@/types/sharehouse-cms";
 import { HeroSection } from "@/components/sharehouse/HeroSection";
 import { ConceptSection } from "@/components/sharehouse/ConceptSection";
+import { NewsSection } from "@/components/sharehouse/NewsSection";
 import { ProjectList } from "@/components/sharehouse/ProjectList";
 import { DiaryList } from "@/components/sharehouse/DiaryList";
 import { VoiceList } from "@/components/sharehouse/VoiceList";
@@ -22,11 +23,12 @@ import { RecruitmentSection } from "@/components/sharehouse/RecruitmentSection";
 import { CTASection } from "@/components/sharehouse/CTASection";
 
 export default async function SharehousePage() {
-  // 1. 新しいプロジェクト専用APIからのデータ取得（並列実行）
-  const [globalsData, projectsData, diariesData] = await Promise.all([
+  // 1. 各種データの取得（並列実行）
+  const [globalsData, projectsData, diariesData, newsData] = await Promise.all([
     getSiteGlobals(),
     getSharehouseProjects({ limit: 3 }),
-    getSharehouseArticles('diary', { limit: 5 })
+    getSharehouseArticles('diary', { limit: 5 }),
+    getSharehouseArticles('news', { limit: 3 })
   ]);
   
   // --- データのマッピングとフォールバック ---
@@ -45,6 +47,7 @@ export default async function SharehousePage() {
 
   const menuItems = globalsData?.menuItems || [
     { label: "Concept", href: "#concept" },
+    { label: "News", href: "#news" },
     { label: "Projects", href: "#projects" },
     { label: "Diaries", href: "#diaries" },
     { label: "Voices", href: "#voices" },
@@ -85,6 +88,8 @@ export default async function SharehousePage() {
     instagramUrl: d.instagramUrl || ""
   }));
 
+  const news = (newsData?.contents || []);
+
   const voices = (globalsData?.voices || []).map((v: any, index: number) => ({
     ...v, 
     id: v.id || String(index + 1)
@@ -105,6 +110,7 @@ export default async function SharehousePage() {
     <div className="min-h-screen bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
       <HeroSection title={hero.title} backgroundImages={hero.backgroundImages} menuItems={menuItems} joinUsHref={entryFormUrl} />
       <ConceptSection {...concept} />
+      <NewsSection articles={news} />
       <ProjectList projects={projects} limit={3} />
       <DiaryList diaries={diaries} limit={5} />
       <VoiceList voices={voices} />
