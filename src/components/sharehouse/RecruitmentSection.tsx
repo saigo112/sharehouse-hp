@@ -11,7 +11,7 @@ interface RecruitmentSectionProps {
  */
 export const RecruitmentSection: React.FC<RecruitmentSectionProps> = ({ items }) => {
   return (
-    <section id="access" className="py-24 px-6 bg-surface-container-low">
+    <section id="recruitment" className="py-24 px-6 bg-surface-container-low">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">

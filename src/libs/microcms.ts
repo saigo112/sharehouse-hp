@@ -1,92 +1,187 @@
 import { createClient } from 'microcms-js-sdk';
-
-// microCMSのエンドポイント名（管理画面で作成したAPIのエンドポイント）
-const ENDPOINT = 'shared_house';
+import { SharehouseSiteGlobals, SharehouseArticle, SharehouseProject, SharehouseLpSettings, SharehouseSiteConfig } from '../types/sharehouse-cms';
 
 /**
- * LP全データを取得する関数
- * - 環境変数が未設定の場合はnullを返し、ページ側でフォールバック値を使用する
- * - Next.js ISR（増分静的再生成）に対応: revalidate=60秒
+ * 【シェアハウス専用】microCMSクライアント
  */
-export async function getLPData(options: { preview: boolean } = { preview: false }) {
-  const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
-  const apiKey = process.env.MICROCMS_API_KEY;
-
-  if (!serviceDomain || !apiKey) {
-    console.warn('[microCMS] 環境変数が未設定です。フォールバックデータを使用します。');
-    return null;
-  }
-
-  try {
-    const client = createClient({ serviceDomain, apiKey });
-    const queries: any = {};
-    if (options.preview && process.env.MICROCMS_PREVIEW_SECRET) {
-      queries.draftKey = process.env.MICROCMS_PREVIEW_SECRET;
-    }
-    const data = await client.get({
-      endpoint: ENDPOINT,
-      queries,
-    });
-    return data;
-  } catch (error) {
-    console.error('[microCMS] データ取得に失敗しました:', error);
-    return null;
-  }
-}
-
-
-// microCMSのエンドポイント名（管理画面で作成したAPIのエンドポイント）
-const ENDPOINT = 'shared_house';
+export const sharehouseClient = createClient({
+  serviceDomain: process.env.MICROCMS_SHAREHOUSE_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN || '',
+  apiKey: process.env.MICROCMS_SHAREHOUSE_API_KEY || process.env.MICROCMS_API_KEY || '',
+});
 
 /**
- * LP全データを取得する関数
- * - 環境変数が未設定の場合はnullを返し、ページ側でフォールバック値を使用する
- * - Next.js ISR（増分静的再生成）に対応: revalidate=60秒
+ * 共通クエリビルダ
  */
-export async function getLPData(options: { preview: boolean } = { preview: false }) {
-  const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
-  const apiKey = process.env.MICROCMS_API_KEY;
+function buildSharehouseQueries(options: { preview?: boolean; filters?: string; limit?: number; contentId?: string } = {}) {
+  const queries: any = {};
+  
+  const previewSecret = process.env.MICROCMS_SHAREHOUSE_PREVIEW_SECRET || process.env.MICROCMS_PREVIEW_SECRET;
+  
+  if (options.preview && previewSecret) {
+    queries.draftKey = previewSecret;
+  }
+  
+  if (options.filters) {
+    queries.filters = options.filters;
+  }
+  
+  if (options.limit) {
+    queries.limit = options.limit;
+  }
+  
+  // 基本的に並び順指定（sort_order）を優先
+  queries.orders = 'sort_order,-publishedAt';
+  
+  return queries;
+}
 
-  if (!serviceDomain || !apiKey) {
-    console.warn('[microCMS] 環境変数が未設定です。フォールバックデータを使用します。');
+// -----------------------------------------------------------------------------
+// V2 API (site_globals, articles, projects)
+// -----------------------------------------------------------------------------
+
+/**
+ * 1. サイト共通・LP設定の取得 (site_globals)
+ */
+export async function getSiteGlobals(options: { preview?: boolean } = { preview: false }) {
+  try {
+    return await sharehouseClient.get<SharehouseSiteGlobals>({
+      endpoint: 'site_globals',
+      queries: buildSharehouseQueries(options),
+    });
+  } catch (error) {
+    console.warn('[microCMS] site_globals の取得に失敗しました。');
     return null;
   }
+}
 
+/**
+ * 2. 記事一覧の取得 (articles - news / diary)
+ */
+export async function getSharehouseArticles(
+  type: 'news' | 'diary',
+  options: { preview?: boolean; limit?: number } = { preview: false }
+) {
   try {
-    const client = createClient({ serviceDomain, apiKey });
-    const queries: any = {};
-    if (options.preview && process.env.MICROCMS_PREVIEW_SECRET) {
-      queries.draftKey = process.env.MICROCMS_PREVIEW_SECRET;
-    }
-    const data = await client.get({
-      endpoint: ENDPOINT,
+    // 確実に取得するため、サーバーサイドフィルタを一時的にオフにする
+    // （セレクトフィールドが単一選択か複数選択か、あるいは内部値が大文字かなどでマッチングが失敗するのを防ぐ）
+    const queries = buildSharehouseQueries({ 
+      ...options,
+      limit: 100 // 全件取得してJSでフィルタ
+    });
+    
+    const response = await sharehouseClient.getList<SharehouseArticle>({
+      endpoint: 'articles',
       queries,
     });
-    return data;
-  } catch (error) {
-    console.error('[microCMS] データ取得に失敗しました:', error);
-    return null;
-  }
-}
-  const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
-  const apiKey = process.env.MICROCMS_API_KEY;
 
-  if (!serviceDomain || !apiKey) {
-    // 開発時にenv未設定でも静かにフォールバックするためwarnに留める
-    console.warn('[microCMS] 環境変数が未設定です。フォールバックデータを使用します。');
-    return null;
-  }
+    // JS側でフィルタリング（日本語/英語、大文字小文字、文字列/配列の全てに対応）
+    const filteredContents = response.contents.filter(article => {
+      const artType = article.article_type;
+      if (!artType) return false;
+      
+      const target = type.toLowerCase();
+      const newsKeywords = ['news', 'お知らせ'];
+      const diaryKeywords = ['diary', '日記'];
+      const keywords = target === 'news' ? newsKeywords : diaryKeywords;
 
-  try {
-    const client = createClient({ serviceDomain, apiKey });
-    // Object形式なのでエンドポイントを指定するだけで全データを取得
-    const data = await client.get({
-      endpoint: ENDPOINT,
+      if (Array.isArray(artType)) {
+        return artType.some(t => keywords.includes(t.toLowerCase()));
+      }
+      return keywords.includes(String(artType).toLowerCase());
     });
-    return data;
+
+    return {
+      ...response,
+      contents: options.limit ? filteredContents.slice(0, options.limit) : filteredContents,
+      totalCount: filteredContents.length
+    };
   } catch (error) {
-    console.error('[microCMS] データ取得に失敗しました:', error);
+    console.warn(`[microCMS] articles (${type}) の取得に失敗しました。`);
+    return { contents: [] };
+  }
+}
+
+/**
+ * 2.1 記事詳細の取得
+ */
+export async function getSharehouseArticleById(
+  id: string,
+  options: { preview?: boolean } = { preview: false }
+) {
+  try {
+    return await sharehouseClient.get<SharehouseArticle>({
+      endpoint: 'articles',
+      contentId: id,
+      queries: buildSharehouseQueries(options),
+    });
+  } catch (error) {
     return null;
   }
 }
 
+/**
+ * 3. プロジェクト一覧の取得 (projects)
+ */
+export async function getSharehouseProjects(options: { preview?: boolean; limit?: number } = { preview: false }) {
+  try {
+    return await sharehouseClient.getList<SharehouseProject>({
+      endpoint: 'projects',
+      queries: buildSharehouseQueries(options),
+    });
+  } catch (error) {
+    return { contents: [] };
+  }
+}
+
+/**
+ * 3.1 プロジェクト詳細の取得
+ */
+export async function getSharehouseProjectById(id: string, options: { preview?: boolean } = { preview: false }) {
+  try {
+    return await sharehouseClient.get<SharehouseProject>({
+      endpoint: 'projects',
+      contentId: id,
+      queries: buildSharehouseQueries(options),
+    });
+  } catch (error) {
+    return null;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// V1 API 後方互換性レイヤー (安全な移行のため一時的に残す)
+// -----------------------------------------------------------------------------
+
+export async function getSharehouseLpSettings(options: { preview?: boolean } = { preview: false }) {
+  return await getSiteGlobals(options);
+}
+
+export async function getSharehouseSiteConfig(options: { preview?: boolean } = { preview: false }) {
+  return await getSiteGlobals(options);
+}
+
+export async function getSharehouseDiaries(options: { preview?: boolean; limit?: number } = { preview: false }) {
+  return await getSharehouseArticles('diary', options);
+}
+
+export async function getSharehouseDiaryById(id: string, options: { preview?: boolean } = { preview: false }) {
+  return await getSharehouseArticleById(id, options);
+}
+
+export async function getSharehouseNews(options: { preview?: boolean; limit?: number } = { preview: false }) {
+  return await getSharehouseArticles('news', options);
+}
+
+export async function getLPData(options: { preview: boolean } = { preview: false }) {
+  const globals = await getSiteGlobals(options);
+  const projects = await getSharehouseProjects(options);
+  const diaries = await getSharehouseArticles('diary', options);
+  
+  if (!globals) return null;
+
+  return {
+    ...globals,
+    projects: projects.contents,
+    diaries: diaries.contents,
+  };
+}

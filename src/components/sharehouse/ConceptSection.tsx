@@ -1,29 +1,46 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MicroCMSImage } from '@/types/microcms';
+import Link from 'next/link';
 
 interface ConceptSectionProps {
   handwrittenText?: string;
   title: string;
   description1: string;
   description2: string;
-  polaroidImage: MicroCMSImage;
+  polaroidImages: MicroCMSImage[];
   polaroidCaption?: string;
   stickerText?: string;
 }
 
 /**
- * コンセプトセクションコンポーネント
- * ポラロイド写真とテキストを組み合わせた2カラムレイアウト
+ * コンセプトセクションコンポーネント (カルーセル対応)
+ * ポラロイド写真部分をスライドショー表示にする
  */
 export const ConceptSection: React.FC<ConceptSectionProps> = ({
   handwrittenText,
   title,
   description1,
   description2,
-  polaroidImage,
+  polaroidImages = [],
   polaroidCaption,
   stickerText,
 }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // コンセプト画像の自動再生
+  useEffect(() => {
+    if (polaroidImages.length <= 1) return;
+    
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % polaroidImages.length);
+    }, 4500); // ヒーローとは少しずらして4.5秒
+    
+    return () => clearInterval(timer);
+  }, [polaroidImages.length]);
+
   return (
     <section id="concept" className="py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -42,23 +59,65 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
             <p>{description1}</p>
             <p>{description2}</p>
           </div>
+          <div className="mt-10">
+            <Link
+              href="/sharehouse/concept"
+              className="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1"
+            >
+              <span>コンセプトを詳しく見る</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Link>
+          </div>
         </div>
 
-        {/* Polaroid side */}
+        {/* Polaroid side with Carousel */}
         <div className="relative z-10 w-full max-w-sm md:max-w-md mx-auto md:mx-0">
           <div className="relative aspect-[3/4] rotate-2 bg-surface-container-lowest p-4 pb-16 shadow-2xl transition-transform duration-500 hover:rotate-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={polaroidImage?.url}
-              alt={polaroidCaption ?? 'コンセプト画像'}
-              className="w-full h-full object-cover rounded-sm grayscale-[0.2] sepia-[0.1] hover:grayscale-0 hover:sepia-0 transition-all duration-700"
-            />
+            <AnimatePresence mode="wait">
+              {polaroidImages.length > 0 ? (
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.8 }}
+                  className="w-full h-full"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={polaroidImages[currentIndex].url}
+                    alt={polaroidCaption ?? `コンセプト画像 ${currentIndex + 1}`}
+                    className="w-full h-full object-cover rounded-sm grayscale-[0.2] sepia-[0.1] hover:grayscale-0 hover:sepia-0 transition-all duration-700"
+                  />
+                </motion.div>
+              ) : (
+                <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
+                  <span className="material-symbols-outlined text-4xl text-on-surface-variant/20">photo</span>
+                </div>
+              )}
+            </AnimatePresence>
+            
             {polaroidCaption && (
               <div className="absolute bottom-4 left-0 right-0 text-center">
                 <p className="font-hand text-on-surface text-lg">{polaroidCaption}</p>
               </div>
             )}
+
+            {/* Pagination dots for polaroid */}
+            {polaroidImages.length > 1 && (
+              <div className="absolute bottom-1 right-4 flex gap-1.5 pb-2">
+                {polaroidImages.map((_, idx) => (
+                  <div 
+                    key={idx}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      idx === currentIndex ? 'bg-primary' : 'bg-surface-container-high'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
+          
           {/* Accent sticker */}
           {stickerText && (
             <div className="absolute -bottom-4 -left-4 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-hand font-bold -rotate-6 shadow-sm z-20">

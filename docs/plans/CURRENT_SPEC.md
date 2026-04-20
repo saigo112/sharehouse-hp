@@ -1,89 +1,46 @@
-# microCMS 連携仕様書
+# microCMS サービス分割戦略 実装計画 (スロット最適化版)
 
-## 目的
-LPのコンテンツ（テキスト、画像）をmicroCMSから動的に管理できるようにし、エンジニアでないユーザーでも更新を可能にする。
+## 1. 背景と方針
+「1事業 = 1microCMSサービス」というマルチサブドメイン戦略を採用しつつ、情報構造が似ているAPIを統合することで、HobbyプランのAPI枠（上限5）のうち2枠を将来の拡張用に確保します。現在は「ハチソラハウス（シェアハウス）」専用のサービスを構築します。
 
-## 仕様
-以下のセクションをmicroCMSで管理する。
+## 2. 確定したAPI構成 (シェアハウス専用サービス)
+APIを3つにスリム化し、フロントエンド側でカテゴリごとにデータを振り分ける設計とします。
 
-### 1. ヒーローセクション（フラット）
-- `heroTitle` (Text / Rich Text)
-- `heroImage` (Image)
+| スロット | エンドポイント名 | 形式 | 役割・管理内容 | 備考 |
+| --- | --- | --- | --- | --- |
+| 1 | site_globals | オブジェクト | LPのヒーロー文言、コンセプトテキスト、共通メニュー、フォームURL | 旧 lp_settings と site_config を統合 |
+| 2 | articles | リスト | お知らせ（news）、日記（diaries） | article_type（セレクト）で種類を判定 |
+| 3 | projects | リスト | ハチソラハウスの公式プロジェクト | 活動記録（独立したリストとして維持） |
+| 4 | (未割り当て) | - | 将来の拡張用バッファ（FAQ、ギャラリーなど） | - |
+| 5 | (未割り当て) | - | 将来の拡張用バッファ | - |
 
-### 2. コンセプトセクション（フラット）
-- `conceptHandText` (Text)
-- `conceptTitle` (Text / Rich Text)
-- `conceptDesc1` (Text Area)
-- `conceptDesc2` (Text Area)
-- `conceptImage` (Image)
-- `conceptCaption` (Text)
-- `conceptSticker` (Text)
+## 3. 環境変数の設定 (.env.local)
+将来「お米販売」などの別プロジェクトが追加されてもキーが衝突しないよう、ドメイン名を明記します。
+```bash
+# シェアハウス専用microCMSサービス
+MICROCMS_SHAREHOUSE_SERVICE_DOMAIN=xxxxxx
+MICROCMS_SHAREHOUSE_API_KEY=xxxxxx
+```
 
-### 3. プロジェクトセクション
-- プロジェクトリスト (Repeated)
-  - タイトル (Text)
-  - 説明 (Text)
-  - 画像 (Image)
-  - ステータス (Text)
+## 4. 変更・新規作成するコードファイル
 
-### 4. 日記（ポラロイド）セクション
-- 日記リスト (Repeated)
-  - 画像 (Image)
-  - キャプション (Text)
+### [NEW] src/types/sharehouse-cms.ts
+3つのAPIに対応する厳密な型定義を作成します。`Article` 型には、識別子として `article_type: 'news' | 'diary'` というユニオン型を定義し、TypeScriptレベルで安全に振り分けられるようにします。
 
-### 5. 入居者の声セクション
-- ボイスリスト (Repeated)
-  - 名前/肩書き (Text)
-  - 引用文 (Text)
-  - 画像 (Image)
+### [MODIFY] src/libs/microcms.ts
+専用環境変数を使用した `sharehouseClient` を新設します。以下のデータ取得関数を実装します。
+- `getSiteGlobals()`: オブジェクトを1つ取得。
+- `getSharehouseArticles(type: 'news' | 'diary')`: クエリ（`filters=article_type[equals]${type}`）を使って、必要なカテゴリの記事だけを抽出して取得。
+- `getSharehouseProjects()`: プロジェクト一覧を取得。
 
-### 6. 募集情報セクション
-- 情報リスト (Repeated)
-  - 項目名 (Text)
-  - 内容 (Text)
+### [MODIFY] src/app/sharehouse/page.tsx (LPトップ)
+新設したフェッチ関数を呼び出し、`site_globals` のデータでヒーローセクションなどを構築します。
+`getSharehouseArticles('news')` を呼び出し、最新の「お知らせ」を数件表示します。
 
-## 実装計画
+### [MODIFY] src/app/sharehouse/diaries/page.tsx 等 (下層ページ)
+各一覧ページや詳細ページのルーティングは維持しつつ、データの取得元を新しい `getSharehouseArticles` 関数に差し替えます。
 
-### Phase 1: 基礎構築 (Done)
-- [x] `src/libs/microcms.ts`: microCMS クライアントの作成
-- [x] `src/types/microcms.ts`: 各コンテンツの型定義
-
-### Phase 2: データ取得の実装 (Done)
-- [x] `src/app/sharehouse/page.tsx` でデータをフェッチ
-- [x] ハードコードされた値をフェッチしたデータで置換
-
-### Phase 3: プロジェクトセクションの作り込み (Done)
-- [x] `src/components/sharehouse/ProjectCard.tsx` の作成
-- [x] `src/components/sharehouse/ProjectList.tsx` の作成
-- [x] `src/app/sharehouse/page.tsx` の統合
-
-### Phase 4: 日記セクションの作り込み (Done)
-- [x] `src/components/sharehouse/DiaryCard.tsx` の作成
-- [x] `src/components/sharehouse/DiaryList.tsx` の作成
-- [x] `src/app/sharehouse/page.tsx` の統合
-
-### Phase 5: 住人の声・全体統合 (Done)
-- [x] 各セクションのコンポーネント化とデザイン統一
-- [x] エントリーフォーム導線の整備
-
-### Phase 6: 子ページ（詳細ページ）の実装計画 (Current)
-- [ ] `docs/plans/CURRENT_SPEC.md` に詳細ページの仕様を追記
-- [ ] プロジェクト詳細ページ（`/sharehouse/projects/[id]`）用テンプレートの作成
-- [ ] 日記詳細ページ（`/sharehouse/diaries/[id]`）用テンプレートの作成
-- [ ] LP側のカード一覧から詳細ページへのリンク（導線）を有効化
-
-## 詳細ページ（子ページ）の仕様
-現在の microCMS API (`shared_house`: オブジェクト形式) から全データを取得し、それぞれの繰り返しフィールドの中に定義された `id` をキーとして個別の詳細データを表示します。
-
-1. **プロジェクト詳細（`/sharehouse/projects/[id]`）**
-   - **構成**: ヘッダー（戻るボタン）、プロジェクト画像、プロジェクトタイトル、ステータスラベル、詳細な説明文、CTAセクション。
-   - **デザイン**: LPのスクラップブックの延長として、スケッチノート風のレイアウトを想定。
-
-2. **日記詳細（`/sharehouse/diaries/[id]`）**
-   - **構成**: ヘッダー（戻るボタン）、日記の大きなポラロイド写真、キャプション（タイトル代わり）、本文（※必要に応じて `content` フィールドを microCMS 側に追加）、LPへの戻るボタン。
-   - **デザイン**: 手書きのノートやアルバムの1ページを開いたような温かみのあるUI。
-
-## 検証方法
-- `http://localhost:3000/sharehouse` が期待通り表示されることを確認。
-- （モックデータまたはmicroCMSからの実データを使用して）表示が切り替わることを確認。
-- カードをクリックして `/sharehouse/projects/1` などへの遷移と詳細の表示が成功することを確認。
+## 5. 実装ステップ
+1. **microCMSの準備**: microCMSの管理画面にて、上記の `site_globals`, `articles`, `projects` の3つのAPIを作成し、テスト用のダミーデータを数件登録します。
+2. **インフラ・型の整備**: `.env.local` の設定と、`types/sharehouse-cms.ts`、`libs/microcms.ts` の実装を行います。
+3. **UIへの結合**: `page.tsx` 等で実際にデータを読み込み、画面に表示させます。

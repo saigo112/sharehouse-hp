@@ -50,3 +50,40 @@ body {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='30'%3E%3Cpath d='M0,0 Q25,5 50,0 T100,0 L100,30 Q75,25 50,30 T0,30 Z' fill='black'/%3E%3C/svg%3E");
   mask-size: cover;
 }
+
+/* コンセプト詳細ページのリッチテキスト用スタイル */
+.concept-rich-text {
+  @apply text-on-surface-variant leading-relaxed text-lg;
+}
+
+.concept-rich-text h2 {
+  @apply text-3xl font-headline font-black text-on-surface mt-16 mb-8 pb-2 border-b border-surface-container;
+}
+
+.concept-rich-text h3 {
+  @apply text-2xl font-headline font-black text-on-surface mt-12 mb-6;
+}
+
+.concept-rich-text p {
+  @apply mb-6;
+}
+
+.concept-rich-text strong {
+  @apply text-primary font-bold;
+}
+
+.concept-rich-text ul {
+  @apply list-disc pl-6 mb-8 space-y-2;
+}
+
+.concept-rich-text li {
+  @apply text-on-surface-variant;
+}
+
+.concept-rich-text img {
+  @apply rounded-2xl shadow-xl my-12 w-full h-auto object-cover;
+}
+
+.concept-rich-text blockquote {
+  @apply border-l-4 border-primary-container pl-6 py-2 italic my-8 bg-surface-container-low rounded-r-lg;
+}

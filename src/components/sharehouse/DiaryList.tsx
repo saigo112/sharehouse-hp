@@ -1,16 +1,20 @@
 import React from 'react';
+import Link from 'next/link';
 import { Diary } from '@/types/microcms';
 import { DiaryCard } from './DiaryCard';
 
 interface DiaryListProps {
   diaries: Diary[];
+  limit?: number;
 }
 
 /**
  * 日記セクションのコンテナコンポーネント
  * ポラロイド風カードを横スクロールで表示
  */
-export const DiaryList: React.FC<DiaryListProps> = ({ diaries }) => {
+export const DiaryList: React.FC<DiaryListProps> = ({ diaries, limit }) => {
+  // 表示する日記を制限
+  const displayedDiaries = limit ? diaries.slice(0, limit) : diaries;
   return (
     <section id="diaries" className="py-24 overflow-hidden relative bg-[#f9f8f6]">
       {/* Background visual elements */}
@@ -39,7 +43,7 @@ export const DiaryList: React.FC<DiaryListProps> = ({ diaries }) => {
       {/* Scrollable Container */}
       {/* no-scrollbar utility class requires Tailwind plugin or custom css, assuming global setup handles it or we rely on standard css */}
       <div className="flex overflow-x-auto pb-16 pt-8 px-6 md:px-12 gap-8 lg:gap-12 no-scrollbar scroll-smooth snap-x snap-mandatory">
-        {diaries.map((diary, index) => {
+        {displayedDiaries.map((diary, index) => {
           const rotations = ['-rotate-1', 'rotate-3', '-rotate-2', 'rotate-1', '-rotate-3'];
           const rotation = rotations[index % rotations.length];
           return (
@@ -51,8 +55,20 @@ export const DiaryList: React.FC<DiaryListProps> = ({ diaries }) => {
             </div>
           );
         })}
-        {/* Padding element for the end of the scroll array */}
-        <div className="shrink-0 w-6 md:w-12 h-1"></div>
+        
+        {limit && diaries.length > 0 && (
+          <div className="snap-center lg:snap-align-none shrink-0 flex items-center pr-12">
+            <Link 
+              href="/sharehouse/diaries"
+              className="flex flex-col items-center gap-4 group"
+            >
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <span className="material-symbols-outlined text-3xl">arrow_forward</span>
+              </div>
+              <span className="font-hand text-xl text-primary font-bold">See all...</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,18 +1,23 @@
 import React from 'react';
+import Link from 'next/link';
 import { Project } from '@/types/microcms';
 import { ProjectCard } from './ProjectCard';
 
 interface ProjectListProps {
   projects: Project[];
+  limit?: number;
 }
 
 /**
  * プロジェクトセクション全体のコンテナコンポーネント
  * セクションヘッダー、装飾、プロジェクトカードのグリッド表示を担当
  */
-export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => {
   // スクラップブック風のバラバラ感を出すための回転角パターン
   const rotations = ['rotate-1', '-rotate-2', 'rotate-2', '-rotate-1', 'rotate-3'];
+  
+  // 表示するプロジェクトを制限
+  const displayedProjects = limit ? projects.slice(0, limit) : projects;
 
   return (
     <section id="projects" className="py-24 bg-surface-container-low px-6 relative overflow-hidden">
@@ -41,7 +46,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-12 lg:gap-x-16">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <ProjectCard 
               key={project.id || index} 
               project={project} 
@@ -49,6 +54,21 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
             />
           ))}
         </div>
+
+        {/* View All Button */}
+        {limit && projects.length > 0 && (
+          <div className="mt-20 text-center">
+            <Link 
+              href="/sharehouse/projects"
+              className="inline-flex items-center gap-2 group text-primary font-bold text-lg"
+            >
+              <span className="border-b-2 border-primary/30 group-hover:border-primary transition-all pb-1">
+                すべてのプロジェクトを見る
+              </span>
+              <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Footer accent for the section */}
