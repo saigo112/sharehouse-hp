@@ -50,7 +50,7 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
         <div className="relative">
           {handwrittenText && (
             <div 
-              className="inline-block font-hand text-primary -rotate-3 mb-4"
+              className="inline-block font-hand text-primary mb-4"
               style={{ fontSize: '12px' }}
             >
               {handwrittenText}
@@ -82,7 +82,7 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
 
         {/* Polaroid side with Carousel */}
         <div className="relative z-10 w-full max-w-sm md:max-w-md mx-auto md:mx-0">
-          <div className="relative aspect-[3/4] rotate-2 bg-surface-container-lowest p-4 pb-16 shadow-2xl transition-transform duration-500 hover:rotate-0">
+          <div className="relative aspect-[3/4] bg-surface-container-lowest p-4 pb-16 shadow-2xl transition-transform duration-500">
             <AnimatePresence mode="wait">
               {polaroidImages.length > 0 ? (
                 <motion.div
@@ -135,7 +135,7 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
           {/* Accent sticker */}
           {stickerText && (
             <div 
-              className="absolute -bottom-4 -left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg font-hand font-bold -rotate-6 shadow-sm z-20"
+              className="absolute -bottom-4 -left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg font-hand font-bold shadow-sm z-20"
               style={{ fontSize: '12px' }}
             >
               {stickerText}

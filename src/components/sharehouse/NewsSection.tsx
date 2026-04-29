@@ -23,7 +23,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
         <div className="flex flex-col items-center text-center mb-16 gap-6">
           <div className="relative">
             <span 
-              className="font-hand text-primary block mb-1 -rotate-1"
+              className="font-hand text-primary block mb-1"
               style={{ fontSize: 'var(--caption-text-size)' }}
             >
               Updates

@@ -17,7 +17,7 @@ import { HeroSection } from "@/components/sharehouse/HeroSection";
 import { ConceptSection } from "@/components/sharehouse/ConceptSection";
 import { NewsSection } from "@/components/sharehouse/NewsSection";
 import { ProjectList } from "@/components/sharehouse/ProjectList";
-import { DiaryList } from "@/components/sharehouse/DiaryList";
+import { InstagramFeed } from "@/components/sharehouse/InstagramFeed";
 import { VoiceList } from "@/components/sharehouse/VoiceList";
 import { RecruitmentSection } from "@/components/sharehouse/RecruitmentSection";
 import { CTASection } from "@/components/sharehouse/CTASection";
@@ -89,13 +89,14 @@ export default async function SharehousePage() {
     content: p.body || ""
   }));
 
-  const diaries = (diariesData?.contents || []).map((d: SharehouseArticle, index: number) => ({
-    id: d.id || String(index + 1),
-    image: d.mainVisual || { url: "" },
-    caption: d.title || "",
-    content: d.body || "",
-    instagramUrl: d.instagramUrl || ""
-  }));
+  // 日記APIを再利用し、instagramUrlを持つアイテムだけを抽出
+  const instagramPosts = (diariesData?.contents || [])
+    .filter((d: SharehouseArticle) => d.instagramUrl)
+    .map((d: SharehouseArticle, index: number) => ({
+      id: d.id || String(index + 1),
+      instagramUrl: d.instagramUrl || "",
+      title: d.title || ""
+    }));
 
   const news = (newsData?.contents || []);
 
@@ -169,7 +170,7 @@ export default async function SharehousePage() {
       <ConceptSection {...concept} />
       <NewsSection articles={news} />
       <ProjectList projects={projects} limit={3} />
-      <DiaryList diaries={diaries} limit={5} />
+      <InstagramFeed posts={instagramPosts} limit={5} />
       <VoiceList voices={voices} />
       <RecruitmentSection items={recruitment} />
       <CTASection entryFormUrl={entryFormUrl} />

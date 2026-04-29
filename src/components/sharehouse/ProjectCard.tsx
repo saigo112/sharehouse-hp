@@ -15,14 +15,14 @@ interface ProjectCardProps {
  */
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
-  rotate = 'rotate-0',
+  rotate = '',
   className = '',
 }) => {
   return (
     <Link href={`/sharehouse/projects/${project.id}`} className="block">
-      <div className={`group relative bg-surface-container-lowest p-4 pb-12 shadow-polaroid rounded-sm transform transition-all duration-500 hover:rotate-0 hover:scale-105 ${rotate} ${className}`}>
+      <div className={`group relative bg-surface-container-lowest p-4 pb-12 shadow-polaroid rounded-sm transform transition-all duration-500 hover:scale-105 ${rotate} ${className}`}>
         {/* Washi Tape - スクラップブック感を出すためのテープ装飾 */}
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-secondary/15 backdrop-blur-[1px] -rotate-2 z-20 pointer-events-none border-x border-white/30 shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-secondary/15 backdrop-blur-[1px] z-20 pointer-events-none border-x border-white/30 shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
           style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}
         />
 
@@ -43,7 +43,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {/* Status Badge (Marker/Post-it style) */}
           <div 
-            className="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-sm font-hand font-bold shadow-md -rotate-6 border-b-2 border-r-2 border-black/5 z-10"
+            className="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-sm font-hand font-bold shadow-md border-b-2 border-r-2 border-black/5 z-10"
             style={{ fontSize: 'var(--caption-text-size)' }}
           >
             {project.status}

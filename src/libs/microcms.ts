@@ -81,7 +81,7 @@ export async function getSharehouseArticles(
       
       const target = type.toLowerCase();
       const newsKeywords = ['news', 'お知らせ'];
-      const diaryKeywords = ['diary', '日記'];
+      const diaryKeywords = ['diary', '日記', 'インスタ投稿', 'instagram'];
       const keywords = target === 'news' ? newsKeywords : diaryKeywords;
 
       if (Array.isArray(artType)) {

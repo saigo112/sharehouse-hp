@@ -13,9 +13,10 @@ interface VoiceListProps {
 export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
   // カードごとの装飾スタイル設定
   const cardStyles = [
-    { rotate: '-rotate-2', margin: '' },
-    { rotate: 'rotate-3', margin: 'mt-8 lg:mt-16' },
-    { rotate: '-rotate-1', margin: 'mt-0 lg:mt-4' },
+    { rotate: '', margin: '' },
+    { rotate: '', margin: '' },
+    { rotate: '', margin: '' },
+    { rotate: '', margin: '' },
   ];
 
   return (

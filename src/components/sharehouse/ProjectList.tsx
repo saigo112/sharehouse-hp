@@ -14,7 +14,7 @@ interface ProjectListProps {
  */
 export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => {
   // スクラップブック風のバラバラ感を出すための回転角パターン
-  const rotations = ['rotate-1', '-rotate-2', 'rotate-2', '-rotate-1', 'rotate-3'];
+  const rotations = ['', '', '', '', ''];
 
   // 表示するプロジェクトを制限
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
@@ -29,7 +29,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
         <div className="flex flex-col items-center text-center mb-20 relative">
           <div className="relative inline-block">
             <span 
-              className="font-hand text-primary block mb-2 -rotate-2"
+              className="font-hand text-primary block mb-2"
               style={{ fontSize: 'var(--caption-text-size)' }}
             >
               What we are doing...
@@ -53,7 +53,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
           {/* Floating decoration for PC */}
           <div className="hidden md:block absolute -right-4 top-0 translate-x-full">
             <div 
-              className="text-primary font-hand rotate-6 bg-white/40 px-4 py-2 rounded-lg border border-primary/10 shadow-sm"
+              className="text-primary font-hand bg-white/40 px-4 py-2 rounded-lg border border-primary/10 shadow-sm"
               style={{ fontSize: 'var(--caption-text-size)' }}
             >
               Work with your hands...

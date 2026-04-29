@@ -14,22 +14,22 @@ interface VoiceCardProps {
  */
 export const VoiceCard: React.FC<VoiceCardProps> = ({
   voice,
-  rotate = '-rotate-1',
+  rotate = '',
   marginClass = '',
 }) => {
   return (
     <div className={`relative group ${marginClass}`}>
       {/* Washi tape decoration */}
       <div
-        className="absolute -top-3 left-1/3 w-20 h-7 bg-secondary/15 -rotate-3 z-20 pointer-events-none"
+        className="absolute -top-3 left-1/3 w-20 h-7 bg-secondary/15 z-20 pointer-events-none"
         style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}
       />
 
       <div
-        className={`bg-white p-5 pb-16 shadow-xl ${rotate} group-hover:rotate-0 transition-transform duration-500 relative z-10`}
+        className={`bg-white p-5 pb-16 shadow-xl ${rotate} transition-transform duration-500 relative z-10`}
       >
         {/* Portrait photo */}
-        <div className="relative w-24 h-24 mb-5 flex-shrink-0 -rotate-2">
+        <div className="relative w-24 h-24 mb-5 flex-shrink-0">
           {voice.image?.url ? (
             <Image
               src={voice.image.url}

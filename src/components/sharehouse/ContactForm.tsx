@@ -8,7 +8,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ formUrl }) => {
   return (
     <div className="relative w-full max-w-4xl mx-auto py-12 px-4 md:px-8 bg-surface-container-low rounded-xl shadow-inner">
       {/* Decorative Scrapbook Element */}
-      <div className="absolute -top-4 -left-4 bg-secondary font-handwriting text-on-secondary-container px-6 py-2 rounded-sm rotate-[-3deg] shadow-md z-10">
+      <div className="absolute -top-4 -left-4 bg-secondary font-handwriting text-on-secondary-container px-6 py-2 rounded-sm shadow-md z-10">
         Apply Now!
       </div>
       
@@ -37,7 +37,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ formUrl }) => {
       </div>
       
       {/* Decorative Tape Element */}
-      <div className="absolute -bottom-2 -right-4 w-32 h-10 bg-primary/10 backdrop-blur-sm rotate-[2deg] border-l-4 border-r-4 border-dashed border-primary/20"></div>
+      <div className="absolute -bottom-2 -right-4 w-32 h-10 bg-primary/10 backdrop-blur-sm border-l-4 border-r-4 border-dashed border-primary/20"></div>
     </div>
   );
 };

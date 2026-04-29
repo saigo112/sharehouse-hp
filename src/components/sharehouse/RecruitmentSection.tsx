@@ -16,7 +16,7 @@ export const RecruitmentSection: React.FC<RecruitmentSectionProps> = ({ items })
         {/* Header */}
         <div className="text-center mb-14">
           <span 
-            className="font-hand text-primary block mb-2 -rotate-1"
+            className="font-hand text-primary block mb-2"
             style={{ fontSize: 'var(--caption-text-size)' }}
           >
             Ready to join us?

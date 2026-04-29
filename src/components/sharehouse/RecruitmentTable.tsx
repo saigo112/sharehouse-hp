@@ -17,7 +17,7 @@ export const RecruitmentTable: React.FC<RecruitmentTableProps> = ({ data }) => {
         {/* Table Header - Unified design with other sections */}
         <div className="px-6 py-4 border-b-2 border-primary/20 mb-4">
           <span 
-            className="font-hand text-primary block mb-1 -rotate-1"
+            className="font-hand text-primary block mb-1"
             style={{ fontSize: 'var(--caption-text-size)' }}
           >
             Admission Info
