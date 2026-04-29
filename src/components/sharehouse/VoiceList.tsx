@@ -14,7 +14,7 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
   // カードごとの装飾スタイル設定
   const cardStyles = [
     { rotate: '-rotate-2', margin: '' },
-    { rotate: 'rotate-3',  margin: 'mt-8 lg:mt-16' },
+    { rotate: 'rotate-3', margin: 'mt-8 lg:mt-16' },
     { rotate: '-rotate-1', margin: 'mt-0 lg:mt-4' },
   ];
 
@@ -27,10 +27,16 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-20 relative">
-          <span className="inline-block font-hand text-primary text-2xl mb-3 rotate-2">
+          <span 
+            className="font-hand text-primary font-bold block mb-2"
+            style={{ fontSize: 'var(--caption-text-size)' }}
+          >
             Voices of Villagers
           </span>
-          <h2 className="text-4xl md:text-5xl font-headline font-black text-on-surface">
+          <h2 
+            className="font-headline font-black text-on-surface"
+            style={{ fontSize: 'var(--section-title-size)' }}
+          >
             住人の声
           </h2>
           <div className="w-24 h-1.5 bg-secondary-container mx-auto mt-4 rounded-full" />

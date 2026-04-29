@@ -96,8 +96,8 @@ export async function getSharehouseArticles(
       totalCount: filteredContents.length
     };
   } catch (error) {
-    console.warn(`[microCMS] articles (${type}) の取得に失敗しました。`);
-    return { contents: [] };
+    console.error(`[microCMS] articles (${type}) の取得に失敗しました。APIが削除されている可能性があります。`);
+    return { contents: [], totalCount: 0 };
   }
 }
 
@@ -129,7 +129,8 @@ export async function getSharehouseProjects(options: { preview?: boolean; limit?
       queries: buildSharehouseQueries(options),
     });
   } catch (error) {
-    return { contents: [] };
+    console.error('[microCMS] projects の取得に失敗しました。APIが削除されている可能性があります。');
+    return { contents: [], totalCount: 0 };
   }
 }
 

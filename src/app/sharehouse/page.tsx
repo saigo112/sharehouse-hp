@@ -22,14 +22,23 @@ import { VoiceList } from "@/components/sharehouse/VoiceList";
 import { RecruitmentSection } from "@/components/sharehouse/RecruitmentSection";
 import { CTASection } from "@/components/sharehouse/CTASection";
 
+export const revalidate = 0; // キャッシュを無効化して常に最新のCMSデータを取得
+
 export default async function SharehousePage() {
   // 1. 各種データの取得（並列実行）
+  // 削除されたAPIが含まれる可能性があるため、個別にエラーハンドリングされている関数を使用
   const [globalsData, projectsData, diariesData, newsData] = await Promise.all([
     getSiteGlobals(),
     getSharehouseProjects({ limit: 3 }),
     getSharehouseArticles('diary', { limit: 5 }),
     getSharehouseArticles('news', { limit: 3 })
   ]);
+
+  // デバッグ用ログ: 設定値が正しく取得できているか確認
+  console.log('--- microCMS Raw Data Debug ---');
+  console.log('pcFontSize:', JSON.stringify(globalsData?.pcFontSize, null, 2));
+  console.log('mobileFontSize:', JSON.stringify(globalsData?.mobileFontSize, null, 2));
+  console.log('------------------------------------');
   
   // --- データのマッピングとフォールバック ---
   
@@ -106,9 +115,57 @@ export default async function SharehousePage() {
     process.env.NEXT_PUBLIC_ENTRY_FORM_URL ||
     'https://forms.gle/K6DDGNf2BxNEGZLH9';
 
+  // フォント設定の構築
+  const fontStyles = {
+    '--base-font-size': globalsData?.baseFontSize ? `${globalsData.baseFontSize}px` : '16px',
+    '--font-family-body': globalsData?.fontFamilyBody ? (globalsData.fontFamilyBody.includes(',') ? globalsData.fontFamilyBody : `'${globalsData.fontFamilyBody}', sans-serif`) : undefined,
+    '--font-family-headline': globalsData?.fontFamilyHeadline ? (globalsData.fontFamilyHeadline.includes(',') ? globalsData.fontFamilyHeadline : `'${globalsData.fontFamilyHeadline}', sans-serif`) : undefined,
+    
+    '--hero-size': globalsData?.pcFontSize?.heroTitleSizePc ? `${globalsData.pcFontSize.heroTitleSizePc}px` : '3rem',
+    '--section-title-size': globalsData?.pcFontSize?.sectionTitleSizePc ? `${globalsData.pcFontSize.sectionTitleSizePc}px` : '2.25rem',
+    '--body-text-size': globalsData?.pcFontSize?.bodyTextSizePc ? `${globalsData.pcFontSize.bodyTextSizePc}px` : '1rem',
+    '--caption-text-size': globalsData?.pcFontSize?.captionTextSizePc ? `${globalsData.pcFontSize.captionTextSizePc}px` : '0.875rem',
+    
+    '--hero-size-sp': globalsData?.mobileFontSize?.heroTitleSizeSp ? `${globalsData.mobileFontSize.heroTitleSizeSp}px` : '1.75rem',
+    '--section-title-size-sp': globalsData?.mobileFontSize?.sectionTitleSizeSp ? `${globalsData.mobileFontSize.sectionTitleSizeSp}px` : '1.5rem',
+    '--body-text-size-sp': globalsData?.mobileFontSize?.bodyTextSizeSp ? `${globalsData.mobileFontSize.bodyTextSizeSp}px` : '0.9375rem',
+    '--caption-text-size-sp': globalsData?.mobileFontSize?.captionTextSizeSp ? `${globalsData.mobileFontSize.captionTextSizeSp}px` : '0.8125rem',
+  };
+
   return (
     <div className="min-h-screen bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
-      <HeroSection title={hero.title} backgroundImages={hero.backgroundImages} menuItems={menuItems} joinUsHref={entryFormUrl} />
+      {/* 
+          microCMSからの設定を最優先で反映させるためのスタイル注入 
+          !important を付与することで、既存のTailwindクラスやブラウザの最小フォント制限を上書きしやすくします。
+      */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        :root {
+          --base-font-size: ${fontStyles['--base-font-size']} !important;
+          ${fontStyles['--font-family-body'] ? `--font-family-body: ${fontStyles['--font-family-body']} !important;` : ''}
+          ${fontStyles['--font-family-headline'] ? `--font-family-headline: ${fontStyles['--font-family-headline']} !important;` : ''}
+          
+          --hero-size: ${fontStyles['--hero-size']} !important;
+          --section-title-size: ${fontStyles['--section-title-size']} !important;
+          --body-text-size: ${fontStyles['--body-text-size']} !important;
+          --caption-text-size: ${fontStyles['--caption-text-size']} !important;
+        }
+
+        @media (max-width: 1023px) {
+          :root {
+            --hero-size: ${fontStyles['--hero-size-sp']} !important;
+            --section-title-size: ${fontStyles['--section-title-size-sp']} !important;
+            --body-text-size: ${fontStyles['--body-text-size-sp']} !important;
+            --caption-text-size: ${fontStyles['--caption-text-size-sp']} !important;
+          }
+        }
+      `}} />
+
+      <HeroSection 
+        title={hero.title} 
+        backgroundImages={hero.backgroundImages} 
+        menuItems={menuItems} 
+        joinUsHref={entryFormUrl}
+      />
       <ConceptSection {...concept} />
       <NewsSection articles={news} />
       <ProjectList projects={projects} limit={3} />

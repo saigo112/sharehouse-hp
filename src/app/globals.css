@@ -2,15 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================
+   [全体の設定] 
+   ここで全体のフォントサイズやフォントファミリーを一括で変更できます。
+   ========================================================= */
+:root {
+  /* 全体の基本フォントサイズ (デフォルト: 16px) */
+  --base-font-size: 16px;
+
+  /* フォントファミリーの設定 */
+  --font-family-headline: 'Epilogue', sans-serif;
+  --font-family-body: 'Be Vietnam Pro', sans-serif;
+  --font-family-hand: 'Kalam', cursive;
+
+  /* --- レスポンシブ・フォントサイズ・システム --- */
+  /* デフォルト値（microCMSから上書きされる） */
+  --hero-size: 3rem;          /* 48px */
+  --section-title-size: 2.25rem; /* 36px */
+  --body-text-size: 1rem;     /* 16px */
+  --caption-text-size: 0.875rem; /* 14px */
+}
+
+/* スマホ・タブレット用の設定（1024px未満で一律切り替え） */
+@media (max-width: 1023px) {
+  :root {
+    /* 基準フォントサイズをスマホ向けに少し下げる */
+    --base-font-size: var(--base-font-size-sp, 14px) !important;
+    
+    /* 各種サイズ変数をスマホ用に強制上書き */
+    --hero-size: var(--hero-size-sp) !important;
+    --section-title-size: var(--section-title-size-sp) !important;
+    --body-text-size: var(--body-text-size-sp) !important;
+    --caption-text-size: var(--caption-text-size-sp) !important;
+  }
+}
+
+.min-h-screen {
+  font-size: var(--base-font-size);
+}
+
 /* Google Fonts - TailwindCSSのfont設定と連携するため直接importする */
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Be+Vietnam+Pro:wght@400;500;700&family=Kalam:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Be+Vietnam+Pro:wght@400;500;700&family=Kalam:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Shippori+Mincho:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 
 body {
   background-color: #fbf9f6;
   color: #1b1c1a;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  font-family: var(--font-family-body);
 }
+
 
 ::selection {
   background-color: #febe4e;

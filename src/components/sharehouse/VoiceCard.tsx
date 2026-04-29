@@ -46,14 +46,21 @@ export const VoiceCard: React.FC<VoiceCardProps> = ({
 
         {/* Quote content */}
         <div className="px-1">
-          <span className="font-hand text-primary text-sm font-bold block mb-2">
+          <span 
+            className="font-hand text-primary font-bold block mb-2"
+            style={{ fontSize: 'var(--caption-text-size)' }}
+          >
             {voice.name}
-            <span className="text-on-surface-variant font-body font-normal text-xs ml-2">
+            <span 
+              className="text-on-surface-variant font-body font-normal ml-2"
+              style={{ fontSize: 'var(--caption-text-size)' }}
+            >
               ({voice.profession})
             </span>
           </span>
           <p
-            className="font-body font-bold text-lg leading-snug text-on-surface"
+            className="font-body font-bold leading-snug text-on-surface"
+            style={{ fontSize: 'var(--body-text-size)' }}
             dangerouslySetInnerHTML={{ __html: voice.quote }}
           />
         </div>

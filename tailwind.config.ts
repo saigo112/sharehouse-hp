@@ -68,10 +68,10 @@ const config: Config = {
         "on-error-container": "#93000a",
       },
       fontFamily: {
-        headline: ["Epilogue", "sans-serif"],
-        body: ["Be Vietnam Pro", "sans-serif"],
-        label: ["Be Vietnam Pro", "sans-serif"],
-        hand: ["Kalam", "cursive"],
+        headline: ["var(--font-family-headline)"],
+        body: ["var(--font-family-body)"],
+        label: ["var(--font-family-body)"],
+        hand: ["var(--font-family-hand)"],
       },
       boxShadow: {
         polaroid: "0 10px 30px rgba(86, 66, 62, 0.08)",

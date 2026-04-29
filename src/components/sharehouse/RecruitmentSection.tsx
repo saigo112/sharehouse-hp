@@ -15,9 +15,17 @@ export const RecruitmentSection: React.FC<RecruitmentSectionProps> = ({ items })
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="font-hand text-primary text-xl block mb-2 -rotate-1">Ready to join us?</span>
-          <h2 className="text-3xl md:text-4xl font-headline font-black text-on-surface">
-            Recruitment Info
+          <span 
+            className="font-hand text-primary block mb-2 -rotate-1"
+            style={{ fontSize: 'var(--caption-text-size)' }}
+          >
+            Ready to join us?
+          </span>
+          <h2 
+            className="font-headline font-black text-on-surface"
+            style={{ fontSize: 'var(--section-title-size)' }}
+          >
+            Information
           </h2>
           <div className="w-20 h-1.5 bg-primary/20 mx-auto mt-4 rounded-full" />
         </div>
@@ -30,10 +38,16 @@ export const RecruitmentSection: React.FC<RecruitmentSectionProps> = ({ items })
                 key={item.id}
                 className={`flex flex-col md:flex-row ${index % 2 !== 0 ? 'bg-surface-container-low' : ''}`}
               >
-                <div className="md:w-1/3 bg-surface-container px-8 py-6 font-headline font-bold text-primary flex items-center">
+                <div 
+                  className="md:w-1/3 bg-surface-container px-8 py-6 font-headline font-bold text-primary flex items-center"
+                  style={{ fontSize: 'var(--body-text-size)' }}
+                >
                   {item.label}
                 </div>
-                <div className="md:w-2/3 px-8 py-6 text-on-surface-variant leading-relaxed">
+                <div 
+                  className="md:w-2/3 px-8 py-6 text-on-surface-variant leading-relaxed"
+                  style={{ fontSize: 'var(--body-text-size)' }}
+                >
                   {item.value}
                 </div>
               </div>
@@ -42,7 +56,10 @@ export const RecruitmentSection: React.FC<RecruitmentSectionProps> = ({ items })
         </div>
 
         <div className="mt-8 text-center">
-          <p className="font-hand text-primary text-lg italic">
+          <p 
+            className="font-hand text-primary italic"
+            style={{ fontSize: 'var(--caption-text-size)' }}
+          >
             &quot;We are waiting for you, fellow villager.&quot;
           </p>
         </div>

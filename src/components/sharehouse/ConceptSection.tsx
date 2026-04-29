@@ -13,6 +13,7 @@ interface ConceptSectionProps {
   polaroidImages: MicroCMSImage[];
   polaroidCaption?: string;
   stickerText?: string;
+  titleFontSize?: number;
 }
 
 /**
@@ -27,17 +28,18 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
   polaroidImages = [],
   polaroidCaption,
   stickerText,
+  titleFontSize,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // コンセプト画像の自動再生
   useEffect(() => {
     if (polaroidImages.length <= 1) return;
-    
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % polaroidImages.length);
     }, 4500); // ヒーローとは少しずらして4.5秒
-    
+
     return () => clearInterval(timer);
   }, [polaroidImages.length]);
 
@@ -47,25 +49,33 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
         {/* Text side */}
         <div className="relative">
           {handwrittenText && (
-            <div className="inline-block font-hand text-primary text-xl -rotate-3 mb-4">
+            <div 
+              className="inline-block font-hand text-primary -rotate-3 mb-4"
+              style={{ fontSize: '12px' }}
+            >
               {handwrittenText}
             </div>
           )}
           <h2
-            className="text-4xl md:text-5xl font-headline font-black text-on-surface mb-8 leading-tight"
+            className="font-headline font-black text-on-surface mb-8 leading-tight"
+            style={{ fontSize: 'var(--section-title-size)' }}
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          <div className="space-y-6 text-on-surface-variant text-lg leading-relaxed font-body">
+          <div 
+            className="space-y-6 text-on-surface-variant leading-relaxed font-body"
+            style={{ fontSize: 'var(--body-text-size)' }}
+          >
             <p>{description1}</p>
             <p>{description2}</p>
           </div>
           <div className="mt-10">
             <Link
               href="/sharehouse/concept"
-              className="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1"
+              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-2.5 md:px-8 md:py-3 rounded-full font-bold shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1"
+              style={{ fontSize: 'var(--body-text-size)' }}
             >
               <span>コンセプトを詳しく見る</span>
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined text-base md:text-xl">arrow_forward</span>
             </Link>
           </div>
         </div>
@@ -96,10 +106,15 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
                 </div>
               )}
             </AnimatePresence>
-            
+
             {polaroidCaption && (
               <div className="absolute bottom-4 left-0 right-0 text-center">
-                <p className="font-hand text-on-surface text-lg">{polaroidCaption}</p>
+                <p 
+                  className="font-hand text-on-surface"
+                  style={{ fontSize: '12px' }}
+                >
+                  {polaroidCaption}
+                </p>
               </div>
             )}
 
@@ -107,20 +122,22 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
             {polaroidImages.length > 1 && (
               <div className="absolute bottom-1 right-4 flex gap-1.5 pb-2">
                 {polaroidImages.map((_, idx) => (
-                  <div 
+                  <div
                     key={idx}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                      idx === currentIndex ? 'bg-primary' : 'bg-surface-container-high'
-                    }`}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currentIndex ? 'bg-primary' : 'bg-surface-container-high'
+                      }`}
                   />
                 ))}
               </div>
             )}
           </div>
-          
+
           {/* Accent sticker */}
           {stickerText && (
-            <div className="absolute -bottom-4 -left-4 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-hand font-bold -rotate-6 shadow-sm z-20">
+            <div 
+              className="absolute -bottom-4 -left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg font-hand font-bold -rotate-6 shadow-sm z-20"
+              style={{ fontSize: '12px' }}
+            >
               {stickerText}
             </div>
           )}

@@ -1,6 +1,25 @@
 import type { MicroCMSImage, MicroCMSDate } from "microcms-js-sdk";
 
 /**
+ * レスポンシブフォントサイズ設定（カスタムフィールド）
+ */
+export type PcFontSize = {
+  fieldId: 'pcFontSize';
+  heroTitleSizePc?: number;
+  sectionTitleSizePc?: number;
+  bodyTextSizePc?: number;
+  captionTextSizePc?: number;
+};
+
+export type MobileFontSize = {
+  fieldId: 'mobileFontSize';
+  heroTitleSizeSp?: number;
+  sectionTitleSizeSp?: number;
+  bodyTextSizeSp?: number;
+  captionTextSizeSp?: number;
+};
+
+/**
  * サイト共通設定（site_globals）
  * lp_settings と site_config が統合されたオブジェクト形式のAPI
  */
@@ -32,7 +51,18 @@ export type SharehouseSiteGlobals = {
     label: string;
     value: string;
   }[];
-  entryFormUrl?: string;
+  // Font Settings (Legacy / Global)
+  baseFontSize?: number;
+  fontFamilyBody?: string;
+  fontFamilyHeadline?: string;
+  
+  // Responsive Font Settings (New Custom Fields)
+  pcFontSize?: PcFontSize;
+  mobileFontSize?: MobileFontSize;
+  
+  // Legacy individual settings (Backward compatibility)
+  heroTitleFontSize?: number;
+  conceptTitleFontSize?: number;
 } & MicroCMSDate;
 
 /**
