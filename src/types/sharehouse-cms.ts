@@ -59,6 +59,7 @@ export type SharehouseSiteGlobals = {
   // Responsive Font Settings (New Custom Fields)
   pcFontSize?: PcFontSize;
   mobileFontSize?: MobileFontSize;
+  entryFormUrl?: string;
   
   // Legacy individual settings (Backward compatibility)
   heroTitleFontSize?: number;

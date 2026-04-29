@@ -50,7 +50,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
     
     '--caption-text-size': globalsData?.pcFontSize?.captionTextSizePc ? `${globalsData.pcFontSize.captionTextSizePc}px` : undefined,
     '--caption-text-size-sp': globalsData?.mobileFontSize?.captionTextSizeSp ? `${globalsData.mobileFontSize.captionTextSizeSp}px` : undefined,
-  } as React.CSSProperties;
+  } as Record<string, string | undefined>;
 
   return (
     <div className="min-h-screen bg-background font-body py-12 px-6">
