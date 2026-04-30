@@ -18,7 +18,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
   return (
     <>
       {/* CTA Section */}
-      <section id="join" className="relative py-32 px-6 overflow-hidden">
+      <section id="join" className="relative py-12 md:py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

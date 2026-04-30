@@ -36,7 +36,7 @@ export const InstagramFeed: React.FC<InstagramFeedProps> = ({ posts, limit }) =>
   };
 
   return (
-    <section id="diaries" className="py-24 overflow-hidden relative bg-[#f9f8f6]">
+    <section id="diaries" className="py-10 md:py-24 overflow-hidden relative bg-[#f9f8f6]">
       {/* Background visual elements */}
       <div className="absolute top-1/4 left-0 w-full h-px bg-outline-variant/30 -z-10" />
       <div className="absolute bottom-1/3 left-0 w-full h-px bg-outline-variant/30 -z-10" />

@@ -20,7 +20,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
 
   return (
-    <section id="projects" className="py-24 bg-surface-container-low px-6 relative overflow-hidden">
+    <section id="projects" className="py-10 md:py-24 bg-surface-container-low px-6 relative overflow-hidden">
       {/* Background decoration (Subtle grid or paper texture if desired, here keeping it clean) */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent" />
 
@@ -43,12 +43,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
             <div className="h-3 w-1/2 bg-secondary-container/30 absolute -bottom-1 left-1/4 -z-10" />
           </div>
           
-          <p 
-            className="text-on-surface-variant mt-8 font-body font-medium max-w-2xl mx-auto"
-            style={{ fontSize: 'var(--body-text-size)' }}
-          >
-            「あるもん」を使って、進行中の自給自足プロジェクトたち。
-          </p>
+
 
           {/* Floating decoration for PC */}
           <div className="hidden md:block absolute -right-4 top-0 translate-x-full">
@@ -81,7 +76,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
 
         {/* View All Button */}
         {limit && projects.length > 0 && (
-          <div className="mt-20 text-center">
+          <div className="mt-10 md:mt-20 text-center">
             <Link
               href="/sharehouse/projects"
               className="inline-flex items-center gap-2 group text-primary font-bold"

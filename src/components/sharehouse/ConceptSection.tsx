@@ -44,7 +44,7 @@ export const ConceptSection: React.FC<ConceptSectionProps> = ({
   }, [polaroidImages.length]);
 
   return (
-    <section id="concept" className="py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
+    <section id="concept" className="py-10 md:py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         {/* Text side */}
         <div className="relative">

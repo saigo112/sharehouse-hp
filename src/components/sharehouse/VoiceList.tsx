@@ -20,7 +20,7 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
   ];
 
   return (
-    <section id="voices" className="py-24 bg-[#FAF8F5] relative overflow-hidden">
+    <section id="voices" className="py-10 md:py-24 bg-[#FAF8F5] relative overflow-hidden">
       {/* Subtle background blobs */}
       <div className="absolute top-10 left-10 w-40 h-40 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-56 h-56 bg-primary/5 rounded-full blur-3xl pointer-events-none" />

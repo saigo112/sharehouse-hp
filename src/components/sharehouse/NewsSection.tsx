@@ -15,12 +15,12 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
   if (!articles || articles.length === 0) return null;
 
   return (
-    <section id="news" className="py-24 px-6 md:px-12 bg-background relative overflow-hidden">
+    <section id="news" className="py-10 md:py-24 px-6 md:px-12 bg-background relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl -z-10" />
 
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-16 gap-6">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-16 gap-6">
           <div className="relative">
             <span 
               className="font-hand text-primary block mb-1"
@@ -38,7 +38,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
 
           <Link
             href="/sharehouse/news"
-            className="group flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-sm font-bold border-b border-outline-variant/30 pb-1"
+            className="group flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-xs md:text-sm font-bold border-b border-outline-variant/30 pb-1"
           >
             <span>すべてのお知らせを見る</span>
             <span className="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
