@@ -72,7 +72,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
             </a>
           </div>
           <p className="font-body text-xs uppercase tracking-widest text-stone-500">
-            © 2025 Hachisora House. Crafted with care.
+            © 2025 Al Del House. Crafted with care.
           </p>
         </div>
       </footer>

@@ -2,8 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ハチソラハウス | 自給自足の里山シェアハウス",
+  title: "アルデルハウス (Al Del House) | 自給自足の里山シェアハウス",
   description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。無農薬米栽培、狩猟、DIYを一緒に楽しめる住人を募集しています。",
+  openGraph: {
+    title: "アルデルハウス (Al Del House) | 自給自足の里山シェアハウス",
+    description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "アルデルハウス",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "アルデルハウス (Al Del House)",
+    description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。",
+  },
 };
 
 export default function RootLayout({
