@@ -20,7 +20,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl -z-10" />
 
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-8 md:mb-16 gap-6">
+        <div className="flex flex-col items-center text-center mb-4 md:mb-16 gap-4 md:gap-6">
           <div className="relative">
             <span 
               className="font-hand text-primary block mb-1"
@@ -38,10 +38,10 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
 
           <Link
             href="/sharehouse/news"
-            className="group flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-xs md:text-sm font-bold border-b border-outline-variant/30 pb-1"
+            className="group flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-[10px] md:text-sm font-bold border-b border-outline-variant/30 pb-1"
           >
             <span>すべてのお知らせを見る</span>
-            <span className="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+            <span className="material-symbols-outlined text-[12px] md:text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
           </Link>
         </div>
 
@@ -59,7 +59,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
               <Link
                 key={article.id}
                 href={`/sharehouse/news/${article.id}`}
-                className="group flex flex-col md:flex-row md:items-center gap-2 md:gap-8 py-6 border-b border-outline-variant/30 hover:bg-primary/5 transition-all px-4 -mx-4 rounded-lg"
+              className="group flex flex-col md:flex-row items-center md:items-center text-center md:text-left gap-2 md:gap-8 py-6 border-b border-outline-variant/30 hover:bg-primary/5 transition-all px-4 -mx-4 rounded-lg"
               >
                 <div className="flex items-center gap-4 flex-shrink-0">
                   <span 

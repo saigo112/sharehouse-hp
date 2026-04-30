@@ -41,22 +41,24 @@ export const InstagramFeed: React.FC<InstagramFeedProps> = ({ posts, limit }) =>
       <div className="absolute top-1/4 left-0 w-full h-px bg-outline-variant/30 -z-10" />
       <div className="absolute bottom-1/3 left-0 w-full h-px bg-outline-variant/30 -z-10" />
 
-      <div className="max-w-7xl mx-auto px-6 mb-16 relative">
+      <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-16 relative">
         {/* Header content */}
         <div className="flex flex-col items-center justify-center relative">
           <h2 
-            className="font-headline font-black text-on-surface text-center mb-4 relative z-10"
+            className="font-headline font-black text-on-surface text-center mb-2 relative z-10"
             style={{ fontSize: 'var(--section-title-size)' }}
           >
             Instagram
           </h2>
-          <div className="w-32 h-1.5 bg-primary/20 rounded-full mt-2 absolute bottom-2 z-0" />
-          <p 
-            className="text-center font-hand text-primary mt-4"
-            style={{ fontSize: 'var(--caption-text-size)' }}
-          >
-            Daily Life & Updates
-          </p>
+          <div className="relative inline-block">
+            <p 
+              className="text-center font-hand text-primary relative z-10"
+              style={{ fontSize: 'var(--caption-text-size)' }}
+            >
+              Daily Life & Updates
+            </p>
+            <div className="w-full h-2 bg-primary/20 rounded-full absolute bottom-1.5 left-0 z-0" />
+          </div>
         </div>
       </div>
 

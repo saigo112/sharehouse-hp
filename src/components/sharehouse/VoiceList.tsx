@@ -27,7 +27,7 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
-        <div className="text-center mb-20 relative">
+        <div className="text-center mb-8 md:mb-20 relative">
           <span 
             className="font-hand text-primary font-bold block mb-2"
             style={{ fontSize: 'var(--caption-text-size)' }}

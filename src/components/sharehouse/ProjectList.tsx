@@ -26,7 +26,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-20 relative">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-20 relative">
           <div className="relative inline-block">
             <span 
               className="font-hand text-primary block mb-2"
@@ -76,7 +76,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
 
         {/* View All Button */}
         {limit && projects.length > 0 && (
-          <div className="mt-10 md:mt-20 text-center">
+          <div className="mt-6 md:mt-20 text-center">
             <Link
               href="/sharehouse/projects"
               className="inline-flex items-center gap-2 group text-primary font-bold"
