@@ -59,7 +59,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ articles }) => {
               <Link
                 key={article.id}
                 href={`/sharehouse/news/${article.id}`}
-              className="group flex flex-col md:flex-row items-center md:items-center text-center md:text-left gap-2 md:gap-8 py-6 border-b border-outline-variant/30 hover:bg-primary/5 transition-all px-4 -mx-4 rounded-lg"
+              className="group flex flex-col md:flex-row items-center md:items-center text-center md:text-left gap-2 md:gap-8 py-3 md:py-6 border-b border-outline-variant/30 hover:bg-primary/5 transition-all px-4 -mx-4 rounded-lg"
               >
                 <div className="flex items-center gap-4 flex-shrink-0">
                   <span 

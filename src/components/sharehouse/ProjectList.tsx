@@ -20,7 +20,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
 
   return (
-    <section id="projects" className="py-10 md:py-24 bg-surface-container-low px-6 relative overflow-hidden">
+    <section id="projects" className="pt-10 pb-16 md:py-24 bg-surface-container-low px-6 relative overflow-hidden">
       {/* Background decoration (Subtle grid or paper texture if desired, here keeping it clean) */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent" />
 
@@ -76,7 +76,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
 
         {/* View All Button */}
         {limit && projects.length > 0 && (
-          <div className="mt-6 md:mt-20 text-center">
+          <div className="mt-2 md:mt-20 text-center">
             <Link
               href="/sharehouse/projects"
               className="inline-flex items-center gap-2 group text-primary font-bold"
