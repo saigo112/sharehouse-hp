@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const CTA_IMAGE_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDyYKHcRfDIXuE-y03ZplImevO5CjsqB093TLKRVURstpztDpk6-ZlEZWM-NJazzFwkEUUtq7Cq0MHf-UVO9e_IOoTRXKQKy8nIJWl39x8erJQ7Dk8hIbmP0r-F0vhMXYqHDd6GIRl7hz7KVZOS5DiOy71j5bfQAnK4X8hy69-KwmnicNdlnVaCLkaOAEw6p1_o_AtpI-VmBtPqobRj0O22cwHPsP9Y0FhuNq2LmAiACQBYIMQVjbvoUcKzApBBMljJsfIBR5C9niwP';
@@ -61,9 +62,9 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
             アルデルハウス - Al Del House
           </div>
           <div className="flex gap-8 font-body text-xs uppercase tracking-widest text-stone-500">
-            <a href="#" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
+            <Link href="/sharehouse/privacy" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Privacy Policy
-            </a>
+            </Link>
             <a href="#" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Contact
             </a>
