@@ -103,7 +103,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
 
         <main>
           {project.image?.url && (
-            <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl max-w-2xl mx-auto">
+            <div className="mb-12 rounded-2xl overflow-hidden shadow-xl max-w-md mx-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={project.image.url} alt={project.title} className="w-full h-auto" />
             </div>
