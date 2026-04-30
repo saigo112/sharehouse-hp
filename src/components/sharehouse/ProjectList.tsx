@@ -61,14 +61,21 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects, limit }) => 
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-12 lg:gap-x-16">
+        {/* Scroll indicator for mobile focus */}
+        <div className="md:hidden flex justify-end px-4 -mt-12 mb-4 animate-pulse items-center gap-2 text-on-surface-variant font-hand text-base">
+          <span>Swipe</span>
+          <span className="material-symbols-outlined text-base">arrow_forward</span>
+        </div>
+
+        {/* Projects Grid / Scrollable on mobile */}
+        <div className="flex md:grid overflow-x-auto md:overflow-visible pb-12 md:pb-0 gap-8 md:gap-x-12 lg:gap-x-16 md:grid-cols-2 lg:grid-cols-3 snap-x snap-mandatory no-scrollbar">
           {displayedProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id || index}
-              project={project}
-              rotate={rotations[index % rotations.length]}
-            />
+            <div key={project.id || index} className="shrink-0 w-[85%] md:w-auto snap-center">
+              <ProjectCard
+                project={project}
+                rotate={rotations[index % rotations.length]}
+              />
+            </div>
           ))}
         </div>
 

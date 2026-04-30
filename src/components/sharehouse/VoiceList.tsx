@@ -43,17 +43,24 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
           <div className="w-24 h-1.5 bg-secondary-container mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Cards grid with staggered layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
+        {/* Scroll indicator for mobile focus */}
+        <div className="md:hidden flex justify-end px-4 -mt-12 mb-6 animate-pulse items-center gap-2 text-on-surface-variant font-hand text-base">
+          <span>Swipe</span>
+          <span className="material-symbols-outlined text-base">arrow_forward</span>
+        </div>
+
+        {/* Cards grid with staggered layout / Scrollable on mobile */}
+        <div className="flex md:grid overflow-x-auto md:overflow-visible pb-16 md:pb-0 gap-8 md:gap-12 lg:gap-16 items-start snap-x snap-mandatory no-scrollbar">
           {voices.map((voice, index) => {
             const style = cardStyles[index % cardStyles.length];
             return (
-              <VoiceCard
-                key={voice.id || index}
-                voice={voice}
-                rotate={style.rotate}
-                marginClass={style.margin}
-              />
+              <div key={voice.id || index} className="shrink-0 w-[85%] md:w-auto snap-center">
+                <VoiceCard
+                  voice={voice}
+                  rotate={style.rotate}
+                  marginClass={style.margin}
+                />
+              </div>
             );
           })}
         </div>
