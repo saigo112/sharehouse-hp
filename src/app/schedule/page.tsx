@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FarmBreadcrumbs, FarmPageShell } from "@/components/farm/FarmPageChrome";
 import { ScheduleInquiry } from "@/components/farm/ScheduleInquiry";
 import { getFarmSiteGlobals } from "@/libs/farm-microcms";
+import { DEFAULT_GOOGLE_CALENDAR_EMBED_URL } from "@/libs/google-calendar";
 
 export const metadata: Metadata = {
   title: "日程を見る・相談する",
@@ -31,7 +32,10 @@ function calendarUrlForMode(source: string, mode: "AGENDA" | "MONTH") {
 
 export default async function SchedulePage({ searchParams }: SchedulePageProps) {
   const globals = await getFarmSiteGlobals();
-  const calendarUrl = globals?.scheduleCalendarEmbedUrl || process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_EMBED_URL || "";
+  const calendarUrl =
+    globals?.scheduleCalendarEmbedUrl ||
+    process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_EMBED_URL ||
+    DEFAULT_GOOGLE_CALENDAR_EMBED_URL;
   const mobileCalendarUrl = calendarUrlForMode(calendarUrl, "AGENDA");
   const desktopCalendarUrl = calendarUrlForMode(calendarUrl, "MONTH");
   const lineOfficialId = process.env.NEXT_PUBLIC_LINE_OFFICIAL_ID || globals?.lineOfficialId || "@844kyxqq";

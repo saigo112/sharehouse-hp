@@ -8,6 +8,10 @@ export type FarmCalendarEvent = {
   allDay: boolean;
 };
 
+/** Public calendar used when neither microCMS nor the deployment environment overrides it. */
+export const DEFAULT_GOOGLE_CALENDAR_EMBED_URL =
+  "https://calendar.google.com/calendar/embed?src=9836fda29c1b85a36e66e5e4ca553b460cbe746a10a0e0d519ed4b7482411d50%40group.calendar.google.com&ctz=Asia%2FTokyo";
+
 function unescapeIcsText(value: string) {
   return value
     .replace(/\\n/gi, "\n")
