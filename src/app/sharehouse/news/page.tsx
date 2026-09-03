@@ -4,8 +4,8 @@ import { getSharehouseArticles, getSiteGlobals } from '@/libs/microcms';
 import { NewsCard } from '@/components/sharehouse/NewsCard';
 
 export const metadata: Metadata = {
-  title: 'お知らせ | ハチソラハウス',
-  description: 'ハチソラハウスの最新情報、イベント情報、大切なお知らせをお届けします。',
+  title: 'お知らせ | アルデルハウス',
+  description: 'アルデルハウスの最新情報、イベント情報、大切なお知らせをお届けします。',
 };
 
 export const revalidate = 0;

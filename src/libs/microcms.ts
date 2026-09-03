@@ -5,9 +5,17 @@ import { SharehouseSiteGlobals, SharehouseArticle, SharehouseProject, Sharehouse
  * 【シェアハウス専用】microCMSクライアント
  */
 export const sharehouseClient = createClient({
-  serviceDomain: process.env.MICROCMS_SHAREHOUSE_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN || '',
-  apiKey: process.env.MICROCMS_SHAREHOUSE_API_KEY || process.env.MICROCMS_API_KEY || '',
+  // The SDK validates these parameters while importing a route. Placeholder values
+  // keep a credentials-free local build possible; requests are guarded below.
+  serviceDomain: process.env.MICROCMS_SHAREHOUSE_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN || 'not-configured',
+  apiKey: process.env.MICROCMS_SHAREHOUSE_API_KEY || process.env.MICROCMS_API_KEY || 'not-configured',
 });
+
+/** Avoid SDK calls during local builds when CMS credentials have not been configured. */
+export const hasMicrocmsCredentials = Boolean(
+  (process.env.MICROCMS_SHAREHOUSE_SERVICE_DOMAIN || process.env.MICROCMS_SERVICE_DOMAIN) &&
+  (process.env.MICROCMS_SHAREHOUSE_API_KEY || process.env.MICROCMS_API_KEY)
+);
 
 /**
  * 共通クエリビルダ
@@ -43,6 +51,7 @@ function buildSharehouseQueries(options: { preview?: boolean; filters?: string; 
  * 1. サイト共通・LP設定の取得 (site_globals)
  */
 export async function getSiteGlobals(options: { preview?: boolean } = { preview: false }) {
+  if (!hasMicrocmsCredentials) return null;
   try {
     return await sharehouseClient.get<SharehouseSiteGlobals>({
       endpoint: 'site_globals',
@@ -61,6 +70,7 @@ export async function getSharehouseArticles(
   type: 'news' | 'diary',
   options: { preview?: boolean; limit?: number } = { preview: false }
 ) {
+  if (!hasMicrocmsCredentials) return { contents: [], totalCount: 0 };
   try {
     // 確実に取得するため、サーバーサイドフィルタを一時的にオフにする
     // （セレクトフィールドが単一選択か複数選択か、あるいは内部値が大文字かなどでマッチングが失敗するのを防ぐ）
@@ -108,6 +118,7 @@ export async function getSharehouseArticleById(
   id: string,
   options: { preview?: boolean } = { preview: false }
 ) {
+  if (!hasMicrocmsCredentials) return null;
   try {
     return await sharehouseClient.get<SharehouseArticle>({
       endpoint: 'articles',
@@ -123,6 +134,7 @@ export async function getSharehouseArticleById(
  * 3. プロジェクト一覧の取得 (projects)
  */
 export async function getSharehouseProjects(options: { preview?: boolean; limit?: number } = { preview: false }) {
+  if (!hasMicrocmsCredentials) return { contents: [], totalCount: 0 };
   try {
     return await sharehouseClient.getList<SharehouseProject>({
       endpoint: 'projects',
@@ -138,6 +150,7 @@ export async function getSharehouseProjects(options: { preview?: boolean; limit?
  * 3.1 プロジェクト詳細の取得
  */
 export async function getSharehouseProjectById(id: string, options: { preview?: boolean } = { preview: false }) {
+  if (!hasMicrocmsCredentials) return null;
   try {
     return await sharehouseClient.get<SharehouseProject>({
       endpoint: 'projects',

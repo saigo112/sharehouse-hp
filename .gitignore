@@ -38,3 +38,7 @@ next-env.d.ts
 
 # ignore other project folders to avoid build conflicts
 /シェアハウス１
+
+# local Codex instructions and superseded working copy drafts
+/AGENTS.md
+/docs/content/

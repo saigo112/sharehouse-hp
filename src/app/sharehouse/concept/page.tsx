@@ -5,8 +5,8 @@ import { getSiteGlobals } from '@/libs/microcms';
 import { SharehouseSiteGlobals } from '@/types/sharehouse-cms';
 
 export const metadata: Metadata = {
-  title: 'コンセプト詳細 | ハチソラハウス',
-  description: 'ハチソラハウスが大切にしている想いや、暮らしのコンセプトを詳しくご紹介します。',
+  title: 'コンセプト詳細 | アルデルハウス',
+  description: 'アルデルハウスが大切にしている想いや、暮らしのコンセプトを詳しくご紹介します。',
 };
 
 export default async function ConceptDetailPage() {

@@ -144,7 +144,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ title, backgroundImage
             </div>
 
             <div className="mt-auto text-center opacity-30 font-hand text-lg">
-              Hachisora House
+              Al Del House
             </div>
           </motion.div>
         )}

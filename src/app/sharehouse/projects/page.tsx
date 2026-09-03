@@ -5,8 +5,8 @@ import { SharehouseProject } from "@/types/sharehouse-cms";
 import { ProjectCard } from "@/components/sharehouse/ProjectCard";
 
 export const metadata: Metadata = {
-  title: "プロジェクト一覧 | ハチソラハウス",
-  description: "ハチソラハウスで進行中の「生きる力」を育むプロジェクト一覧です。",
+  title: "プロジェクト一覧 | アルデルハウス",
+  description: "アルデルハウスで進行中の「生きる力」を育むプロジェクト一覧です。",
 };
 
 export const revalidate = 0;

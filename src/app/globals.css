@@ -127,3 +127,40 @@ body {
 .concept-rich-text blockquote {
   @apply border-l-4 border-primary-container pl-6 py-2 italic my-8 bg-surface-container-low rounded-r-lg;
 }
+
+/* ALDEL FARM「日々の暮らし」記事本文 */
+.farm-rich-text {
+  @apply text-base leading-8 text-on-surface-variant;
+}
+
+.farm-rich-text h2 {
+  @apply mt-14 mb-6 border-b border-stone-300 pb-3 font-headline text-2xl font-black leading-tight text-on-surface md:text-3xl;
+}
+
+.farm-rich-text h3 {
+  @apply mt-10 mb-4 font-headline text-xl font-black leading-tight text-on-surface md:text-2xl;
+}
+
+.farm-rich-text p {
+  @apply mb-7;
+}
+
+.farm-rich-text ul {
+  @apply mb-8 list-disc space-y-2 pl-6;
+}
+
+.farm-rich-text ol {
+  @apply mb-8 list-decimal space-y-2 pl-6;
+}
+
+.farm-rich-text a {
+  @apply font-bold text-primary underline underline-offset-4;
+}
+
+.farm-rich-text img {
+  @apply my-10 h-auto w-full rounded-2xl;
+}
+
+.farm-rich-text blockquote {
+  @apply my-8 border-l-4 border-secondary-container bg-surface-container-low py-3 pl-6 pr-4;
+}

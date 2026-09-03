@@ -1,20 +1,28 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const metadataBase = process.env.NEXT_PUBLIC_SITE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+  : undefined;
+
 export const metadata: Metadata = {
-  title: "アルデルハウス (Al Del House) | 自給自足の里山シェアハウス",
-  description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。無農薬米栽培、狩猟、DIYを一緒に楽しめる住人を募集しています。",
+  metadataBase,
+  title: {
+    default: "ALDEL FARM | 暮らしを、みんなでつくる。",
+    template: "%s | ALDEL FARM",
+  },
+  description: "兵庫県赤穂郡上郡町で、農、食、住まい、人のつながりを育てる地域プロジェクト。土地や暮らしを知り、体験し、相談できる入口です。",
   openGraph: {
-    title: "アルデルハウス (Al Del House) | 自給自足の里山シェアハウス",
-    description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。",
+    title: "ALDEL FARM | 暮らしを、みんなでつくる。",
+    description: "兵庫県赤穂郡上郡町で、人・土地・技術とともに暮らしをつくる地域プロジェクト。",
     type: "website",
     locale: "ja_JP",
-    siteName: "アルデルハウス",
+    siteName: "ALDEL FARM",
   },
   twitter: {
     card: "summary_large_image",
-    title: "アルデルハウス (Al Del House)",
-    description: "兵庫県上郡町の里山で「生きる力」を育む自給自足シェアハウス。",
+    title: "ALDEL FARM | 暮らしを、みんなでつくる。",
+    description: "兵庫県赤穂郡上郡町で、人・土地・技術とともに暮らしをつくる地域プロジェクト。",
   },
 };
 

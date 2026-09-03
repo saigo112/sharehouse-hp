@@ -1,4 +1,4 @@
-# MEMORY.md - Hachisora House Project
+# MEMORY.md - Al Del House Project
 
 ## アーキテクチャ決定事項
 
