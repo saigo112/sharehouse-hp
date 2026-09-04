@@ -3,7 +3,7 @@ import type { FarmArticle, FarmPerson, FarmProject, FarmSiteGlobals } from "@/ty
 import type { FarmCalendarEvent } from "@/libs/google-calendar";
 
 const HERO_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
-const LIFE_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuCd0Wjqu3S2vx9G95TC2WDXk7d4cgiOyOPKPat91UPLFh9fcuSbtYKOaTQns9-hfgCwFk3M9RTTmL_kCEX5b1H-XxXR4O4smzzNkA-XurUKhVoNOxj3nz17w9O2BFhiZdCxJzmn_8WbTEoc-1fwbd3NmIOzEmDortSGADDKjvYvW-cuS_7r4CI9iOXKSgQBcp_bjlP2TboOTXRPOnI-V51o95q9KWqfvzmYKZjPIbM13MHA65K3jYEOjtnatFThrfcPSSyfn6v2S9-o";
+const LIFE_FALLBACK = "/images/life-made-by-many-hands.jpg";
 const CTA_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDyYKHcRfDIXuE-y03ZplImevO5CjsqB093TLKRVURstpztDpk6-ZlEZWM-NJazzFwkEUUtq7Cq0MHf-UVO9e_IOoTRXKQKy8nIJWl39x8erJQ7Dk8hIbmP0r-F0vhMXYqHDd6GIRl7hz7KVZOS5DiOy71j5bfQAnK4X8hy69-KwmnicNdlnVaCLkaOAEw6p1_o_AtpI-VmBtPqobRj0O22cwHPsP9Y0FhuNq2LmAiACQBYIMQVjbvoUcKzApBBMljJsfIBR5C9niwP";
 
 type FarmHomeProps = {
@@ -21,7 +21,14 @@ const ways = [
   { number: "04", title: "お米を買う", text: "ALDEL FARMで育てたお米を、オンラインで購入する。", detail: "オンラインショップ", href: "https://aldel08.square.site/" },
 ];
 
-const lifeElements = ["米", "畑", "鶏", "ジビエ", "古民家", "食", "山", "地域"];
+const lifePractices = [
+  { title: "育てる", text: "田畑で米や野菜を育て、鶏と暮らす。" },
+  { title: "いただく", text: "畑や山の恵みを料理し、みんなで食卓を囲む。" },
+  { title: "手を入れる", text: "古民家や道具、田畑や山に手をかけ、次へつなぐ。" },
+  { title: "つながる", text: "地域の人から学び、訪れた人と一緒につくる。" },
+];
+
+const projectFallbackTitles = ["米", "畑", "鶏", "ジビエ", "古民家", "食", "山", "地域"];
 
 function formatDate(value?: string) {
   if (!value) return "記録を更新中";
@@ -52,8 +59,9 @@ function eventSummary(event: FarmCalendarEvent) {
 
 export function FarmHome({ globals, articles, projects, people, upcomingEvents }: FarmHomeProps) {
   const heroImage = Array.isArray(globals?.farmHeroImage) ? globals.farmHeroImage[0]?.url : globals?.farmHeroImage?.url;
+  const lifeImage = Array.isArray(globals?.farmLifeImage) ? globals.farmLifeImage[0]?.url : globals?.farmLifeImage?.url;
   const heroTitle = globals?.farmHeroTitle || "暮らしを、\nみんなでつくる。";
-  const currentProjects = projects.length ? projects : lifeElements.map((title, index) => ({ id: title, title, summary: ["手をかけ、育て、分け合う。", "里山の営みを暮らしにつなげる。", "土地にあるものから考える。", "命をいただき、味わい尽くす。"][index % 4] }));
+  const currentProjects = projects.length ? projects : projectFallbackTitles.map((title, index) => ({ id: title, title, summary: ["手をかけ、育て、分け合う。", "里山の営みを暮らしにつなげる。", "土地にあるものから考える。", "命をいただき、味わい尽くす。"][index % 4] }));
 
   return (
     <main className="overflow-hidden bg-[#fbf9f6] text-on-surface">
@@ -106,10 +114,22 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2 md:px-10 md:py-36">
         <div className="relative aspect-[4/5] overflow-hidden bg-stone-200 md:order-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={LIFE_FALLBACK} alt="古民家での暮らしの風景" className="h-full w-full object-cover grayscale-[0.12]" />
+          <img src={lifeImage || LIFE_FALLBACK} alt="古民家の前で手仕事を囲む人々" className="h-full w-full object-cover" />
           <p className="absolute bottom-4 right-5 font-hand text-sm text-white drop-shadow">A life made by many hands.</p>
         </div>
-        <div className="md:order-1"><p className="font-hand text-primary">Made of everyday life</p><h2 className="mt-3 font-headline text-3xl font-black leading-tight md:text-5xl">暮らしをつくる、<br />小さな要素。</h2><div className="mt-10 grid grid-cols-2 border-l border-t border-stone-300 sm:grid-cols-4">{lifeElements.map((item) => <div key={item} className="border-b border-r border-stone-300 px-4 py-5 font-headline text-xl font-black">{item}</div>)}</div><p className="mt-8 text-sm leading-7 text-on-surface-variant">ひとつひとつは小さな営み。でも、重なり合うことで、土地に根ざした暮らしになります。</p></div>
+        <div className="md:order-1">
+          <p className="font-hand text-primary">Made of everyday life</p>
+          <h2 className="mt-3 font-headline text-3xl font-black leading-tight md:text-5xl">暮らしをつくる、<br />小さな営み。</h2>
+          <div className="mt-10 grid border-l border-t border-stone-300 sm:grid-cols-2">
+            {lifePractices.map((practice) => (
+              <div key={practice.title} className="border-b border-r border-stone-300 px-5 py-6 md:min-h-40 md:px-6 md:py-7">
+                <h3 className="font-headline text-xl font-black md:text-2xl">{practice.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-on-surface-variant">{practice.text}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-sm leading-8 text-on-surface-variant">育てること、食べること、直すこと、人とつながること。<br />ひとつひとつは小さな営みですが、重なり合うことで、この土地の暮らしになっていきます。</p>
+        </div>
       </section>
 
       <section id="current" className="bg-[#433d35] px-5 py-20 text-[#fbf9f6] md:px-10 md:py-32">

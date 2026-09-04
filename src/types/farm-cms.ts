@@ -7,6 +7,7 @@ export type FarmSiteGlobals = {
   farmHeroImage?: MicroCMSImage | MicroCMSImage[];
   farmAboutTitle?: string;
   farmAboutText?: string;
+  farmLifeImage?: MicroCMSImage | MicroCMSImage[];
   farmContactUrl?: string;
   instagramUrl?: string;
   lineOfficialUrl?: string;

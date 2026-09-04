@@ -23,6 +23,7 @@ ALDEL FARMの公開サイトでは、microCMSのHobbyプラン上限に合わせ
 | `farmHeroImage` | 画像（複数可） | ヒーロー写真 |
 | `farmAboutTitle` | テキスト | About見出し |
 | `farmAboutText` | テキストエリア | About本文 |
+| `farmLifeImage` | 画像（複数可） | 「暮らしをつくる、小さな営み。」の写真 |
 | `farmContactUrl` | テキスト | 問い合わせ／相談先URL |
 | `lineOfficialId` | テキスト | LINE公式アカウントのベーシックID（例: `@xxxxxxxx`） |
 | `lineOfficialUrl` | テキスト | LINE公式アカウントの友だち追加URL |
