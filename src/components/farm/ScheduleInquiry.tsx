@@ -88,7 +88,7 @@ export function ScheduleInquiry({ initialProgram, initialActivities, initialFirs
   }
 
   return (
-    <section className="border-t border-stone-300 px-5 py-16 md:px-10 md:py-24">
+    <section id="inquiry" className="scroll-mt-8 border-t border-stone-300 px-5 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-10 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-4">

@@ -8,6 +8,14 @@ export type FarmCalendarEvent = {
   allDay: boolean;
 };
 
+export type FarmScheduleKind = "availability" | "event" | "workstay";
+
+export type FarmScheduleEntry = FarmCalendarEvent & {
+  kind: FarmScheduleKind;
+  closed: boolean;
+  featured: boolean;
+};
+
 /** Public calendar used when neither microCMS nor the deployment environment overrides it. */
 export const DEFAULT_GOOGLE_CALENDAR_EMBED_URL =
   "https://calendar.google.com/calendar/embed?src=9836fda29c1b85a36e66e5e4ca553b460cbe746a10a0e0d519ed4b7482411d50%40group.calendar.google.com&ctz=Asia%2FTokyo";
@@ -89,21 +97,72 @@ export function parsePublicCalendarIcs(ics: string, now = new Date()) {
     .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
 }
 
-const FEATURED_TITLE_MARKERS = [/^【トップ掲載】\s*/, /^\[トップ掲載\]\s*/];
-const FEATURED_DESCRIPTION_MARKER = /(^|\n)\s*#トップ掲載\s*(?=\n|$)/g;
+const TITLE_MARKERS = {
+  availability: [/【受付可】/g, /\[受付可\]/gi],
+  event: [/【イベント】/g, /\[イベント\]/gi],
+  workstay: [/【住み込み募集】/g, /\[住み込み募集\]/gi],
+  closed: [/【受付終了】/g, /\[受付終了\]/gi],
+  featured: [/【トップ掲載】/g, /\[トップ掲載\]/gi],
+} as const;
+
+const DESCRIPTION_MARKER = /(^|\n)\s*#(?:受付可|イベント|住み込み募集|受付終了|トップ掲載)\s*(?=\n|$)/g;
+
+function hasTitleMarker(title: string, markers: readonly RegExp[]) {
+  return markers.some((marker) => {
+    marker.lastIndex = 0;
+    return marker.test(title);
+  });
+}
+
+function hasDescriptionMarker(description: string | undefined, marker: string) {
+  return description?.split("\n").some((line) => line.trim() === `#${marker}`) || false;
+}
+
+function cleanPublicCalendarText(event: FarmCalendarEvent) {
+  const title = Object.values(TITLE_MARKERS)
+    .flat()
+    .reduce((value, marker) => value.replace(marker, ""), event.title)
+    .replace(/\s{2,}/g, " ")
+    .trim();
+  const description = event.description?.replace(DESCRIPTION_MARKER, "$1").trim();
+
+  return {
+    title: title || "ALDEL FARMの予定",
+    description: description || undefined,
+  };
+}
+
+/** Selects public schedule entries while leaving untagged private bookings out. */
+export function selectPublicScheduleEntries(events: FarmCalendarEvent[]) {
+  return events
+    .map((event): FarmScheduleEntry | null => {
+      const availability = hasTitleMarker(event.title, TITLE_MARKERS.availability) || hasDescriptionMarker(event.description, "受付可");
+      const eventMarked = hasTitleMarker(event.title, TITLE_MARKERS.event) || hasDescriptionMarker(event.description, "イベント");
+      const workstay = hasTitleMarker(event.title, TITLE_MARKERS.workstay) || hasDescriptionMarker(event.description, "住み込み募集");
+      const kind: FarmScheduleKind | null = workstay ? "workstay" : eventMarked ? "event" : availability ? "availability" : null;
+      if (!kind) return null;
+
+      const cleaned = cleanPublicCalendarText(event);
+      return {
+        ...event,
+        ...cleaned,
+        kind,
+        closed: hasTitleMarker(event.title, TITLE_MARKERS.closed) || hasDescriptionMarker(event.description, "受付終了"),
+        featured: hasTitleMarker(event.title, TITLE_MARKERS.featured) || hasDescriptionMarker(event.description, "トップ掲載"),
+      };
+    })
+    .filter((event): event is FarmScheduleEntry => event !== null);
+}
 
 /** Keeps only events explicitly selected for the homepage in Google Calendar. */
 export function selectFeaturedCalendarEvents(events: FarmCalendarEvent[], limit = 3) {
   return events
     .map((event): FarmCalendarEvent | null => {
-      const titleMarker = FEATURED_TITLE_MARKERS.find((marker) => marker.test(event.title));
-      const descriptionMarked = event.description?.includes("#トップ掲載") || false;
-      if (!titleMarker && !descriptionMarked) return null;
+      const titleMarked = hasTitleMarker(event.title, TITLE_MARKERS.featured);
+      const descriptionMarked = hasDescriptionMarker(event.description, "トップ掲載");
+      if (!titleMarked && !descriptionMarked) return null;
 
-      const title = titleMarker ? event.title.replace(titleMarker, "").trim() : event.title;
-      const description = event.description
-        ?.replace(FEATURED_DESCRIPTION_MARKER, "$1")
-        .trim();
+      const { title, description } = cleanPublicCalendarText(event);
 
       return {
         ...event,
@@ -123,7 +182,7 @@ function calendarIdFromEmbedUrl(embedUrl: string) {
   }
 }
 
-export async function getUpcomingCalendarEvents(calendarEmbedUrl: string, limit = 3) {
+async function fetchPublicCalendarEvents(calendarEmbedUrl: string) {
   const calendarId = calendarIdFromEmbedUrl(calendarEmbedUrl);
   if (!calendarId) return [];
 
@@ -131,9 +190,18 @@ export async function getUpcomingCalendarEvents(calendarEmbedUrl: string, limit 
   try {
     const response = await fetch(feedUrl, { next: { revalidate: 300 } });
     if (!response.ok) return [];
-    const events = parsePublicCalendarIcs(await response.text());
-    return selectFeaturedCalendarEvents(events, limit);
+    return parsePublicCalendarIcs(await response.text());
   } catch {
     return [];
   }
+}
+
+export async function getUpcomingCalendarEvents(calendarEmbedUrl: string, limit = 3) {
+  const events = await fetchPublicCalendarEvents(calendarEmbedUrl);
+  return selectFeaturedCalendarEvents(events, limit);
+}
+
+export async function getPublicScheduleEntries(calendarEmbedUrl: string) {
+  const events = await fetchPublicCalendarEvents(calendarEmbedUrl);
+  return selectPublicScheduleEntries(events);
 }
