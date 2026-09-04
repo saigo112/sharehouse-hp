@@ -42,8 +42,8 @@ export default async function AboutPage() {
   const lineOfficialId = process.env.NEXT_PUBLIC_LINE_OFFICIAL_ID || globals?.lineOfficialId || "@844kyxqq";
   const normalizedLineId = lineOfficialId.startsWith("@") ? lineOfficialId : `@${lineOfficialId}`;
   const lineFriendUrl = process.env.NEXT_PUBLIC_LINE_OFFICIAL_URL || globals?.lineOfficialUrl || `https://line.me/R/ti/p/${encodeURIComponent(normalizedLineId)}`;
-  const formUrl = globals?.farmContactUrl || process.env.NEXT_PUBLIC_ENTRY_FORM_URL;
-  const phoneHref = globals?.representativePhone ? `tel:${globals.representativePhone.replace(/[^\d+]/g, "")}` : "";
+  const generalInquiryMessage = "【ALDEL FARM お問い合わせ】\nまだ相談内容が具体的に決まっていません。見学、体験、暮らし、お米などについて相談したいです。";
+  const generalInquiryUrl = `https://line.me/R/oaMessage/${encodeURIComponent(normalizedLineId)}/?${encodeURIComponent(generalInquiryMessage)}`;
 
   return (
     <FarmPageShell>
@@ -104,12 +104,12 @@ export default async function AboutPage() {
             </article>
 
             <article className="bg-[#433d35] p-7 md:p-9">
-              <p className="text-xs font-bold text-[#febe4e]">OTHER CONTACT</p>
-              <h3 className="mt-4 font-headline text-2xl font-black">{phoneHref ? "電話・フォームで相談する" : "フォームで相談する"}</h3>
-              <p className="mt-4 text-sm leading-7 text-white/70">{phoneHref ? "LINEを利用していない方は、電話または問い合わせフォームをご利用ください。" : "LINEを利用していない方は、問い合わせフォームをご利用ください。"}</p>
+              <p className="text-xs font-bold text-[#febe4e]">LINE CHAT</p>
+              <h3 className="mt-4 font-headline text-2xl font-black">まだ決まっていないことを相談する</h3>
+              <p className="mt-4 text-sm leading-7 text-white/70">見学、体験、暮らし、お米についてなど、相談内容が具体的に決まっていない段階でもLINEからお問い合わせいただけます。</p>
               <div className="mt-7 flex flex-wrap gap-3">
-                {phoneHref && <a href={phoneHref} className="inline-flex rounded-full bg-white px-6 py-3.5 text-sm font-black text-[#433d35]">{globals?.representativePhone}</a>}
-                {formUrl && <a href={formUrl} target={formUrl.startsWith("http") ? "_blank" : undefined} rel={formUrl.startsWith("http") ? "noopener noreferrer" : undefined} className="inline-flex rounded-full border border-white/50 px-6 py-3.5 text-sm font-black">問い合わせフォーム</a>}
+                <a href={generalInquiryUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full bg-white px-6 py-3.5 text-sm font-black text-[#433d35]">LINEで問い合わせる</a>
+                <a href={lineFriendUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-white/50 px-6 py-3.5 text-sm font-black">友だち追加</a>
               </div>
               {globals?.contactNotice && <p className="mt-5 text-xs leading-6 text-white/60">{globals.contactNotice}</p>}
             </article>

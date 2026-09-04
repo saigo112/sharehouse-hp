@@ -5,17 +5,14 @@ const CTA_IMAGE_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDyYKHcRfDIXuE-y03ZplImevO5CjsqB093TLKRVURstpztDpk6-ZlEZWM-NJazzFwkEUUtq7Cq0MHf-UVO9e_IOoTRXKQKy8nIJWl39x8erJQ7Dk8hIbmP0r-F0vhMXYqHDd6GIRl7hz7KVZOS5DiOy71j5bfQAnK4X8hy69-KwmnicNdlnVaCLkaOAEw6p1_o_AtpI-VmBtPqobRj0O22cwHPsP9Y0FhuNq2LmAiACQBYIMQVjbvoUcKzApBBMljJsfIBR5C9niwP';
 
 interface CTASectionProps {
-  entryFormUrl?: string;
+  entryFormUrl: string;
 }
 
 /**
  * CTAセクションとフッターの複合コンポーネント
- * - entryFormUrlが設定されている場合はそのURLを新規タブで開く
- * - 未設定の場合は「準備中」と表示するフォールバック
+ * - サイト内の入力ページからLINE公式アカウントへ相談内容を引き継ぐ
  */
 export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
-  const hasForm = Boolean(entryFormUrl);
-
   return (
     <>
       {/* CTA Section */}
@@ -34,24 +31,15 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
             一緒に自給自足の里山を再生する<br />「村人」になりませんか？
           </h2>
 
-          {hasForm ? (
-            <a
-              href={entryFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-secondary-container text-on-secondary-container px-6 py-4 md:px-12 md:py-6 rounded-xl font-headline font-black text-sm md:text-base hover:scale-105 transition-transform duration-300 shadow-xl group whitespace-nowrap"
-            >
-              エントリーフォームへ進む
-              <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">
-                arrow_forward
-              </span>
-            </a>
-          ) : (
-            <div className="inline-flex items-center gap-3 bg-white/20 text-white border-2 border-white/40 px-10 py-5 rounded-xl font-headline font-bold text-xl backdrop-blur-sm">
-              <span className="material-symbols-outlined text-2xl">schedule</span>
-              エントリーフォーム準備中
-            </div>
-          )}
+          <Link
+            href={entryFormUrl}
+            className="inline-flex items-center gap-3 bg-secondary-container text-on-secondary-container px-6 py-4 md:px-12 md:py-6 rounded-xl font-headline font-black text-sm md:text-base hover:scale-105 transition-transform duration-300 shadow-xl group whitespace-nowrap"
+          >
+            エントリーフォームへ進む
+            <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">
+              arrow_forward
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -65,9 +53,9 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
             <Link href="/sharehouse/privacy" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Privacy Policy
             </Link>
-            <a href="#" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
-              Contact
-            </a>
+            <Link href="/about#contact" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
+              Contact / LINE
+            </Link>
             <a href="#" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Instagram
             </a>

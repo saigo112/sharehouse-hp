@@ -24,7 +24,7 @@ ALDEL FARMの公開サイトでは、microCMSのHobbyプラン上限に合わせ
 | `farmAboutTitle` | テキスト | About見出し |
 | `farmAboutText` | テキストエリア | About本文 |
 | `farmLifeImage` | 画像（複数可） | 「暮らしをつくる、小さな営み。」の写真 |
-| `farmContactUrl` | テキスト | 問い合わせ／相談先URL |
+| `farmContactUrl` | テキスト | 旧問い合わせURL（現在の画面では使用しない） |
 | `lineOfficialId` | テキスト | LINE公式アカウントのベーシックID（例: `@xxxxxxxx`） |
 | `lineOfficialUrl` | テキスト | LINE公式アカウントの友だち追加URL |
 | `scheduleCalendarEmbedUrl` | テキスト | 公開用Googleカレンダーの埋め込みURL |

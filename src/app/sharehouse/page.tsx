@@ -34,12 +34,6 @@ export default async function SharehousePage() {
     getSharehouseArticles('news', { limit: 3 })
   ]);
 
-  // デバッグ用ログ: 設定値が正しく取得できているか確認
-  console.log('--- microCMS Raw Data Debug ---');
-  console.log('pcFontSize:', JSON.stringify(globalsData?.pcFontSize, null, 2));
-  console.log('mobileFontSize:', JSON.stringify(globalsData?.mobileFontSize, null, 2));
-  console.log('------------------------------------');
-  
   // --- データのマッピングとフォールバック ---
   
   // ヒーロー画像の配列化
@@ -54,7 +48,7 @@ export default async function SharehousePage() {
     backgroundImages: heroImages
   };
 
-  const menuItems = globalsData?.menuItems || [
+  const rawMenuItems = globalsData?.menuItems || [
     { label: "Concept", href: "#concept" },
     { label: "News", href: "#news" },
     { label: "Projects", href: "#projects" },
@@ -62,6 +56,10 @@ export default async function SharehousePage() {
     { label: "Voices", href: "#voices" },
     { label: "Access", href: "#recruitment" },
   ];
+  const menuItems = rawMenuItems.map((item) => {
+    const isOldEntryForm = item.href === globalsData?.entryFormUrl || /(?:forms\.gle|docs\.google\.com\/forms)/i.test(item.href);
+    return isOldEntryForm ? { ...item, href: '/sharehouse/entry' } : item;
+  });
 
   // コンセプト画像の配列化
   const polaroidImages = Array.isArray(globalsData?.conceptImage)
@@ -110,11 +108,8 @@ export default async function SharehousePage() {
     id: r.id || String(index + 1)
   }));
 
-  // エントリーフォームURL
-  const entryFormUrl =
-    globalsData?.entryFormUrl ||
-    process.env.NEXT_PUBLIC_ENTRY_FORM_URL ||
-    'https://forms.gle/K6DDGNf2BxNEGZLH9';
+  // お問い合わせ窓口をLINEへ統一するため、サイト内の入力ページを使用
+  const entryFormUrl = '/sharehouse/entry';
 
   // フォント設定の構築
   const fontStyles = {

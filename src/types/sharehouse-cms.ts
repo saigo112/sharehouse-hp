@@ -60,6 +60,8 @@ export type SharehouseSiteGlobals = {
   pcFontSize?: PcFontSize;
   mobileFontSize?: MobileFontSize;
   entryFormUrl?: string;
+  lineOfficialId?: string;
+  lineOfficialUrl?: string;
   
   // Legacy individual settings (Backward compatibility)
   heroTitleFontSize?: number;

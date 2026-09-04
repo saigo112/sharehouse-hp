@@ -4,6 +4,9 @@ import { getSiteGlobals } from '@/libs/microcms';
 
 export default async function PrivacyPolicyPage() {
   const globalsData = await getSiteGlobals();
+  const lineOfficialId = process.env.NEXT_PUBLIC_LINE_OFFICIAL_ID || globalsData?.lineOfficialId || '@844kyxqq';
+  const normalizedLineId = lineOfficialId.startsWith('@') ? lineOfficialId : `@${lineOfficialId}`;
+  const lineFriendUrl = process.env.NEXT_PUBLIC_LINE_OFFICIAL_URL || globalsData?.lineOfficialUrl || `https://line.me/R/ti/p/${encodeURIComponent(normalizedLineId)}`;
 
   // フォント設定の構築 (他のページと同様の仕組み)
   const fontStyles = {
@@ -93,7 +96,7 @@ export default async function PrivacyPolicyPage() {
           <section className="pt-8 border-t border-outline-variant/30">
             <h2 className="text-xl font-bold text-on-surface mb-4">お問い合わせ先</h2>
             <p>
-              個人情報の取り扱いに関するお問い合わせは、お問い合わせフォームよりご連絡ください。
+              個人情報の取り扱いに関するお問い合わせは、<a href={lineFriendUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-primary underline underline-offset-4">ALDEL FARM LINE公式アカウント</a>よりご連絡ください。
             </p>
           </section>
         </main>
