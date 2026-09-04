@@ -6,13 +6,14 @@ const CTA_IMAGE_URL =
 
 interface CTASectionProps {
   entryFormUrl: string;
+  instagramUrl?: string;
 }
 
 /**
  * CTAセクションとフッターの複合コンポーネント
  * - サイト内の入力ページからLINE公式アカウントへ相談内容を引き継ぐ
  */
-export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
+export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl, instagramUrl }) => {
   return (
     <>
       {/* CTA Section */}
@@ -50,15 +51,20 @@ export const CTASection: React.FC<CTASectionProps> = ({ entryFormUrl }) => {
             アルデルハウス - Al Del House
           </div>
           <div className="flex gap-8 font-body text-xs uppercase tracking-widest text-stone-500">
+            <Link href="/" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
+              ALDEL FARM
+            </Link>
             <Link href="/sharehouse/privacy" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Privacy Policy
             </Link>
             <Link href="/about#contact" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
               Contact / LINE
             </Link>
-            <a href="#" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
-              Instagram
-            </a>
+            {instagramUrl && (
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors">
+                Instagram
+              </a>
+            )}
           </div>
           <p className="font-body text-xs uppercase tracking-widest text-stone-500">
             © 2025 Al Del House. Crafted with care.

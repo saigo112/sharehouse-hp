@@ -62,6 +62,7 @@ export type SharehouseSiteGlobals = {
   entryFormUrl?: string;
   lineOfficialId?: string;
   lineOfficialUrl?: string;
+  instagramUrl?: string;
   
   // Legacy individual settings (Backward compatibility)
   heroTitleFontSize?: number;

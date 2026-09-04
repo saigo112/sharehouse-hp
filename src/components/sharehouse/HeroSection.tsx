@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { MicroCMSImage, MenuItem } from '@/types/microcms';
 
 interface HeroSectionProps {
@@ -46,13 +47,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ title, backgroundImage
     <>
       {/* Sticky Navigation */}
       <header className="top-0 sticky z-50 bg-background/80 backdrop-blur-md shadow-[0_2px_15px_rgba(86,66,62,0.05)]">
-        <nav className="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
-          <div className="text-1xl md:text-2xl font-black text-primary tracking-tighter font-headline">
-            アルデルハウス
+        <nav className="flex justify-between items-center w-full px-4 py-3.5 md:px-6 md:py-4 max-w-7xl mx-auto">
+          <div className="flex min-w-0 items-center gap-2.5 md:gap-4">
+            <Link href="/" className="inline-flex shrink-0 items-center gap-1 text-[11px] font-bold tracking-wide text-on-surface-variant transition-colors hover:text-primary md:text-xs">
+              <span className="material-symbols-outlined text-base" aria-hidden>arrow_back</span>
+              <span className="hidden sm:inline">ALDEL FARM</span>
+              <span className="sm:hidden">FARM</span>
+            </Link>
+            <span className="h-5 w-px bg-outline-variant/60" aria-hidden />
+            <Link href="/sharehouse" className="truncate font-headline text-base font-black tracking-tighter text-primary md:text-2xl">
+              アルデルハウス
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 font-headline font-bold text-sm tracking-tight">
+          <div className="hidden md:flex items-center gap-6 font-headline font-bold text-sm tracking-tight">
             {menuItems.map((item, index) => (
               <a
                 key={index}

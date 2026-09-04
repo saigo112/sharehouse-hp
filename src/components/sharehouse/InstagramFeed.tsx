@@ -90,7 +90,6 @@ export const InstagramFeed: React.FC<InstagramFeedProps> = ({ posts, limit }) =>
                         height="580"
                         frameBorder="0"
                         scrolling="no"
-                        allowTransparency={true}
                         className="w-full -mt-10"
                         title={post.title || "Instagram Embed"}
                       ></iframe>

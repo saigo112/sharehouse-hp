@@ -1,22 +1,16 @@
 /**
- * シェアハウス募集ランディングページ（「アルデルハウス」）
+ * ALDEL FARM内のシェアハウス紹介ページ（「アルデルハウス」）
  * 各セクションはsrc/components/sharehouse/以下に切り出し済み
  * データはmicroCMSから取得し、未設定時はフォールバック値を使用する
  */
 
 import { 
   getSiteGlobals,
-  getSharehouseProjects, 
   getSharehouseArticles
 } from "@/libs/microcms";
-import { 
-  SharehouseProject, 
-  SharehouseArticle 
-} from "@/types/sharehouse-cms";
+import { SharehouseArticle } from "@/types/sharehouse-cms";
 import { HeroSection } from "@/components/sharehouse/HeroSection";
 import { ConceptSection } from "@/components/sharehouse/ConceptSection";
-import { NewsSection } from "@/components/sharehouse/NewsSection";
-import { ProjectList } from "@/components/sharehouse/ProjectList";
 import { InstagramFeed } from "@/components/sharehouse/InstagramFeed";
 import { VoiceList } from "@/components/sharehouse/VoiceList";
 import { RecruitmentSection } from "@/components/sharehouse/RecruitmentSection";
@@ -27,11 +21,9 @@ export const revalidate = 0; // キャッシュを無効化して常に最新の
 export default async function SharehousePage() {
   // 1. 各種データの取得（並列実行）
   // 削除されたAPIが含まれる可能性があるため、個別にエラーハンドリングされている関数を使用
-  const [globalsData, projectsData, diariesData, newsData] = await Promise.all([
+  const [globalsData, diariesData] = await Promise.all([
     getSiteGlobals(),
-    getSharehouseProjects({ limit: 3 }),
-    getSharehouseArticles('diary', { limit: 5 }),
-    getSharehouseArticles('news', { limit: 3 })
+    getSharehouseArticles('diary', { limit: 5 })
   ]);
 
   // --- データのマッピングとフォールバック ---
@@ -56,10 +48,24 @@ export default async function SharehousePage() {
     { label: "Voices", href: "#voices" },
     { label: "Access", href: "#recruitment" },
   ];
-  const menuItems = rawMenuItems.map((item) => {
-    const isOldEntryForm = item.href === globalsData?.entryFormUrl || /(?:forms\.gle|docs\.google\.com\/forms)/i.test(item.href);
-    return isOldEntryForm ? { ...item, href: '/sharehouse/entry' } : item;
-  });
+  const menuItems = rawMenuItems
+    .filter((item) => {
+      const label = item.label.toLowerCase();
+      const href = item.href.toLowerCase();
+      return !(
+        label.includes('news') || label.includes('latest') || label.includes('project') ||
+        label.includes('join') || href.includes('/news') || href.includes('/projects') ||
+        item.href === globalsData?.entryFormUrl || /(?:forms\.gle|docs\.google\.com\/forms)/i.test(item.href)
+      );
+    })
+    .map((item) => {
+      const label = item.label.toLowerCase();
+      const href = item.href.toLowerCase();
+      if (label.includes('diar') || href.includes('/diaries')) return { ...item, href: '#diaries' };
+      if (label.includes('voice')) return { ...item, href: '#voices' };
+      if (label.includes('information') || label.includes('access')) return { ...item, href: '#recruitment' };
+      return item;
+    });
 
   // コンセプト画像の配列化
   const polaroidImages = Array.isArray(globalsData?.conceptImage)
@@ -78,15 +84,6 @@ export default async function SharehousePage() {
     stickerText: globalsData?.conceptSticker || "Handmade Life!"
   };
 
-  const projects = (projectsData?.contents || []).map((p: SharehouseProject, index: number) => ({
-    id: p.id || String(index + 1),
-    title: p.title,
-    description: p.summary || p.body || "",
-    image: p.mainVisual || { url: "" },
-    status: p.status || "進行中",
-    content: p.body || ""
-  }));
-
   // 日記APIを再利用し、instagramUrlを持つアイテムだけを抽出
   const instagramPosts = (diariesData?.contents || [])
     .filter((d: SharehouseArticle) => d.instagramUrl)
@@ -95,8 +92,6 @@ export default async function SharehousePage() {
       instagramUrl: d.instagramUrl || "",
       title: d.title || ""
     }));
-
-  const news = (newsData?.contents || []);
 
   const voices = (globalsData?.voices || []).map((v: any, index: number) => ({
     ...v, 
@@ -163,12 +158,10 @@ export default async function SharehousePage() {
         joinUsHref={entryFormUrl}
       />
       <ConceptSection {...concept} />
-      <NewsSection articles={news} />
-      <ProjectList projects={projects} limit={3} />
       <InstagramFeed posts={instagramPosts} limit={5} />
       <VoiceList voices={voices} />
       <RecruitmentSection items={recruitment} />
-      <CTASection entryFormUrl={entryFormUrl} />
+      <CTASection entryFormUrl={entryFormUrl} instagramUrl={globalsData?.instagramUrl} />
     </div>
   );
 }
