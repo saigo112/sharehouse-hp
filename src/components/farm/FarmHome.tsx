@@ -61,6 +61,8 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
   const heroImage = Array.isArray(globals?.farmHeroImage) ? globals.farmHeroImage[0]?.url : globals?.farmHeroImage?.url;
   const lifeImage = Array.isArray(globals?.farmLifeImage) ? globals.farmLifeImage[0]?.url : globals?.farmLifeImage?.url;
   const heroTitle = globals?.farmHeroTitle || "暮らしを、\nみんなでつくる。";
+  const formattedHeroTitle = heroTitle.replace(/。\s*(?=\S)/g, "。\n");
+  const mobileHeroTitle = formattedHeroTitle.replace(/、\s*(?=\S)/g, "、\n");
   const currentProjects = projects.length ? projects : projectFallbackTitles.map((title, index) => ({ id: title, title, summary: ["手をかけ、育て、分け合う。", "里山の営みを暮らしにつなげる。", "土地にあるものから考える。", "命をいただき、味わい尽くす。"][index % 4] }));
 
   return (
@@ -84,7 +86,10 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/30" />
         <div className="relative mx-auto w-full max-w-7xl text-white">
           <p className="mb-6 font-hand text-lg tracking-wide md:text-xl">KAMIGORI, HYOGO</p>
-          <h1 className="whitespace-pre-line font-headline text-[clamp(3rem,8vw,7.25rem)] font-black leading-[0.95] tracking-[-0.05em] drop-shadow-lg">{heroTitle}</h1>
+          <h1 className="max-w-[22rem] whitespace-pre-line font-headline text-[clamp(2.5rem,11vw,3rem)] font-black leading-[1.12] tracking-[-0.035em] drop-shadow-lg sm:max-w-xl md:max-w-none md:text-[clamp(4.5rem,6vw,6.5rem)] md:leading-[1.08] md:tracking-[-0.04em]">
+            <span className="md:hidden">{mobileHeroTitle}</span>
+            <span className="hidden md:inline">{formattedHeroTitle}</span>
+          </h1>
           <p className="mt-8 max-w-md text-sm leading-8 text-white/90 md:text-base">{globals?.farmHeroSubtitle || "兵庫県上郡町で、人と土地と手しごとをつなぎながら、まだ途中の暮らしを育てています。"}</p>
           <a href="#about" className="mt-10 inline-flex items-center gap-3 text-xs font-bold tracking-widest"><span className="h-px w-12 bg-white" />SCROLL TO DISCOVER</a>
         </div>
