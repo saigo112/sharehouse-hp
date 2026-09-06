@@ -18,7 +18,7 @@ export const VoiceCard: React.FC<VoiceCardProps> = ({
   marginClass = '',
 }) => {
   return (
-    <div className={`relative group ${marginClass}`}>
+    <div className={`relative group h-full ${marginClass}`}>
       {/* Washi tape decoration */}
       <div
         className="absolute -top-3 left-1/3 w-20 h-7 bg-secondary/15 z-20 pointer-events-none"
@@ -26,10 +26,10 @@ export const VoiceCard: React.FC<VoiceCardProps> = ({
       />
 
       <div
-        className={`bg-white p-5 pb-16 shadow-xl ${rotate} transition-transform duration-500 relative z-10`}
+        className={`relative z-10 h-full bg-white p-5 pb-14 shadow-xl transition-transform duration-500 md:min-h-[24rem] md:p-7 md:pb-14 ${rotate}`}
       >
         {/* Portrait photo */}
-        <div className="relative w-24 h-24 mb-5 flex-shrink-0">
+        <div className="relative w-24 h-24 mb-5 flex-shrink-0 md:h-28 md:w-28">
           {voice.image?.url ? (
             <Image
               src={voice.image.url}

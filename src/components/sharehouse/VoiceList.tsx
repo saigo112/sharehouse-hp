@@ -50,11 +50,11 @@ export const VoiceList: React.FC<VoiceListProps> = ({ voices }) => {
         </div>
 
         {/* Cards grid with staggered layout / Scrollable on mobile */}
-        <div className="flex md:grid overflow-x-auto md:overflow-visible pb-16 md:pb-0 gap-8 md:gap-12 lg:gap-16 items-start snap-x snap-mandatory no-scrollbar">
+        <div className="flex md:grid md:grid-cols-2 xl:grid-cols-3 overflow-x-auto md:overflow-visible pb-16 md:pb-0 gap-8 md:gap-8 lg:gap-10 items-stretch snap-x snap-mandatory no-scrollbar">
           {voices.map((voice, index) => {
             const style = cardStyles[index % cardStyles.length];
             return (
-              <div key={voice.id || index} className="shrink-0 w-[85%] md:w-auto snap-center">
+              <div key={voice.id || index} className="h-full shrink-0 w-[85%] md:w-auto snap-center">
                 <VoiceCard
                   voice={voice}
                   rotate={style.rotate}
