@@ -39,6 +39,7 @@ export type SharehouseSiteGlobals = {
   conceptSticker?: string;
   conceptDetailTitle?: string;
   conceptDetail?: string;
+  conceptRichText?: string;
   voices?: {
     fieldId: "voice";
     name: string;

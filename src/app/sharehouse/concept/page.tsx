@@ -9,11 +9,16 @@ export const metadata: Metadata = {
   description: 'アルデルハウスが大切にしている想いや、暮らしのコンセプトを詳しくご紹介します。',
 };
 
+// microCMSで公開した内容を、再デプロイを待たずに毎回取得する。
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 export default async function ConceptDetailPage() {
   const { isEnabled } = draftMode();
   const data = await getSiteGlobals({ preview: isEnabled });
 
-  const richText = data?.conceptDetail || '';
+  // `conceptDetail` を正式フィールドとし、旧フィールド名も移行期間中は表示する。
+  const richText = data?.conceptDetail || data?.conceptRichText || '';
 
   return (
     <div className="min-h-screen bg-background text-on-surface font-body px-6 py-12 md:py-24">
