@@ -104,7 +104,12 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
               </aside>
             </div>
 
-            <ProgramChoiceBuilder programKey={program.slug || program.id} />
+            <ProgramChoiceBuilder
+              programKey={program.slug || program.id}
+              choiceHeading={program.choiceHeading}
+              choiceIntroduction={program.choiceIntroduction}
+              choiceOptions={program.choiceOptions}
+            />
 
             {program.gallery && program.gallery.length > 1 && (
               <section className="mt-16 md:mt-24">

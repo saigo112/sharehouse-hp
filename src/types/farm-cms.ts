@@ -55,8 +55,17 @@ export type FarmProgram = {
   target?: string;
   scheduleNote?: string;
   participationNotes?: string;
+  choiceHeading?: string;
+  choiceIntroduction?: string;
+  choiceOptions?: FarmProgramChoiceOption[];
   sort_order?: number;
 } & Partial<MicroCMSDate>;
+
+export type FarmProgramChoiceOption = {
+  fieldId?: string;
+  title?: string;
+  description?: string;
+};
 
 export type FarmPerson = {
   id: string;

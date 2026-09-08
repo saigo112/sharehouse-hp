@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import type { FarmProgramChoiceOption } from "@/types/farm-cms";
 
 type Choice = { id: string; title: string; description: string };
 type ScheduleItem = { label: string; text: string };
@@ -94,11 +95,26 @@ const aliases: Record<string, string> = {
   "nms1emdyc3": "join-daily-life",
 };
 
-export function ProgramChoiceBuilder({ programKey }: { programKey: string }) {
+type ProgramChoiceBuilderProps = {
+  programKey: string;
+  choiceHeading?: string;
+  choiceIntroduction?: string;
+  choiceOptions?: FarmProgramChoiceOption[];
+};
+
+export function ProgramChoiceBuilder({ programKey, choiceHeading, choiceIntroduction, choiceOptions }: ProgramChoiceBuilderProps) {
   const key = aliases[programKey] || programKey;
   const config = configs[key];
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const selected = useMemo(() => config?.choices.filter((choice) => selectedIds.includes(choice.id)) || [], [config, selectedIds]);
+  const cmsChoices = useMemo(() => (choiceOptions || [])
+    .filter((choice): choice is FarmProgramChoiceOption & { title: string } => Boolean(choice.title?.trim()))
+    .map((choice, index) => ({
+      id: `cms-${index}`,
+      title: choice.title.trim(),
+      description: choice.description?.trim() || "詳しい内容は事前に相談して決めます。",
+    })), [choiceOptions]);
+  const choices = cmsChoices.length > 0 ? cmsChoices : config?.choices || [];
+  const selected = useMemo(() => choices.filter((choice) => selectedIds.includes(choice.id)), [choices, selectedIds]);
 
   if (!config) return null;
 
@@ -112,11 +128,11 @@ export function ProgramChoiceBuilder({ programKey }: { programKey: string }) {
   return (
     <section className="mt-16 border-t border-stone-300 pt-12 md:mt-24 md:pt-16">
       <p className="font-hand text-primary">Build your plan</p>
-      <h2 className="mt-3 font-headline text-2xl font-black md:text-4xl">{config.heading}</h2>
-      <p className="mt-5 max-w-3xl text-sm leading-8 text-on-surface-variant">{config.introduction}</p>
+      <h2 className="mt-3 font-headline text-2xl font-black md:text-4xl">{choiceHeading?.trim() || config.heading}</h2>
+      <p className="mt-5 max-w-3xl text-sm leading-8 text-on-surface-variant">{choiceIntroduction?.trim() || config.introduction}</p>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {config.choices.map((choice) => {
+        {choices.map((choice) => {
           const isSelected = selectedIds.includes(choice.id);
           return (
             <button key={choice.id} type="button" aria-pressed={isSelected} onClick={() => toggle(choice.id)} className={`rounded-2xl border p-5 text-left transition-colors ${isSelected ? "border-primary bg-primary text-white" : "border-stone-300 bg-[#fbf9f6] hover:border-primary"}`}>
