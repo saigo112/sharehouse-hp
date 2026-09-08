@@ -37,11 +37,19 @@ Vercel の「Project Settings」→「Environment Variables」に、用途に応
 - `NEXT_PUBLIC_LINE_OFFICIAL_ID`: LINE公式アカウントID
 - `NEXT_PUBLIC_LINE_OFFICIAL_URL`: LINE友だち追加URL
 - `NEXT_PUBLIC_GOOGLE_CALENDAR_EMBED_URL`: 公開カレンダーの埋め込みURL
+- `SCHEDULE_ADMIN_PASSWORD`: `/schedule/manage` のスタッフ共有パスワード
+- `SCHEDULE_ADMIN_SESSION_SECRET`: ログインCookieの署名用ランダム文字列
+- `GOOGLE_CALENDAR_SERVICE_ACCOUNT_EMAIL`: Calendar API用サービスアカウントのメールアドレス
+- `GOOGLE_CALENDAR_PRIVATE_KEY`: サービスアカウントJSONキーの `private_key`
+- `GOOGLE_CALENDAR_ID`: 書き込み先カレンダーID（埋め込みURLと同じ場合は省略可）
 
 既存構成との互換用に、`MICROCMS_SERVICE_DOMAIN` と `MICROCMS_API_KEY` も利用できます。
 ただし、新規設定では `MICROCMS_SHAREHOUSE_*` を使用します。
 
 `.env.local` はパソコン内だけで使用する秘密情報を含むため、GitHubには送信しません。
+
+Googleカレンダーの更新権限とスタッフ画面の初期設定は、
+`docs/plans/SCHEDULE_ADMIN_SETUP.md` の手順に沿って行います。
 
 ## 3. microCMS Webhook の連携（自動更新）
 
