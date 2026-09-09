@@ -9,6 +9,83 @@ const kinds: Array<{ value: ScheduleAdminInput["kind"]; label: string; help: str
   { value: "workstay", label: "住み込み募集", help: "住み込みで手伝ってもらう募集期間" },
 ];
 
+const detailTemplates: Record<ScheduleAdminInput["kind"], Array<{ id: string; label: string; content: string }>> = {
+  availability: [
+    {
+      id: "stay",
+      label: "宿泊受付",
+      content: `受け入れ内容：
+宿泊できる期間：
+受け入れ人数：
+食事：
+持ち物：
+申込期限：
+その他：`,
+    },
+    {
+      id: "visit",
+      label: "見学・体験受付",
+      content: `相談できる内容：
+当日の流れ：
+所要時間：
+持ち物：
+申込期限：
+その他：`,
+    },
+  ],
+  event: [
+    {
+      id: "experience-event",
+      label: "体験イベント",
+      content: `イベント内容：
+対象：
+定員：
+参加費：
+持ち物：
+申込期限：
+雨天時：
+その他：`,
+    },
+    {
+      id: "gathering",
+      label: "交流会・集まり",
+      content: `内容：
+対象：
+定員：
+参加費：
+持ち物：
+申込期限：
+その他：`,
+    },
+  ],
+  workstay: [
+    {
+      id: "live-in",
+      label: "住み込み募集",
+      content: `主な作業：
+滞在期間：
+募集人数：
+宿泊・食事：
+参加条件：
+持ち物：
+申込期限：
+その他：`,
+    },
+    {
+      id: "short-help",
+      label: "短期のお手伝い募集",
+      content: `主な作業：
+作業時間：
+募集人数：
+宿泊：
+食事：
+持ち物：
+参加条件：
+その他：`,
+    },
+  ],
+};
+
 function localDate() {
   return new Intl.DateTimeFormat("en-CA", {
     year: "numeric",
@@ -47,6 +124,7 @@ export function ScheduleManager() {
   const [password, setPassword] = useState("");
   const [events, setEvents] = useState<ScheduleAdminEvent[]>([]);
   const [form, setForm] = useState<ScheduleAdminInput>(blankForm);
+  const [templateId, setTemplateId] = useState(detailTemplates.availability[0].id);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -77,6 +155,19 @@ export function ScheduleManager() {
   }, [loadEvents]);
 
   const selectedKind = useMemo(() => kinds.find((kind) => kind.value === form.kind)!, [form.kind]);
+  const availableTemplates = detailTemplates[form.kind];
+
+  function changeKind(kind: ScheduleAdminInput["kind"]) {
+    update("kind", kind);
+    setTemplateId(detailTemplates[kind][0].id);
+  }
+
+  function applyDetailTemplate() {
+    const template = availableTemplates.find((item) => item.id === templateId);
+    if (!template) return;
+    if (form.description?.trim() && !window.confirm("現在入力されている詳しい内容を、選んだ定型文に置き換えますか？")) return;
+    update("description", template.content);
+  }
 
   async function login(event: FormEvent) {
     event.preventDefault();
@@ -107,6 +198,7 @@ export function ScheduleManager() {
 
   function resetForm() {
     setForm(blankForm());
+    setTemplateId(detailTemplates.availability[0].id);
     setEditingId(null);
     setError("");
   }
@@ -114,6 +206,7 @@ export function ScheduleManager() {
   function beginEdit(event: ScheduleAdminEvent) {
     const { id, htmlLink, ...input } = event;
     setForm(input);
+    setTemplateId(detailTemplates[event.kind][0].id);
     setEditingId(id);
     setMessage("");
     setError("");
@@ -192,7 +285,7 @@ export function ScheduleManager() {
             <div className="mt-3 grid gap-3 sm:grid-cols-3">
               {kinds.map((kind) => (
                 <label key={kind.value} className={`cursor-pointer rounded-2xl border p-4 transition-colors ${form.kind === kind.value ? "border-primary bg-[#f3f6ea] ring-1 ring-primary" : "border-stone-300"}`}>
-                  <input type="radio" name="kind" value={kind.value} checked={form.kind === kind.value} onChange={() => update("kind", kind.value)} className="sr-only" />
+                  <input type="radio" name="kind" value={kind.value} checked={form.kind === kind.value} onChange={() => changeKind(kind.value)} className="sr-only" />
                   <span className="block text-sm font-black">{kind.label}</span><span className="mt-2 block text-xs leading-5 text-on-surface-variant">{kind.help}</span>
                 </label>
               ))}
@@ -217,7 +310,17 @@ export function ScheduleManager() {
 
           <div>
             <label htmlFor="schedule-description" className="text-sm font-black">4. HPに載せる詳しい内容</label>
-            <textarea id="schedule-description" rows={6} value={form.description} onChange={(event) => update("description", event.target.value)} placeholder={form.kind === "event" ? "内容、定員、参加費、持ち物、申込期限など" : form.kind === "workstay" ? "作業内容、宿泊・食事、募集人数、参加条件など" : "受け付けできる内容や注意事項など"} className="mt-2 w-full rounded-xl border border-stone-400 px-4 py-3 text-sm leading-7 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+            <div className="mt-3 rounded-2xl border border-stone-300 bg-surface-container-low p-4">
+              <label htmlFor="detail-template" className="block text-xs font-black">定型文を選ぶ</label>
+              <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                <select id="detail-template" value={templateId} onChange={(event) => setTemplateId(event.target.value)} className="min-w-0 flex-1 rounded-xl border border-stone-400 bg-white px-3 py-3 text-sm font-bold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                  {availableTemplates.map((template) => <option key={template.id} value={template.id}>{template.label}</option>)}
+                </select>
+                <button type="button" onClick={applyDetailTemplate} className="rounded-full bg-[#433d35] px-5 py-3 text-xs font-black text-white">この定型文を入れる</button>
+              </div>
+              <p className="mt-2 text-xs leading-5 text-on-surface-variant">定型文を入れたあと、各項目の「：」の後ろへ内容を入力してください。</p>
+            </div>
+            <textarea id="schedule-description" rows={9} value={form.description} onChange={(event) => update("description", event.target.value)} placeholder={form.kind === "event" ? "内容、定員、参加費、持ち物、申込期限など" : form.kind === "workstay" ? "作業内容、宿泊・食事、募集人数、参加条件など" : "受け付けできる内容や注意事項など"} className="mt-2 w-full rounded-xl border border-stone-400 px-4 py-3 text-sm leading-7 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
             <p className="mt-2 text-xs font-bold text-red-700">氏名、電話番号、住所などの個人情報は入力しないでください。</p>
           </div>
 
