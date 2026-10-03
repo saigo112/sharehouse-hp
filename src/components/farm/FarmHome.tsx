@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { FarmArticle, FarmPerson, FarmProject, FarmSiteGlobals } from "@/types/farm-cms";
 import type { FarmCalendarEvent } from "@/libs/google-calendar";
+import { getLineOfficialUrl } from "@/libs/line-official";
 
 const HERO_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
 const LIFE_FALLBACK = "/images/life-made-by-many-hands.jpg";
@@ -13,13 +14,6 @@ type FarmHomeProps = {
   people: FarmPerson[];
   upcomingEvents: FarmCalendarEvent[];
 };
-
-const ways = [
-  { number: "01", title: "知る・相談する", text: "土地と人を知り、気になることを相談する。", detail: "上郡町・ALDEL FARM・相談窓口", href: "/about" },
-  { number: "02", title: "体験する", text: "季節の農や食、手を動かす時間にふれる。", detail: "田畑・鶏・山・古民家・食", href: "/programs" },
-  { number: "03", title: "暮らす", text: "この土地の日常に、もう少し深く滞在する。", detail: "アルデルハウス・中長期滞在", href: "/sharehouse" },
-  { number: "04", title: "お米を買う", text: "ALDEL FARMで育てたお米を、オンラインで購入する。", detail: "オンラインショップ", href: "https://aldel08.square.site/" },
-];
 
 const lifePractices = [
   { title: "育てる", text: "田畑で米や野菜を育て、鶏と暮らす。" },
@@ -58,6 +52,13 @@ function eventSummary(event: FarmCalendarEvent) {
 }
 
 export function FarmHome({ globals, articles, projects, people, upcomingEvents }: FarmHomeProps) {
+  const lineOfficialUrl = getLineOfficialUrl(globals);
+  const ways = [
+    { number: "01", title: "知る・相談する", text: "土地と人を知り、気になることを相談する。", detail: "上郡町・ALDEL FARM・相談窓口", href: "/about" },
+    { number: "02", title: "体験する", text: "季節の農や食、手を動かす時間にふれる。", detail: "田畑・鶏・山・古民家・食", href: "/programs" },
+    { number: "03", title: "暮らす", text: "この土地の日常に、もう少し深く滞在する。", detail: "アルデルハウス・中長期滞在", href: "/sharehouse" },
+    { number: "04", title: "お米を買う", text: "ご購入・お問い合わせはLINE公式アカウントへ。友だち追加後、トーク画面下の「お米を買う」からフォームをご入力ください。", detail: "公式LINEへ", href: lineOfficialUrl },
+  ];
   const heroImage = Array.isArray(globals?.farmHeroImage) ? globals.farmHeroImage[0]?.url : globals?.farmHeroImage?.url;
   const lifeImage = Array.isArray(globals?.farmLifeImage) ? globals.farmLifeImage[0]?.url : globals?.farmLifeImage?.url;
   const heroTitle = globals?.farmHeroTitle || "暮らしを、\nみんなでつくる。";
@@ -182,7 +183,7 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
 
       <section className="relative overflow-hidden px-5 py-24 text-white md:px-10 md:py-36" id="contact"><div className="absolute inset-0 bg-stone-700">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={CTA_FALLBACK} alt="上郡町の夕暮れ" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-[#3c2c20]/65" /></div><div className="relative mx-auto max-w-4xl text-center"><p className="font-hand text-[#febe4e]">Let&apos;s start with a conversation.</p><h2 className="mt-5 font-headline text-3xl font-black leading-tight md:text-5xl">ここでの暮らしを、<br />のぞいてみませんか。</h2><p className="mx-auto mt-7 max-w-lg text-sm leading-7 text-white/80">土地や暮らしのことを読みながら、気になったことをそのまま相談できます。</p><Link href="/about#contact" className="mt-10 inline-flex rounded-full bg-secondary-container px-7 py-4 text-sm font-black text-on-secondary-container transition-transform hover:scale-105">知る・相談する <span className="ml-3">→</span></Link></div></section>
 
-      <footer className="bg-[#2d2a26] px-5 py-10 text-white/70 md:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><p className="font-headline text-sm font-black tracking-[0.15em] text-white">ALDEL FARM</p><div className="flex flex-wrap gap-5 text-xs"><Link href="/about" className="hover:text-white">知る・相談する</Link><Link href="/sharehouse" className="hover:text-white">アルデルハウス</Link><a href="https://aldel08.square.site/" target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う</a><a href={globals?.instagramUrl || "#"} className="hover:text-white">Instagram</a></div><p className="text-xs">© {new Date().getFullYear()} ALDEL FARM</p></div></footer>
+      <footer className="bg-[#2d2a26] px-5 py-10 text-white/70 md:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><p className="font-headline text-sm font-black tracking-[0.15em] text-white">ALDEL FARM</p><div className="flex flex-wrap gap-5 text-xs"><Link href="/about" className="hover:text-white">知る・相談する</Link><Link href="/sharehouse" className="hover:text-white">アルデルハウス</Link><a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う（公式LINE）</a><a href={globals?.instagramUrl || "#"} className="hover:text-white">Instagram</a></div><p className="text-xs">© {new Date().getFullYear()} ALDEL FARM</p></div></footer>
     </main>
   );
 }
