@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getFarmSiteGlobals } from "@/libs/farm-microcms";
+import { getLineOfficialUrl } from "@/libs/line-official";
 
 export function FarmPageHeader() {
   return (
@@ -20,7 +22,8 @@ export function FarmPageHeader() {
   );
 }
 
-export function FarmPageFooter() {
+export async function FarmPageFooter() {
+  const lineOfficialUrl = getLineOfficialUrl(await getFarmSiteGlobals());
   return (
     <footer className="bg-[#2d2a26] px-5 py-10 text-white/70 md:px-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -30,7 +33,7 @@ export function FarmPageFooter() {
           <Link href="/stories" className="hover:text-white">日々の暮らし</Link>
           <Link href="/schedule" className="hover:text-white">日程を見る</Link>
           <Link href="/sharehouse" className="hover:text-white">アルデルハウス</Link>
-          <a href="https://aldel08.square.site/" target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う</a>
+          <a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う（公式LINE）</a>
         </div>
         <p className="text-xs">© {new Date().getFullYear()} ALDEL FARM</p>
       </div>
