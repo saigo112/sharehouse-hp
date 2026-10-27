@@ -4,6 +4,9 @@ import type { FarmCalendarEvent } from "@/libs/google-calendar";
 import { getLineOfficialUrl } from "@/libs/line-official";
 
 const HERO_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
+// Set to true when the homepage stories section is ready to publish.
+const SHOW_STORIES_SECTION = false;
+
 const LIFE_FALLBACK = "/images/life-made-by-many-hands.jpg";
 const CTA_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDyYKHcRfDIXuE-y03ZplImevO5CjsqB093TLKRVURstpztDpk6-ZlEZWM-NJazzFwkEUUtq7Cq0MHf-UVO9e_IOoTRXKQKy8nIJWl39x8erJQ7Dk8hIbmP0r-F0vhMXYqHDd6GIRl7hz7KVZOS5DiOy71j5bfQAnK4X8hy69-KwmnicNdlnVaCLkaOAEw6p1_o_AtpI-VmBtPqobRj0O22cwHPsP9Y0FhuNq2LmAiACQBYIMQVjbvoUcKzApBBMljJsfIBR5C9niwP";
 
@@ -61,7 +64,7 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
   ];
   const heroImage = Array.isArray(globals?.farmHeroImage) ? globals.farmHeroImage[0]?.url : globals?.farmHeroImage?.url;
   const lifeImage = Array.isArray(globals?.farmLifeImage) ? globals.farmLifeImage[0]?.url : globals?.farmLifeImage?.url;
-  const heroTitle = globals?.farmHeroTitle || "暮らしを、\nみんなでつくる。";
+  const heroTitle = globals?.farmHeroTitle || "あるもんで、つくる。\nでるもんで、まわす。";
   const formattedHeroTitle = heroTitle.replace(/。\s*(?=\S)/g, "。\n");
   const mobileHeroTitle = formattedHeroTitle.replace(/、\s*(?=\S)/g, "、\n");
   const currentProjects = projects.length ? projects : projectFallbackTitles.map((title, index) => ({ id: title, title, summary: ["手をかけ、育て、分け合う。", "里山の営みを暮らしにつなげる。", "土地にあるものから考える。", "命をいただき、味わい尽くす。"][index % 4] }));
@@ -91,7 +94,7 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
             <span className="md:hidden">{mobileHeroTitle}</span>
             <span className="hidden md:inline">{formattedHeroTitle}</span>
           </h1>
-          <p className="mt-8 max-w-md text-sm leading-8 text-white/90 md:text-base">{globals?.farmHeroSubtitle || "兵庫県上郡町で、人と土地と手しごとをつなぎながら、まだ途中の暮らしを育てています。"}</p>
+          <p className="mt-8 max-w-md text-sm leading-8 text-white/90 md:text-base">{globals?.farmHeroSubtitle || "田んぼを耕し、古い家を直し、受け継がれた知恵を生かす。ここにあるものを大切にしながら、人と人がつながる暮らしを育んでいます。"}</p>
           <a href="#about" className="mt-10 inline-flex items-center gap-3 text-xs font-bold tracking-widest"><span className="h-px w-12 bg-white" />SCROLL TO DISCOVER</a>
         </div>
       </section>
@@ -177,7 +180,7 @@ export function FarmHome({ globals, articles, projects, people, upcomingEvents }
         </div>
       </section>
 
-      <section id="stories" className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-36"><div className="flex items-end justify-between gap-6"><div><p className="font-hand text-primary">Stories</p><h2 className="mt-3 font-headline text-3xl font-black md:text-5xl">暮らしの記録。</h2></div><Link href="/stories" className="hidden text-xs font-bold text-on-surface-variant hover:text-primary md:block">すべての記録を見る →</Link></div>{articles.length ? <div className="mt-12 grid gap-8 md:grid-cols-3">{articles.map((article) => <Link href={`/stories/${article.id}`} key={article.id} className="group border-t border-stone-300 pt-5"><p className="text-xs text-primary">{formatDate(article.publishedAt)}</p><h3 className="mt-5 font-headline text-xl font-black leading-snug group-hover:text-primary">{article.title}</h3><p className="mt-4 text-sm leading-7 text-on-surface-variant">{article.summary || "この土地で育つ、日々の営みを記録しています。"}</p></Link>)}</div> : <div className="mt-12"><p className="max-w-xl border-l-2 border-secondary-container pl-5 text-sm leading-7 text-on-surface-variant">田植え、古民家の手入れ、食を仕込む日。ALDEL FARMの日常の記録は、これからここに積み重なっていきます。</p><Link href="/stories" className="mt-7 inline-flex text-sm font-bold text-primary">日々の暮らしについて →</Link></div>}</section>
+      {SHOW_STORIES_SECTION && <section id="stories" className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-36"><div className="flex items-end justify-between gap-6"><div><p className="font-hand text-primary">Stories</p><h2 className="mt-3 font-headline text-3xl font-black md:text-5xl">暮らしの記録。</h2></div><Link href="/stories" className="hidden text-xs font-bold text-on-surface-variant hover:text-primary md:block">すべての記録を見る →</Link></div>{articles.length ? <div className="mt-12 grid gap-8 md:grid-cols-3">{articles.map((article) => <Link href={`/stories/${article.id}`} key={article.id} className="group border-t border-stone-300 pt-5"><p className="text-xs text-primary">{formatDate(article.publishedAt)}</p><h3 className="mt-5 font-headline text-xl font-black leading-snug group-hover:text-primary">{article.title}</h3><p className="mt-4 text-sm leading-7 text-on-surface-variant">{article.summary || "この土地で育つ、日々の営みを記録しています。"}</p></Link>)}</div> : <div className="mt-12"><p className="max-w-xl border-l-2 border-secondary-container pl-5 text-sm leading-7 text-on-surface-variant">田植え、古民家の手入れ、食を仕込む日。ALDEL FARMの日常の記録は、これからここに積み重なっていきます。</p><Link href="/stories" className="mt-7 inline-flex text-sm font-bold text-primary">日々の暮らしについて →</Link></div>}</section>}
 
       {(projects.length > 0 || people.length > 0) && <section className="bg-surface-container-low px-5 py-20 md:px-10 md:py-28"><div className="mx-auto max-w-7xl"><p className="font-hand text-primary">People & projects</p><div className="mt-8 grid gap-8 md:grid-cols-2"><div><h2 className="font-headline text-2xl font-black">手をかけていること</h2><div className="mt-6 flex flex-wrap gap-2">{currentProjects.slice(0, 8).map((project) => <span key={project.id} className="rounded-full border border-outline-variant/50 px-4 py-2 text-sm">{project.title}</span>)}</div></div>{people.length > 0 && <div><h2 className="font-headline text-2xl font-black">この場所に関わる人</h2><div className="mt-6 space-y-3">{people.slice(0, 3).map((person) => <p key={person.id} className="border-b border-stone-300 pb-3 text-sm"><strong>{person.name}</strong>{person.role ? ` — ${person.role}` : ""}</p>)}</div></div>}</div></div></section>}
 
