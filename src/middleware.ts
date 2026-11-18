@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === "/sharehouse/entry") {
-    return new NextResponse(null, { status: 307, headers: { Location: "/sharehouse#visit" } });
+    return NextResponse.redirect(new URL("/sharehouse#visit", request.url));
   }
 
   if (request.nextUrl.pathname === "/schedule/manage") {
