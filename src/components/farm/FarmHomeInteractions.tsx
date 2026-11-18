@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 const sections = [
-  ["#philosophy", "私の原点"],
-  ["#story", "私とお米の物語"],
+  ["#philosophy", "私たちの原点"],
+  ["#story", "私たちとお米の物語"],
   ["#kanahe", "金瓮米"],
   ["#life", "日々の記録"],
   ["#community", "暮らしと仲間"],
