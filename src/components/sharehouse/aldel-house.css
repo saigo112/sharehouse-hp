@@ -227,35 +227,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 48%;
-  filter: saturate(0.66) contrast(0.93) brightness(0.83);
-}
-.aldel-house .hero-art:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 56%, rgba(15, 26, 16, 0.63));
-}
-.aldel-house .art-caption {
-  position: absolute;
-  bottom: 26px;
-  left: 32px;
-  right: 32px;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  color: #fcf8ed;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  gap: 18px;
-}
-.aldel-house .art-caption .serif {
-  font-size: 16px;
-}
-.aldel-house .art-caption .small {
-  color: #eeebdf;
-  font-size: 10px;
+  object-position: center 60%;
 }
 .aldel-house .motto {
   background: var(--green);
@@ -850,11 +822,7 @@
     height: 62svh;
     max-height: 640px;
   }
-  .aldel-house .art-caption {
-    left: 20px;
-    right: 20px;
-  }
-  .aldel-house .motto {
+    .aldel-house .motto {
     padding: 32px 0;
   }
   .aldel-house .motto-inner {
@@ -1020,10 +988,7 @@
   .aldel-house .hero h1 {
     font-size: 36px;
   }
-  .aldel-house .art-caption .small {
-    display: none;
-  }
-  .aldel-house .gallery {
+    .aldel-house .gallery {
     grid-template-rows: 230px 150px;
   }
   .aldel-house .pillar h3 {
@@ -1038,19 +1003,6 @@
   }
 }
 
-.aldel-house .hero-panel {
-  display: grid;
-  place-items: center;
-  min-height: 18rem;
-  padding: 3rem 1.5rem;
-  background: var(--forest, #263b31);
-  color: #fffdfa;
-  text-align: center;
-}
-.aldel-house .hero-panel p {
-  font-size: clamp(1.5rem, 3vw, 2.8rem);
-  line-height: 1.8;
-}
 .aldel-house footer nav {
   display: flex;
   flex-wrap: wrap;

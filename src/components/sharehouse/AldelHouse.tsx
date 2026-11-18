@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HouseNavigation } from "./HouseNavigation";
 import "./aldel-house.css";
@@ -25,12 +26,14 @@ function HouseIntroduction() {
             </a>
           </div>
         </div>
-        <div className="hero-panel">
-          <p className="serif">
-            あるもんで、つくる。
-            <br />
-            でるもんで、まわす。
-          </p>
+        <div className="hero-art">
+          <Image
+            src="/images/aldel-house-hero.jpg"
+            alt="アルデルハウスの古民家の前に並ぶ６人"
+            fill
+            priority
+            sizes="(max-width: 760px) 100vw, 49vw"
+          />
         </div>
       </section>
       <section className="motto">
