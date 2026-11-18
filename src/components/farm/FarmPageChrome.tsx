@@ -13,8 +13,8 @@ export function FarmPageHeader() {
         <div className="flex items-center gap-4 text-xs font-bold md:gap-7">
           <Link href="/about" className="transition-opacity hover:opacity-60">知る・相談する</Link>
           <Link href="/stories" className="hidden transition-opacity hover:opacity-60 sm:inline">日々の暮らし</Link>
-          <Link href="/programs" className="hidden transition-opacity hover:opacity-60 md:inline">体験する</Link>
-          <Link href="/schedule" className="hidden transition-opacity hover:opacity-60 lg:inline">日程を見る</Link>
+
+
           <Link href="/sharehouse" className="rounded-full border border-white/60 px-4 py-2 transition-colors hover:bg-white hover:text-primary">暮らす</Link>
         </div>
       </nav>
@@ -31,7 +31,7 @@ export async function FarmPageFooter() {
         <div className="flex flex-wrap gap-5 text-xs">
           <Link href="/about" className="hover:text-white">知る・相談する</Link>
           <Link href="/stories" className="hover:text-white">日々の暮らし</Link>
-          <Link href="/schedule" className="hover:text-white">日程を見る</Link>
+
           <Link href="/sharehouse" className="hover:text-white">アルデルハウス</Link>
           <a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う（公式LINE）</a>
         </div>

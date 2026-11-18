@@ -36,7 +36,7 @@ export default function AldelFarmPage() {
       <FarmPageHero
         eyebrow="About ALDEL FARM"
         title="農・食・住まいを、ひとつの暮らしとして育てる。"
-        lead="ALDEL FARMは、兵庫県上郡町で、米や卵の生産・販売、シェアハウスや民泊、人を迎える体験づくりに取り組んでいます。"
+        lead="ALDEL FARMは、兵庫県上郡町で、米や卵の生産・販売、シェアハウスを通じた暮らしづくりに取り組んでいます。"
       />
 
       <section className="px-5 py-10 md:px-10">
@@ -71,7 +71,7 @@ export default function AldelFarmPage() {
       <section className="bg-[#433d35] px-5 py-16 text-white md:px-10 md:py-24">
         <div className="mx-auto flex max-w-5xl flex-col justify-between gap-8 md:flex-row md:items-center">
           <div><p className="font-hand text-[#febe4e]">Take part</p><h2 className="mt-2 font-headline text-3xl font-black">手を動かしてみたいと思ったら。</h2></div>
-          <div className="flex flex-wrap gap-3"><Link href="/programs" className="rounded-full bg-secondary-container px-6 py-3.5 text-sm font-black text-on-secondary-container">体験を見る</Link><Link href="/about#contact" className="rounded-full border border-white/60 px-6 py-3.5 text-sm font-black">まずは相談する</Link></div>
+          <div className="flex flex-wrap gap-3"><Link href="/about#contact" className="rounded-full border border-white/60 px-6 py-3.5 text-sm font-black">まずは相談する</Link></div>
         </div>
       </section>
     </FarmPageShell>

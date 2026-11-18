@@ -355,7 +355,7 @@ export function ScheduleManager() {
             </article>
           ))}
         </div>
-        <div className="rounded-2xl bg-[#433d35] p-5 text-white"><p className="text-xs font-black text-[#febe4e]">操作を終えたら</p><div className="mt-3 flex flex-wrap gap-2"><a href="/schedule" target="_blank" className="rounded-full bg-white px-4 py-2 text-xs font-black text-[#433d35]">公開ページを確認 ↗</a><button type="button" onClick={() => void logout()} className="rounded-full border border-white/40 px-4 py-2 text-xs font-black">ログアウト</button></div></div>
+        <div className="rounded-2xl bg-[#433d35] p-5 text-white"><p className="text-xs font-black text-[#febe4e]">操作を終えたら</p><div className="mt-3 flex flex-wrap gap-2"><button type="button" onClick={() => void logout()} className="rounded-full border border-white/40 px-4 py-2 text-xs font-black">ログアウト</button></div></div>
       </aside>
     </div>
   );

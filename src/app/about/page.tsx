@@ -5,7 +5,7 @@ import { getFarmSiteGlobals } from "@/libs/farm-microcms";
 
 export const metadata: Metadata = {
   title: "知る・相談する",
-  description: "上郡町、ALDEL FARM、そこで続く日々の暮らしを知り、見学や体験、滞在について相談できます。",
+  description: "上郡町、ALDEL FARM、そこで続く日々の暮らしを知り、農園での暮らしについて相談できます。",
 };
 
 export const revalidate = 60;
@@ -42,7 +42,7 @@ export default async function AboutPage() {
   const lineOfficialId = process.env.NEXT_PUBLIC_LINE_OFFICIAL_ID || globals?.lineOfficialId || "@844kyxqq";
   const normalizedLineId = lineOfficialId.startsWith("@") ? lineOfficialId : `@${lineOfficialId}`;
   const lineFriendUrl = process.env.NEXT_PUBLIC_LINE_OFFICIAL_URL || globals?.lineOfficialUrl || `https://line.me/R/ti/p/${encodeURIComponent(normalizedLineId)}`;
-  const generalInquiryMessage = "【ALDEL FARM お問い合わせ】\nまだ相談内容が具体的に決まっていません。見学、体験、暮らし、お米などについて相談したいです。";
+  const generalInquiryMessage = "【ALDEL FARM お問い合わせ】\nまだ相談内容が具体的に決まっていません。農園での暮らしやお米などについて相談したいです。";
   const generalInquiryUrl = `https://line.me/R/oaMessage/${encodeURIComponent(normalizedLineId)}/?${encodeURIComponent(generalInquiryMessage)}`;
 
   return (
@@ -50,7 +50,7 @@ export default async function AboutPage() {
       <FarmPageHero
         eyebrow="Know & ask"
         title="この土地と暮らしを知り、気になることを相談する。"
-        lead="ALDEL FARMがある上郡町のこと、私たちのこと、そこで続いている日々の営みのこと。3つの入口から知り、見学、体験、滞在や暮らしについて気になったことを相談できます。"
+        lead="ALDEL FARMがある上郡町のこと、私たちのこと、そこで続いている日々の営みのこと。3つの入口から知り、農園での暮らしについて気になったことを相談できます。"
       />
 
       <section className="px-5 py-16 md:px-10 md:py-28">
@@ -81,16 +81,16 @@ export default async function AboutPage() {
               <p className="font-hand text-[#febe4e]">Ask us</p>
               <h2 className="mt-3 font-headline text-3xl font-black leading-tight md:text-5xl">知ったことから、<br />次の一歩を相談する。</h2>
             </div>
-            <p className="text-sm leading-8 text-white/75 md:col-span-5">{globals?.contactIntroduction || "見学、体験、滞在、上郡町での暮らしについて、まだ具体的に決まっていない段階から相談できます。"}</p>
+            <p className="text-sm leading-8 text-white/75 md:col-span-5">アルデルファームや上郡町での暮らしについて、公式LINEで相談できます。</p>
           </div>
 
           <div className="mt-12 grid gap-px overflow-hidden border border-white/20 bg-white/20 md:grid-cols-2">
             <article className="bg-[#433d35] p-7 md:p-9">
               <p className="text-xs font-bold text-[#febe4e]">LINE</p>
-              <h3 className="mt-4 font-headline text-2xl font-black">日程と内容を相談する</h3>
-              <p className="mt-4 text-sm leading-7 text-white/70">カレンダーを確認し、希望日、人数、気になることをまとめてLINEで送れます。</p>
+              <h3 className="mt-4 font-headline text-2xl font-black">公式LINEで相談する</h3>
+              <p className="mt-4 text-sm leading-7 text-white/70">農園や暮らしについて、気になることをLINEでお送りください。</p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/schedule" className="inline-flex rounded-full bg-secondary-container px-6 py-3.5 text-sm font-black text-on-secondary-container">日程を見て相談する <span className="ml-3">→</span></Link>
+
                 <a href={lineFriendUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-white/50 px-6 py-3.5 text-sm font-black">友だち追加</a>
               </div>
               {globals?.lineQrCode?.url && (
@@ -106,7 +106,7 @@ export default async function AboutPage() {
             <article className="bg-[#433d35] p-7 md:p-9">
               <p className="text-xs font-bold text-[#febe4e]">LINE CHAT</p>
               <h3 className="mt-4 font-headline text-2xl font-black">まだ決まっていないことを相談する</h3>
-              <p className="mt-4 text-sm leading-7 text-white/70">見学、体験、暮らし、お米についてなど、相談内容が具体的に決まっていない段階でもLINEからお問い合わせいただけます。</p>
+              <p className="mt-4 text-sm leading-7 text-white/70">農園での暮らしやお米についてなど、相談内容が具体的に決まっていない段階でもLINEからお問い合わせいただけます。</p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a href={generalInquiryUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full bg-white px-6 py-3.5 text-sm font-black text-[#433d35]">LINEで問い合わせる</a>
                 <a href={lineFriendUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-white/50 px-6 py-3.5 text-sm font-black">友だち追加</a>

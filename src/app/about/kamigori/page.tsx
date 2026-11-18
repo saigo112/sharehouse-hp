@@ -70,7 +70,7 @@ export default function KamigoriPage() {
       <section className="bg-[#433d35] px-5 py-16 text-white md:px-10 md:py-24">
         <div className="mx-auto flex max-w-5xl flex-col justify-between gap-8 md:flex-row md:items-center">
           <div><p className="font-hand text-[#febe4e]">Next</p><h2 className="mt-2 font-headline text-3xl font-black">町を知ったら、暮らしの現場へ。</h2></div>
-          <div className="flex flex-wrap gap-3"><Link href="/about/aldel-farm" className="rounded-full bg-secondary-container px-6 py-3.5 text-sm font-black text-on-secondary-container">ALDEL FARMについて</Link><Link href="/programs" className="rounded-full border border-white/60 px-6 py-3.5 text-sm font-black">体験を見る</Link></div>
+          <div className="flex flex-wrap gap-3"><Link href="/about/aldel-farm" className="rounded-full bg-secondary-container px-6 py-3.5 text-sm font-black text-on-secondary-container">ALDEL FARMについて</Link></div>
         </div>
       </section>
     </FarmPageShell>

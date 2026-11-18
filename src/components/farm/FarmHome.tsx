@@ -444,9 +444,9 @@ function FarmCommunity({ imageUrl }: { imageUrl: string }) {
           </p>
           <div className="community-status">共同サロンは開設準備中です</div>
           <div className="community-links">
-            <Link href="/programs">見学・体験 ↗</Link>
+
             <Link href="/sharehouse">アルデルハウスで暮らす ↗</Link>
-            <Link href="/schedule">活動予定 ↗</Link>
+
           </div>
         </div>
       </div>
