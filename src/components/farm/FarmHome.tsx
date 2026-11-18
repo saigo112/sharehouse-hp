@@ -1,192 +1,528 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import type { FarmArticle, FarmPerson, FarmProject, FarmSiteGlobals } from "@/types/farm-cms";
-import type { FarmCalendarEvent } from "@/libs/google-calendar";
+import type { FarmArticle, FarmSiteGlobals } from "@/types/farm-cms";
 import { getLineOfficialUrl } from "@/libs/line-official";
+import { FarmHomeInteractions, MobileFarmMenu } from "./FarmHomeInteractions";
+import "./farm-home.css";
 
-const HERO_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
-// Set to true when the homepage stories section is ready to publish.
-const SHOW_STORIES_SECTION = false;
+const HERO_FALLBACK =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
 
-const LIFE_FALLBACK = "/images/life-made-by-many-hands.jpg";
-const CTA_FALLBACK = "https://lh3.googleusercontent.com/aida-public/AB6AXuDyYKHcRfDIXuE-y03ZplImevO5CjsqB093TLKRVURstpztDpk6-ZlEZWM-NJazzFwkEUUtq7Cq0MHf-UVO9e_IOoTRXKQKy8nIJWl39x8erJQ7Dk8hIbmP0r-F0vhMXYqHDd6GIRl7hz7KVZOS5DiOy71j5bfQAnK4X8hy69-KwmnicNdlnVaCLkaOAEw6p1_o_AtpI-VmBtPqobRj0O22cwHPsP9Y0FhuNq2LmAiACQBYIMQVjbvoUcKzApBBMljJsfIBR5C9niwP";
+function FarmHeader({ lineUrl }: { lineUrl: string }) {
+  return (
+    <header className="site-header">
+      <div className="header-inner">
+        <a className="brand" href="#top" aria-label="アルデルファーム トップへ">
+          <span className="brand-seal">稲</span>
+          <span>
+            <span className="brand-english">ALDEL FARM</span>
+            <span className="brand-sub">暮らしをつくる、里山の農園</span>
+          </span>
+        </a>
+        <nav className="main-nav" aria-label="メインナビゲーション">
+          <a href="#philosophy">私の原点</a>
+          <a href="#story">私とお米の物語</a>
+          <a href="#kanahe">金瓮米</a>
+          <a href="#life">日々の記録</a>
+          <a href="#community">暮らしと仲間</a>
+          <a
+            className="nav-cta"
+            href={lineUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            お米を注文する ↗
+          </a>
+        </nav>
+        <MobileFarmMenu lineUrl={lineUrl} />
+      </div>
+    </header>
+  );
+}
 
-type FarmHomeProps = {
+function FarmHero({ imageUrl }: { imageUrl: string }) {
+  return (
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-copy">
+        <div className="hero-kicker">ALDEL FARM / OUR LIFE & RICE</div>
+        <h1 id="hero-title" className="serif">
+          <span>生きることを、</span>
+          <span>もっと</span>
+          <span>味わい深く。</span>
+        </h1>
+        <p className="hero-lead">
+          自分の手で暮らしをつくることから、世界の見え方が変わりはじめた。兵庫県上郡町の里山で、お米とともに歩む私の物語です。
+        </p>
+        <div className="hero-actions">
+          <a className="arrow-link" href="#story">
+            <span>私とお米の物語を読む</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a className="arrow-link" href="#kanahe">
+            <span>金瓮米について</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+      <div className="hero-visual">
+        <img src={imageUrl} alt="" />
+        <div className="hero-caption">
+          <span>暮らしをつくる、という選択。</span>
+          <strong>KANAE / HARIMA</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FarmStory() {
+  return (
+    <>
+      <section className="philosophy" id="philosophy">
+        <div className="container philosophy-inner">
+          <div>
+            <div className="philosophy-label">THE WAY WE LIVE</div>
+            <h2 className="serif">
+              あるもんで、つくる。
+              <br />
+              でるもんで、まわす。
+            </h2>
+          </div>
+          <div className="philosophy-copy">
+            <p>
+              私が探していたのは、便利さを捨てた暮らしではありません。
+              <br />
+              当たり前に手にしていたものを、自ら生み出す経験のなかで、生きることをもっと深く味わってみたかったのです。
+            </p>
+            <p>
+              この土地で受け取った知恵や道具、人とのご縁を生かしながら、今あるものから暮らしをつくっていく。その営みがお米づくりにつながっています。
+            </p>
+            <div className="philosophy-row">
+              <span>受け取る</span>
+              <span>つくる</span>
+              <span>分かち合う</span>
+              <span>次へ渡す</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="story-wrap container" id="story">
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">MY STORY / FOUR CHAPTERS</div>
+            <h2>私と、田んぼの物語。</h2>
+          </div>
+          <p className="section-aside">
+            都会で感じた小さな違和感から、季節に暮らしを委ねる毎日へ。なぜ私が米づくりをするのか、その理由を綴りました。
+          </p>
+        </div>
+        <div className="chapter">
+          <div className="chapter-number">01</div>
+          <div className="chapter-body">
+            <div className="eyebrow">ORIGIN / 原点</div>
+            <h3>
+              便利な暮らしのなかで、
+              <br />
+              何かが足りなかった。
+            </h3>
+            <p>
+              都会で暮らしていた頃、現代の暮らしは、私にはあまりにも便利すぎると感じていました。何もかもが当たり前に手に入り、生きていることまで当たり前になっていく。その便利さのなかに、どこか空虚さがありました。
+            </p>
+            <p>
+              だからといって、昔の暮らしに戻りたかったわけではありません。食べ物や暮らしに必要なものを、自分の手で生み出してみたら、私の内側の世界はどう変わるのだろう。そんな純粋な好奇心が、すべての始まりでした。
+            </p>
+          </div>
+          <blockquote className="chapter-quote">
+            <span className="quote-tag">A QUESTION I HAD</span>
+            当たり前に受け取っているものを、
+            <br />
+            自分で生み出したら、
+            <br />
+            世界はどう見えるのだろう。
+          </blockquote>
+        </div>
+        <div className="chapter">
+          <div className="chapter-number">02</div>
+          <div className="chapter-body">
+            <div className="eyebrow">ENCOUNTER / 出会い</div>
+            <h3>
+              この土地には、すでに
+              <br />
+              豊かさがあった。
+            </h3>
+            <p>
+              導かれるようにしてたどり着いた上郡町の集落で、私は本当にたくさんのものを受け取りました。家、車、土地、機械。そして何より、暮らしの知識や技術、人の手を借りることのありがたさを教えてもらいました。
+            </p>
+            <p>
+              ここで気づいたのは、豊かさは新しく生み出すばかりではないということ。長い時間をかけて守られてきた田んぼや風景、人のつながり。失われかけている豊かさを、私も受け継いでいきたいと思うようになりました。
+            </p>
+          </div>
+          <blockquote className="chapter-quote">
+            <span className="quote-tag">WHAT THE LAND TAUGHT ME</span>
+            豊かさは、生み出すだけでなく、
+            <br />
+            受け継いでいくものでもある。
+          </blockquote>
+        </div>
+        <div className="chapter">
+          <div className="chapter-number">03</div>
+          <div className="chapter-body">
+            <div className="eyebrow">PRACTICE / 実践</div>
+            <h3>
+              自然の都合で、
+              <br />
+              一日が決まっていく。
+            </h3>
+            <p>
+              2026年、仲間とともに約1.7町の田んぼで本格的な米づくりを始めました。朝から晩まで、頭のどこかに稲のことがあります。土、水、太陽、草、そして稲。毎日、目の前の自然と対話するような日々です。
+            </p>
+            <p>
+              季節が進めば、今すべき仕事が自然と決まっていきます。雨が降れば予定を変え、草が生えれば田んぼへ入る。人間の都合で動く暮らしから、自然の都合に自分の暮らしを合わせる毎日へ。気づけば、里山に来た頃とは世界の見え方がずいぶん変わっていました。
+            </p>
+            <p>
+              自分が育てたお米を毎日食べられること。そのお米を「おいしい」と言ってもらえること。そんなひとつひとつが、私の暮らしを深く満たしてくれています。
+            </p>
+          </div>
+          <blockquote className="chapter-quote">
+            <span className="quote-tag">LIVING WITH THE SEASONS</span>
+            私が季節を動かすのではなく、
+            <br />
+            季節が私の暮らしを動かしていく。
+          </blockquote>
+        </div>
+        <div className="chapter">
+          <div className="chapter-number">04</div>
+          <div className="chapter-body">
+            <div className="eyebrow">FUTURE / 未来</div>
+            <h3>
+              この暮らしを、
+              <br />
+              次の世代へ。
+            </h3>
+            <p>
+              今、アルデルファームでは、お米だけでなく、野菜や卵、肉も仲間とともに自給していく暮らしを目指しています。でも、私が残したいのは、食べ物をつくる技術だけではありません。
+            </p>
+            <p>
+              集落の人たちとの関係も、里山の自然環境も、この暮らしの大切な一部です。一人では成り立たないからこそ、助け合い、つくったものを分かち合う。そのなかに、私が求めていた生きる充実感があります。
+            </p>
+            <p>
+              私が受け取った豊かさを、今度は誰かへ。そして次の世代へ。いつかこの土地で、また新しい誰かが自分の暮らしをつくっていけるように。田んぼを耕すことは、その未来につながる小さな一歩だと思っています。
+            </p>
+          </div>
+          <blockquote className="chapter-quote">
+            <span className="quote-tag">PASSING IT ON</span>受け取った豊かさを、
+            <br />
+            ここで終わらせたくない。
+          </blockquote>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function FarmRice({ lineUrl }: { lineUrl: string }) {
+  return (
+    <>
+      <section className="rice-brand" id="kanahe">
+        <div className="container rice-inner">
+          <div className="rice-title">
+            <div className="eyebrow">RICE FROM OUR LAND</div>
+            <h2 className="rice-big">金瓮</h2>
+            <div className="rice-hiragana">かなへ</div>
+            <div className="rice-subtitle">
+              土地から受け取った実りを、暮らしへ。
+            </div>
+          </div>
+          <div className="rice-explainer">
+            <h3>
+              かつての地名と、
+              <br />
+              忘れられた暮らしの言葉を重ねて。
+            </h3>
+            <p>
+              この土地には、かつて「金内（かなえ）」という名がありました。いまの住所からは姿を消しても、人の記憶や土地に残っている名前です。
+            </p>
+            <p>
+              「かなへ」は、金属の器を意味した古い日本語。そこに、土地の恵みを受け取り、次の暮らしへ手渡す「器」でありたいという私の想いを重ねました。
+            </p>
+            <div className="mini-rule"></div>
+            <div className="rice-line">
+              受け継がれてきた土地の実りを、
+              <br />
+              次世代の暮らしへ。
+            </div>
+            <p>
+              金瓮は、単なるお米の名前ではなく、私がこの土地で受け取ってきたものを、食卓へ届けるための名前です。
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="process container" id="cultivation">
+        <div className="process-top">
+          <div>
+            <div className="eyebrow">OUR RICE / THE WORK BEHIND EACH BOWL</div>
+            <h2>
+              一杯のごはんの向こうに、
+              <br />
+              一年の暮らしがある。
+            </h2>
+          </div>
+          <p>
+            農薬に頼らず育てる金瓮のお米。苗を育て、田植えをし、夏の草取りを重ね、秋には収穫から乾燥・籾摺りまで。仲間に助けられながら、その年の自然に合わせて進めてきた米づくりです。
+          </p>
+        </div>
+        <div className="fact-row">
+          <div className="fact">
+            <small>SPRING / 05—06</small>
+            <strong>苗から田植えへ</strong>
+            <p>
+              籾をまいて苗を育て、田んぼに植える。はじまりの季節。仲間と手を動かす喜びも、初めて知りました。
+            </p>
+          </div>
+          <div className="fact">
+            <small>SUMMER / 07—08</small>
+            <strong>稲と草と向き合う</strong>
+            <p>
+              田んぼを見回り、草の勢いに合わせて道具や手作業を使い分ける。稲の変化に目が離せない夏。
+            </p>
+          </div>
+          <div className="fact">
+            <small>AUTUMN / 09—10</small>
+            <strong>収穫を食卓へ</strong>
+            <p>
+              稲を刈り、乾燥させ、籾殻を取り除く。はじめて、一袋のお米の向こうにある仕事の多さを知りました。
+            </p>
+          </div>
+        </div>
+        <p className="process-note">
+          <strong>金瓮米について：</strong>
+          一般向けにお届けする金瓮ブランドのお米は、すべて栽培期間中農薬不使用です。なお、約1.7町は2026年に仲間と取り組んだ米づくり全体の規模であり、すべてが金瓮ブランドの田んぼという意味ではありません。
+        </p>
+      </section>
+      <section className="shop" id="order">
+        <div className="container shop-inner">
+          <div>
+            <div className="eyebrow" style={{ color: "#d4b27a" }}>
+              FROM OUR FIELD TO YOUR TABLE
+            </div>
+            <h2>
+              この物語のつづきを、
+              <br />
+              あなたの食卓へ。
+            </h2>
+            <p>
+              毎日のごはんに、土地の実りと、そこに暮らす人たちの営みを。金瓮米はアルデルファームの公式LINEからご注文いただけます。
+            </p>
+          </div>
+          <div className="shop-action">
+            <a
+              className="shop-button"
+              href={lineUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              お米を注文する（公式LINE） <span aria-hidden="true">↗</span>
+            </a>
+            <p>
+              友だち追加後、トーク画面下の「お米を買う」からご注文ください。
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function FarmJournal({ articles }: { articles: FarmArticle[] }) {
+  return (
+    <>
+      <section className="life container" id="life">
+        <div className="life-heading">
+          <div>
+            <div className="eyebrow">JOURNAL / THE EVERYDAY</div>
+            <h2>私たちの、日々の記録。</h2>
+          </div>
+          <p className="life-intro">
+            米づくりだけではありません。鶏や畑、古い家の手入れ。暮らしをつくる現場には、いつも新しい発見があります。
+          </p>
+        </div>
+        <div className="life-cards">
+          <a className="life-card" href="#aldel-rice-year">
+            <div className="eyebrow">01 — RICE</div>
+            <h3>
+              籾から食卓へ。
+              <br />
+              アルデルファームの米づくり
+            </h3>
+            <p>
+              種まき、夏の除草、機械の引き取り、秋の収穫。一年の手仕事をたどる記録。
+            </p>
+            <div className="read">記録を読む ↗</div>
+          </a>
+          <a className="life-card" href="#aldel-chicken-life">
+            <div className="eyebrow">02 — CHICKENS</div>
+            <h3>
+              鶏小屋を建てて、
+              <br />
+              鶏と暮らす
+            </h3>
+            <p>
+              仲間と小屋をつくり、小さなひよこを迎え、暮らしの循環を少しずつつくる。
+            </p>
+            <div className="read">記録を読む ↗</div>
+          </a>
+          <a className="life-card" href="#aldel-shared-field">
+            <div className="eyebrow">03 — FIELDS</div>
+            <h3>
+              みんなの畑は、
+              <br />
+              自然とのキャッチボール
+            </h3>
+            <p>
+              育てたいものを持ち寄り、試して、失敗して、時々思いがけない収穫に笑う。
+            </p>
+            <div className="read">記録を読む ↗</div>
+          </a>
+        </div>
+      </section>
+      <section className="journal" id="journal">
+        <div className="container">
+          <div className="eyebrow">FIELD NOTES / MORE STORIES</div>
+          <h2 className="journal-titlemain">もう少し、暮らしの中へ。</h2>
+          {articles.map((article) => (
+            <details key={article.id} className="journal-entry" id={article.id}>
+              <summary>
+                <span className="journal-label">活動記録</span>
+                <span className="journal-title">{article.title}</span>
+                <span className="journal-open">
+                  <span className="journal-closed-label">続きを読む</span>
+                  <span className="journal-expanded-label">閉じる</span>
+                </span>
+              </summary>
+              {article.body && (
+                <div
+                  className="journal-text"
+                  dangerouslySetInnerHTML={{ __html: article.body }}
+                />
+              )}
+              <Link
+                className="journal-permalink"
+                href={`/stories/${article.id}`}
+              >
+                記事ページを開く
+              </Link>
+            </details>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function FarmCommunity({ imageUrl }: { imageUrl: string }) {
+  return (
+    <section className="community" id="community">
+      <div className="container community-inner">
+        <div>
+          <div className="community-image">
+            <img src={imageUrl} loading="lazy" alt="" />
+            <div className="image-stamp">LIVING TOGETHER / HYŌGO</div>
+          </div>
+        </div>
+        <div className="community-copy">
+          <div className="eyebrow">THE NEXT CHAPTER / COMMUNITY</div>
+          <h2>
+            一人では、
+            <br />
+            つくれない暮らしがある。
+          </h2>
+          <p>
+            土地を耕すことも、家を直すことも、食べ物を育てることも。私一人ではできないことばかりでした。だからこそ、誰かと力を合わせ、できたものを分け合う時間が、何より豊かに感じられます。
+          </p>
+          <p>
+            アルデルファームと岩上邸を拠点に、暮らしをともにつくる共同サロンの準備も進めています。一緒に考え、企画し、手を動かす人の輪を少しずつ広げていきます。
+          </p>
+          <div className="community-status">共同サロンは開設準備中です</div>
+          <div className="community-links">
+            <Link href="/programs">見学・体験 ↗</Link>
+            <Link href="/sharehouse">アルデルハウスで暮らす ↗</Link>
+            <Link href="/schedule">活動予定 ↗</Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FarmFooter({ lineUrl }: { lineUrl: string }) {
+  return (
+    <footer>
+      <div className="container">
+        <div className="footer-top">
+          <div>
+            <div className="footer-logo">ALDEL FARM</div>
+            <div className="footer-copy">
+              あるもんで、つくる。
+              <br />
+              でるもんで、まわす。
+            </div>
+          </div>
+          <div className="footer-links">
+            <div>
+              <a href="#story">私とお米の物語</a>
+              <a href="#kanahe">金瓮米</a>
+              <a href="#cultivation">米づくり</a>
+              <a href="#life">日々の記録</a>
+            </div>
+            <div>
+              <a href={lineUrl} target="_blank" rel="noopener noreferrer">
+                お米を注文する
+              </a>
+              <Link href="/about">知る・相談する</Link>
+              <Link href="/sharehouse">アルデルハウス</Link>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} ALDEL FARM</span>
+          <span>HYOGO, JAPAN / 暮らしと実りを次の世代へ</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function FarmHome({
+  globals,
+  articles,
+}: {
   globals: FarmSiteGlobals | null;
   articles: FarmArticle[];
-  projects: FarmProject[];
-  people: FarmPerson[];
-  upcomingEvents: FarmCalendarEvent[];
-};
-
-const lifePractices = [
-  { title: "育てる", text: "田畑で米や野菜を育て、鶏と暮らす。" },
-  { title: "いただく", text: "畑や山の恵みを料理し、みんなで食卓を囲む。" },
-  { title: "手を入れる", text: "古民家や道具、田畑や山に手をかけ、次へつなぐ。" },
-  { title: "つながる", text: "地域の人から学び、訪れた人と一緒につくる。" },
-];
-
-const projectFallbackTitles = ["米", "畑", "鶏", "ジビエ", "古民家", "食", "山", "地域"];
-
-function formatDate(value?: string) {
-  if (!value) return "記録を更新中";
-  return new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "long", day: "numeric" }).format(new Date(value));
-}
-
-function eventDateParts(event: FarmCalendarEvent) {
-  const start = new Date(event.start);
-  return {
-    month: new Intl.DateTimeFormat("ja-JP", { month: "short", timeZone: "Asia/Tokyo" }).format(start),
-    day: new Intl.DateTimeFormat("ja-JP", { day: "2-digit", timeZone: "Asia/Tokyo" }).format(start),
-    weekday: new Intl.DateTimeFormat("ja-JP", { weekday: "short", timeZone: "Asia/Tokyo" }).format(start),
-    time: event.allDay ? "終日" : new Intl.DateTimeFormat("ja-JP", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Tokyo" }).format(start),
-  };
-}
-
-function eventScheduleHref(event: FarmCalendarEvent) {
-  const date = new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Tokyo" }).format(new Date(event.start));
-  const params = new URLSearchParams({ date, activity: event.title });
-  return `/schedule?${params.toString()}`;
-}
-
-function eventSummary(event: FarmCalendarEvent) {
-  if (event.description) return event.description.length > 120 ? `${event.description.slice(0, 120)}…` : event.description;
-  if (event.location) return `${event.location}で行う予定です。詳しい内容はLINEでお問い合わせください。`;
-  return "内容や参加方法については、日程ページからLINEでお問い合わせください。";
-}
-
-export function FarmHome({ globals, articles, projects, people, upcomingEvents }: FarmHomeProps) {
-  const lineOfficialUrl = getLineOfficialUrl(globals);
-  const ways = [
-    { number: "01", title: "知る・相談する", text: "土地と人を知り、気になることを相談する。", detail: "上郡町・ALDEL FARM・相談窓口", href: "/about" },
-    { number: "02", title: "体験する", text: "季節の農や食、手を動かす時間にふれる。", detail: "田畑・鶏・山・古民家・食", href: "/programs" },
-    { number: "03", title: "暮らす", text: "この土地の日常に、もう少し深く滞在する。", detail: "アルデルハウス・中長期滞在", href: "/sharehouse" },
-    { number: "04", title: "お米を買う", text: "ご購入・お問い合わせはLINE公式アカウントへ。友だち追加後、トーク画面下の「お米を買う」からフォームをご入力ください。", detail: "公式LINEへ", href: lineOfficialUrl },
-  ];
-  const heroImage = Array.isArray(globals?.farmHeroImage) ? globals.farmHeroImage[0]?.url : globals?.farmHeroImage?.url;
-  const lifeImage = Array.isArray(globals?.farmLifeImage) ? globals.farmLifeImage[0]?.url : globals?.farmLifeImage?.url;
-  const heroTitle = globals?.farmHeroTitle || "あるもんで、つくる。\nでるもんで、まわす。";
-  const formattedHeroTitle = heroTitle.replace(/。\s*(?=\S)/g, "。\n");
-  const mobileHeroTitle = formattedHeroTitle.replace(/、\s*(?=\S)/g, "、\n");
-  const currentProjects = projects.length ? projects : projectFallbackTitles.map((title, index) => ({ id: title, title, summary: ["手をかけ、育て、分け合う。", "里山の営みを暮らしにつなげる。", "土地にあるものから考える。", "命をいただき、味わい尽くす。"][index % 4] }));
-
+}) {
+  const lineUrl = getLineOfficialUrl(globals);
+  const hero = globals?.farmHeroImage;
+  const life = globals?.farmLifeImage;
   return (
-    <main className="overflow-hidden bg-[#fbf9f6] text-on-surface">
-      <header className="absolute inset-x-0 top-0 z-20 text-white">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10 md:py-7">
-          <Link href="/" className="font-headline text-lg font-black tracking-[0.12em] md:text-xl">ALDEL FARM</Link>
-          <div className="hidden items-center gap-7 text-xs font-bold tracking-wider md:flex">
-            <Link href="/about" className="transition-opacity hover:opacity-60">知る・相談する</Link>
-            <Link href="/programs" className="transition-opacity hover:opacity-60">体験する</Link>
-            <Link href="/stories" className="transition-opacity hover:opacity-60">日々の暮らし</Link>
-            <Link href="/sharehouse" className="rounded-full border border-white/70 px-5 py-2.5 transition-colors hover:bg-white hover:text-primary">暮らす</Link>
-          </div>
-          <a href="#join" className="rounded-full border border-white/70 px-4 py-2 text-xs font-bold md:hidden">関わる</a>
-        </nav>
-      </header>
-
-      <section className="relative flex min-h-[720px] items-end bg-stone-800 px-5 pb-14 pt-32 md:min-h-screen md:px-10 md:pb-20">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={heroImage || HERO_FALLBACK} alt="上郡町の里山で営む暮らし" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/30" />
-        <div className="relative mx-auto w-full max-w-7xl text-white">
-          <p className="mb-6 font-hand text-lg tracking-wide md:text-xl">KAMIGORI, HYOGO</p>
-          <h1 className="max-w-[22rem] whitespace-pre-line font-headline text-[clamp(2.5rem,11vw,3rem)] font-black leading-[1.12] tracking-[-0.035em] drop-shadow-lg sm:max-w-xl md:max-w-none md:text-[clamp(4.5rem,6vw,6.5rem)] md:leading-[1.08] md:tracking-[-0.04em]">
-            <span className="md:hidden">{mobileHeroTitle}</span>
-            <span className="hidden md:inline">{formattedHeroTitle}</span>
-          </h1>
-          <p className="mt-8 max-w-md text-sm leading-8 text-white/90 md:text-base">{globals?.farmHeroSubtitle || "田んぼを耕し、古い家を直し、受け継がれた知恵を生かす。ここにあるものを大切にしながら、人と人がつながる暮らしを育んでいます。"}</p>
-          <a href="#about" className="mt-10 inline-flex items-center gap-3 text-xs font-bold tracking-widest"><span className="h-px w-12 bg-white" />SCROLL TO DISCOVER</a>
-        </div>
-      </section>
-
-      <section id="about" className="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:grid-cols-12 md:gap-16 md:px-10 md:py-36">
-        <div className="md:col-span-4"><p className="font-hand text-primary">What is ALDEL FARM?</p></div>
-        <div className="md:col-span-8">
-          <h2 className="font-headline text-3xl font-black leading-tight md:text-5xl">{globals?.farmAboutTitle || <>暮らしそのものを、<br />実験し、つくる場所。</>}</h2>
-          <p className="mt-9 max-w-2xl whitespace-pre-line text-sm leading-8 text-on-surface-variant md:text-base">{globals?.farmAboutText || "ALDEL FARMは、農業、住まい、食、山、地域の知恵を別々のサービスに分けるのではなく、ひとつの暮らしとして育てていく地域プロジェクトです。\n\n完成された田舎暮らしを用意するのではなく、地域の人や訪れる人と、ともに手を入れ、ともに考える。関わり方は、一人ひとり違っていて構いません。"}</p>
-        </div>
-      </section>
-
-      <section id="join" className="border-y border-stone-200 bg-[#f1eee7] px-5 py-20 md:px-10 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <p className="font-hand text-primary">How to join</p>
-          <h2 className="mt-3 font-headline text-3xl font-black md:text-5xl">どう関わりたいですか？</h2>
-          <div className="mt-12 grid border-t border-stone-300 md:mt-16 md:grid-cols-2">
-            {ways.map(({ number, title, text, detail, href }) => {
-              const content = <><span className="font-hand text-primary">{number}</span><h3 className="mt-6 font-headline text-2xl font-black">{title}</h3><p className="mt-4 text-sm leading-7 text-on-surface-variant">{text}</p><p className="mt-6 text-xs font-bold tracking-wide text-primary">{detail} <span aria-hidden>→</span></p></>;
-              return href.startsWith("/") ? <Link href={href} key={title} className="group border-b border-stone-300 px-1 py-9 transition-colors hover:bg-white/60 md:px-8">{content}</Link> : <a href={href} key={title} target="_blank" rel="noopener noreferrer" className="group border-b border-stone-300 px-1 py-9 transition-colors hover:bg-white/60 md:px-8">{content}</a>;
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2 md:px-10 md:py-36">
-        <div className="relative aspect-[4/5] overflow-hidden bg-stone-200 md:order-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={lifeImage || LIFE_FALLBACK} alt="古民家の前で手仕事を囲む人々" className="h-full w-full object-cover" />
-          <p className="absolute bottom-4 right-5 font-hand text-sm text-white drop-shadow">A life made by many hands.</p>
-        </div>
-        <div className="md:order-1">
-          <p className="font-hand text-primary">Made of everyday life</p>
-          <h2 className="mt-3 font-headline text-3xl font-black leading-tight md:text-5xl">暮らしをつくる、<br />小さな営み。</h2>
-          <div className="mt-10 grid border-l border-t border-stone-300 sm:grid-cols-2">
-            {lifePractices.map((practice) => (
-              <div key={practice.title} className="border-b border-r border-stone-300 px-5 py-6 md:min-h-40 md:px-6 md:py-7">
-                <h3 className="font-headline text-xl font-black md:text-2xl">{practice.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-on-surface-variant">{practice.text}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8 text-sm leading-8 text-on-surface-variant">育てること、食べること、直すこと、人とつながること。<br />ひとつひとつは小さな営みですが、重なり合うことで、この土地の暮らしになっていきます。</p>
-        </div>
-      </section>
-
-      <section id="current" className="bg-[#433d35] px-5 py-20 text-[#fbf9f6] md:px-10 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <p className="font-hand text-[#febe4e]">Up next</p>
-          <div className="mt-3 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <h2 className="font-headline text-3xl font-black md:text-5xl">近日の作業・イベント。</h2>
-              <Link href="/schedule" className="mt-5 inline-flex text-xs font-bold text-[#febe4e]">カレンダーをすべて見る →</Link>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-white/70">これから行う作業や、参加・見学できる催しをご案内します。予定は天候や現場の状況によって変更になる場合があります。</p>
-          </div>
-
-          {upcomingEvents.length ? (
-            <div className="mt-12 grid gap-px overflow-hidden border border-white/20 bg-white/20 md:grid-cols-3">
-              {upcomingEvents.map((event) => {
-                const date = eventDateParts(event);
-                return (
-                  <Link href={eventScheduleHref(event)} key={event.id} className="group bg-[#433d35] p-7 transition-colors hover:bg-white/5 md:p-9">
-                    <div className="flex items-end gap-3 text-[#febe4e]">
-                      <p className="font-headline text-5xl font-black leading-none">{date.day}</p>
-                      <p className="pb-1 text-xs font-bold leading-5">{date.month}<br />{date.weekday}・{date.time}</p>
-                    </div>
-                    <h3 className="mt-7 font-headline text-2xl font-black leading-tight group-hover:text-[#febe4e]">{event.title}</h3>
-                    {event.location && <p className="mt-3 text-xs font-bold text-[#febe4e]">{event.location}</p>}
-                    <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/70">{eventSummary(event)}</p>
-                    <span className="mt-7 inline-flex text-xs font-bold text-[#febe4e]">この日について相談する →</span>
-                  </Link>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="mt-12 border border-white/20 p-7 md:p-10">
-              <p className="font-headline text-xl font-black">現在、トップページでご案内中の予定はありません。</p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70">参加者を募集する作業やイベントが決まり次第、こちらでお知らせします。個別の見学や体験については、日程ページからご相談ください。</p>
-              <Link href="/schedule" className="mt-7 inline-flex text-xs font-bold text-[#febe4e]">希望日を相談する →</Link>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {SHOW_STORIES_SECTION && <section id="stories" className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-36"><div className="flex items-end justify-between gap-6"><div><p className="font-hand text-primary">Stories</p><h2 className="mt-3 font-headline text-3xl font-black md:text-5xl">暮らしの記録。</h2></div><Link href="/stories" className="hidden text-xs font-bold text-on-surface-variant hover:text-primary md:block">すべての記録を見る →</Link></div>{articles.length ? <div className="mt-12 grid gap-8 md:grid-cols-3">{articles.map((article) => <Link href={`/stories/${article.id}`} key={article.id} className="group border-t border-stone-300 pt-5"><p className="text-xs text-primary">{formatDate(article.publishedAt)}</p><h3 className="mt-5 font-headline text-xl font-black leading-snug group-hover:text-primary">{article.title}</h3><p className="mt-4 text-sm leading-7 text-on-surface-variant">{article.summary || "この土地で育つ、日々の営みを記録しています。"}</p></Link>)}</div> : <div className="mt-12"><p className="max-w-xl border-l-2 border-secondary-container pl-5 text-sm leading-7 text-on-surface-variant">田植え、古民家の手入れ、食を仕込む日。ALDEL FARMの日常の記録は、これからここに積み重なっていきます。</p><Link href="/stories" className="mt-7 inline-flex text-sm font-bold text-primary">日々の暮らしについて →</Link></div>}</section>}
-
-      {(projects.length > 0 || people.length > 0) && <section className="bg-surface-container-low px-5 py-20 md:px-10 md:py-28"><div className="mx-auto max-w-7xl"><p className="font-hand text-primary">People & projects</p><div className="mt-8 grid gap-8 md:grid-cols-2"><div><h2 className="font-headline text-2xl font-black">手をかけていること</h2><div className="mt-6 flex flex-wrap gap-2">{currentProjects.slice(0, 8).map((project) => <span key={project.id} className="rounded-full border border-outline-variant/50 px-4 py-2 text-sm">{project.title}</span>)}</div></div>{people.length > 0 && <div><h2 className="font-headline text-2xl font-black">この場所に関わる人</h2><div className="mt-6 space-y-3">{people.slice(0, 3).map((person) => <p key={person.id} className="border-b border-stone-300 pb-3 text-sm"><strong>{person.name}</strong>{person.role ? ` — ${person.role}` : ""}</p>)}</div></div>}</div></div></section>}
-
-      <section className="relative overflow-hidden px-5 py-24 text-white md:px-10 md:py-36" id="contact"><div className="absolute inset-0 bg-stone-700">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={CTA_FALLBACK} alt="上郡町の夕暮れ" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-[#3c2c20]/65" /></div><div className="relative mx-auto max-w-4xl text-center"><p className="font-hand text-[#febe4e]">Let&apos;s start with a conversation.</p><h2 className="mt-5 font-headline text-3xl font-black leading-tight md:text-5xl">ここでの暮らしを、<br />のぞいてみませんか。</h2><p className="mx-auto mt-7 max-w-lg text-sm leading-7 text-white/80">土地や暮らしのことを読みながら、気になったことをそのまま相談できます。</p><Link href="/about#contact" className="mt-10 inline-flex rounded-full bg-secondary-container px-7 py-4 text-sm font-black text-on-secondary-container transition-transform hover:scale-105">知る・相談する <span className="ml-3">→</span></Link></div></section>
-
-      <footer className="bg-[#2d2a26] px-5 py-10 text-white/70 md:px-10"><div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between"><p className="font-headline text-sm font-black tracking-[0.15em] text-white">ALDEL FARM</p><div className="flex flex-wrap gap-5 text-xs"><Link href="/about" className="hover:text-white">知る・相談する</Link><Link href="/sharehouse" className="hover:text-white">アルデルハウス</Link><a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">お米を買う（公式LINE）</a><a href={globals?.instagramUrl || "#"} className="hover:text-white">Instagram</a></div><p className="text-xs">© {new Date().getFullYear()} ALDEL FARM</p></div></footer>
-    </main>
+    <div className="aldel-home" id="top">
+      <FarmHomeInteractions />
+      <FarmHeader lineUrl={lineUrl} />
+      <main>
+        <FarmHero
+          imageUrl={
+            (Array.isArray(hero) ? hero[0]?.url : hero?.url) || HERO_FALLBACK
+          }
+        />
+        <FarmStory />
+        <FarmRice lineUrl={lineUrl} />
+        <FarmJournal articles={articles} />
+        <FarmCommunity
+          imageUrl={
+            (Array.isArray(life) ? life[0]?.url : life?.url) ||
+            "/images/life-made-by-many-hands.jpg"
+          }
+        />
+      </main>
+      <FarmFooter lineUrl={lineUrl} />
+    </div>
   );
 }

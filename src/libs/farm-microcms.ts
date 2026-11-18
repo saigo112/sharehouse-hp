@@ -1,4 +1,5 @@
 import { hasMicrocmsCredentials, sharehouseClient } from "@/libs/microcms";
+import { farmStories } from "@/content/farm-stories";
 import { fallbackFarmPrograms } from "@/content/farm-programs";
 import type {
   FarmArticle,
@@ -45,17 +46,20 @@ export async function getFarmSiteGlobals() {
 
 export async function getFarmStories(limit = 100) {
   const response = await getList<FarmArticle>("articles", limit);
-  const contents = response.contents.filter(isFarmStory);
+  const publishedStories = response.contents.filter(isFarmStory);
+  const publishedIds = new Set(publishedStories.map((story) => story.id));
+  const contents = [...publishedStories, ...farmStories.filter((story) => !publishedIds.has(story.id))].slice(0, limit);
   return { contents, totalCount: contents.length };
 }
 
 export async function getFarmStoryById(id: string) {
-  if (!hasMicrocmsCredentials) return null;
+  const localStory = farmStories.find((story) => story.id === id) ?? null;
+  if (!hasMicrocmsCredentials) return localStory;
   try {
     const article = await sharehouseClient.get<FarmArticle>({ endpoint: "articles", contentId: id });
-    return isFarmStory(article) ? article : null;
+    return isFarmStory(article) ? article : localStory;
   } catch {
-    return null;
+    return localStory;
   }
 }
 
@@ -102,12 +106,14 @@ export async function getFarmProgramById(id: string) {
 export async function getFarmHomepageData() {
   const [siteGlobals, articles, projects, people] = await Promise.all([
     getSingleton<FarmSiteGlobals>("site_globals"),
-    getList<FarmArticle>("articles", 3),
+    getFarmStories(100),
     getList<FarmProject>("projects", 6),
     getList<FarmPerson>("people", 4),
   ]);
 
-  const storyArticles = articles.contents.filter(isFarmStory);
+  const featuredStories = farmStories.map((story) =>
+    articles.contents.find((article) => article.id === story.id) ?? story
+  );
 
-  return { siteGlobals, articles: storyArticles.slice(0, 3), projects: projects.contents, people: people.contents };
+  return { siteGlobals, articles: featuredStories, projects: projects.contents, people: people.contents };
 }

@@ -9,8 +9,7 @@ export const revalidate = 60;
 
 type StoryPageProps = { params: { id: string } };
 
-function formatDate(value?: string) {
-  if (!value) return "日付未設定";
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "long", day: "numeric" }).format(new Date(value));
 }
 
@@ -44,7 +43,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
             <FarmBreadcrumbs items={[{ label: "知る・相談する", href: "/about" }, { label: "日々の暮らし", href: "/stories" }, { label: story.title }]} />
             <div className="mt-10 flex flex-wrap items-center gap-3 text-xs">
               <span className="font-bold tracking-widest text-primary">{getTypeLabel(story)}</span>
-              <span className="text-on-surface-variant">{formatDate(story.publishedAt)}</span>
+              {story.publishedAt && <span className="text-on-surface-variant">{formatDate(story.publishedAt)}</span>}
             </div>
             <h1 className="mt-5 font-headline text-3xl font-black leading-tight tracking-[-0.025em] md:text-5xl">{story.title}</h1>
             {story.summary && <p className="mt-7 max-w-3xl text-sm leading-8 text-on-surface-variant md:text-base">{story.summary}</p>}

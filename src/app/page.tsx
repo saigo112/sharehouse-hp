@@ -1,16 +1,27 @@
+import type { Metadata } from "next";
 import { FarmHome } from "@/components/farm/FarmHome";
 import { getFarmHomepageData } from "@/libs/farm-microcms";
-import { DEFAULT_GOOGLE_CALENDAR_EMBED_URL, getUpcomingCalendarEvents } from "@/libs/google-calendar";
+
+const title = "ALDEL FARM | 生きることを、もっと味わい深く。";
+const description =
+  "兵庫県上郡町で暮らしをつくるアルデルファーム。米づくりの物語と、金瓮米をご紹介します。";
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  openGraph: {
+    title,
+    description,
+    locale: "ja_JP",
+    type: "website",
+    siteName: "ALDEL FARM",
+  },
+  twitter: { card: "summary_large_image", title, description },
+};
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const { siteGlobals, articles, projects, people } = await getFarmHomepageData();
-  const calendarUrl =
-    siteGlobals?.scheduleCalendarEmbedUrl ||
-    process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_EMBED_URL ||
-    DEFAULT_GOOGLE_CALENDAR_EMBED_URL;
-  const upcomingEvents = await getUpcomingCalendarEvents(calendarUrl, 3);
-
-  return <FarmHome globals={siteGlobals} articles={articles} projects={projects} people={people} upcomingEvents={upcomingEvents} />;
+  const { siteGlobals, articles } = await getFarmHomepageData();
+  return <FarmHome globals={siteGlobals} articles={articles} />;
 }

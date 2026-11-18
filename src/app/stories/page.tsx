@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-function formatDate(value?: string) {
-  if (!value) return "日付未設定";
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "long", day: "numeric" }).format(new Date(value));
 }
 
@@ -59,7 +58,7 @@ export default async function StoriesPage() {
                   </div>
                   <div className="mt-5 flex items-center gap-3 text-xs">
                     <span className="font-bold tracking-widest text-primary">{getTypeLabel(story)}</span>
-                    <span className="text-on-surface-variant">{formatDate(story.publishedAt)}</span>
+                    {story.publishedAt && <span className="text-on-surface-variant">{formatDate(story.publishedAt)}</span>}
                   </div>
                   <h2 className="mt-4 font-headline text-xl font-black leading-snug transition-colors group-hover:text-primary">{story.title}</h2>
                   <p className="mt-3 line-clamp-3 text-sm leading-7 text-on-surface-variant">{story.summary || "この土地で続く、日々の営みを記録しています。"}</p>

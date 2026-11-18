@@ -1,0 +1,1168 @@
+.aldel-home {
+  --paper: #f6f3eb;
+  --paper2: #ece7db;
+  --ink: #2d332b;
+  --ink-soft: #626959;
+  --forest: #263b31;
+  --forest2: #354b3a;
+  --sienna: #9b5037;
+  --gold: #ba9456;
+  --line: #d6d0c2;
+  --white: #fffdfa;
+  --s: clamp(1.1rem, 1vw + 0.9rem, 1.45rem);
+}
+.aldel-home * {
+  box-sizing: border-box;
+}
+.aldel-home :is(section[id], details[id]) {
+  scroll-margin-top: 88px;
+}
+.aldel-home {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family:
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+.aldel-home a {
+  color: inherit;
+  text-decoration: none;
+}
+.aldel-home button {
+  font: inherit;
+}
+.aldel-home a:focus-visible,
+.aldel-home button:focus-visible,
+.aldel-home summary:focus-visible {
+  outline: 3px solid #b99456;
+  outline-offset: 5px;
+}
+.aldel-home img {
+  display: block;
+  max-width: 100%;
+}
+.aldel-home ::selection {
+  background: #d2b78e;
+  color: var(--forest);
+}
+.aldel-home .serif {
+  font-family:
+    "Noto Serif CJK JP", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP",
+    serif;
+  font-weight: 500;
+}
+.aldel-home .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(22px, 4.8vw, 70px);
+}
+.aldel-home .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.27em;
+  font-weight: 750;
+  text-transform: uppercase;
+  color: var(--sienna);
+}
+.aldel-home .small-note {
+  font-size: 11px;
+  color: #8b8e81;
+  line-height: 1.7;
+}
+.aldel-home .ink-muted {
+  color: var(--ink-soft);
+}
+.aldel-home .separator {
+  height: 1px;
+  background: var(--line);
+}
+/* header */
+.aldel-home .annex {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--forest);
+  color: #f1ece1;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+}
+.aldel-home .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(246, 243, 235, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.aldel-home .header-inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 clamp(20px, 4.8vw, 70px);
+}
+.aldel-home .brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 180px;
+}
+.aldel-home .brand-seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--sienna);
+  color: var(--sienna);
+  height: 34px;
+  width: 34px;
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 20px;
+  line-height: 1;
+}
+.aldel-home .brand-english {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  letter-spacing: 0.09em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.aldel-home .brand-sub {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  margin-top: 5px;
+}
+.aldel-home .main-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(15px, 2.1vw, 32px);
+}
+.aldel-home .main-nav a {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.aldel-home .main-nav a:hover {
+  color: var(--sienna);
+}
+.aldel-home .main-nav .nav-cta {
+  background: var(--forest);
+  color: var(--white);
+  padding: 11px 18px;
+  border-radius: 2px;
+}
+.aldel-home .main-nav .nav-cta:hover {
+  color: white;
+  background: #47624c;
+}
+.aldel-home .menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 11px;
+  cursor: pointer;
+}
+.aldel-home .mobile-panel {
+  display: none;
+}
+/* hero */
+.aldel-home .hero {
+  min-height: min(760px, calc(100svh - 102px));
+  display: grid;
+  grid-template-columns: 53% 47%;
+  background: #eae4d5;
+  overflow: hidden;
+}
+.aldel-home .hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(50px, 7vw, 116px) clamp(30px, 6vw, 100px) 70px
+    max(30px, calc((100vw - 1200px) / 2 + 70px));
+  position: relative;
+  z-index: 2;
+}
+.aldel-home .hero-copy:before {
+  content: "";
+  position: absolute;
+  right: 4%;
+  top: 13%;
+  width: 1px;
+  height: 70px;
+  background: #d6c8b4;
+}
+.aldel-home .hero-kicker {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  color: var(--sienna);
+  letter-spacing: 0.29em;
+}
+.aldel-home .hero h1 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(38px, 4.45vw, 73px);
+  font-weight: 500;
+  letter-spacing: 0.065em;
+  line-height: 1.62;
+  margin: 30px 0 24px;
+  white-space: nowrap;
+}
+.aldel-home .hero h1 span {
+  display: block;
+}
+.aldel-home .hero-lead {
+  max-width: 390px;
+  font-size: 13px;
+  line-height: 2.3;
+  color: #50584b;
+}
+.aldel-home .hero-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.aldel-home .arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  font-weight: 800;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--sienna);
+}
+.aldel-home .arrow-link span:last-child {
+  font-size: 18px;
+  color: var(--sienna);
+}
+.aldel-home .arrow-link:hover {
+  color: var(--sienna);
+}
+.aldel-home .hero-visual {
+  position: relative;
+  min-height: 630px;
+  overflow: hidden;
+  background: #918578;
+}
+.aldel-home .hero-visual img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 58%;
+  filter: saturate(0.68) contrast(0.93);
+}
+.aldel-home .hero-visual:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(234, 228, 213, 0.16), transparent 30%),
+    linear-gradient(0deg, rgba(20, 30, 20, 0.45), transparent 48%);
+}
+.aldel-home .hero-caption {
+  position: absolute;
+  z-index: 2;
+  bottom: 24px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  color: white;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.aldel-home .hero-caption strong {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-weight: normal;
+}
+/* secondary intro */
+.aldel-home .philosophy {
+  background: var(--forest);
+  color: #fffaf0;
+}
+.aldel-home .philosophy-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 70px;
+  align-items: center;
+  padding-top: 96px;
+  padding-bottom: 100px;
+}
+.aldel-home .philosophy-label {
+  color: #d7b47d;
+  letter-spacing: 0.24em;
+  font-family: Georgia, serif;
+  font-size: 12px;
+}
+.aldel-home .philosophy h2 {
+  font-size: clamp(28px, 3vw, 43px);
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.075em;
+  margin: 22px 0 0;
+}
+.aldel-home .philosophy-copy {
+  font-size: 14px;
+  line-height: 2.4;
+  color: #e0e2d7;
+}
+.aldel-home .philosophy-copy p {
+  margin: 0 0 18px;
+}
+.aldel-home .philosophy-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 22px;
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  color: #c6d0c5;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.aldel-home .philosophy-row span:not(:last-child):after {
+  content: " / ";
+  padding-left: 13px;
+  color: #adbaac;
+}
+/* editorial chapters */
+.aldel-home .story-wrap {
+  padding-top: 112px;
+  padding-bottom: 116px;
+}
+.aldel-home .section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 38px;
+}
+.aldel-home .section-heading h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 500;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  margin: 15px 0 0;
+}
+.aldel-home .section-heading .section-aside {
+  max-width: 345px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 2.1;
+}
+.aldel-home .chapter {
+  display: grid;
+  grid-template-columns: 16% 41% 1fr;
+  border-top: 1px solid var(--line);
+  padding: 62px 0 70px;
+  gap: 26px;
+  align-items: start;
+}
+.aldel-home .chapter-number {
+  font-family: Georgia, serif;
+  color: #b4a58c;
+  font-size: 43px;
+  line-height: 1;
+}
+.aldel-home .chapter-body .eyebrow {
+  margin: 4px 0 17px;
+}
+.aldel-home .chapter h3 {
+  font-size: clamp(23px, 2.65vw, 36px);
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 0 0 26px;
+}
+.aldel-home .chapter p {
+  font-size: 14px;
+  line-height: 2.4;
+  color: #53594f;
+  margin: 0 0 15px;
+}
+.aldel-home .chapter-quote {
+  border-left: 2px solid var(--gold);
+  padding: 10px 0 10px 25px;
+  margin: 36px 0 0 7%;
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: clamp(18px, 2.1vw, 28px);
+  line-height: 2;
+  color: var(--forest);
+  letter-spacing: 0.07em;
+}
+.aldel-home .chapter-quote .quote-tag {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 10px;
+  color: var(--sienna);
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+.aldel-home .chapter:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+/* brand rice */
+.aldel-home .rice-brand {
+  background: #e8e0d0;
+  position: relative;
+  overflow: hidden;
+}
+.aldel-home .rice-brand:before {
+  position: absolute;
+  content: "金瓮";
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: clamp(180px, 28vw, 430px);
+  right: -3%;
+  top: -75px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.aldel-home .rice-inner {
+  padding-top: 115px;
+  padding-bottom: 118px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 90px;
+}
+.aldel-home .rice-title {
+  border-top: 1px solid #b8a88d;
+  padding-top: 20px;
+}
+.aldel-home .rice-title .eyebrow {
+  font-size: 11px;
+}
+.aldel-home .rice-big {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  letter-spacing: 0.11em;
+  font-size: clamp(74px, 9.7vw, 150px);
+  line-height: 1.35;
+  font-weight: 500;
+  margin: 28px 0 3px;
+}
+.aldel-home .rice-hiragana {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  letter-spacing: 0.4em;
+  color: var(--sienna);
+  padding-left: 10px;
+}
+.aldel-home .rice-subtitle {
+  font-size: 13px;
+  letter-spacing: 0.13em;
+  margin-top: 36px;
+}
+.aldel-home .rice-explainer {
+  padding-top: 65px;
+}
+.aldel-home .rice-explainer h3 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: 0.08em;
+  margin: 0 0 26px;
+}
+.aldel-home .rice-explainer p {
+  font-size: 14px;
+  line-height: 2.5;
+  color: #535549;
+  margin: 0 0 20px;
+}
+.aldel-home .mini-rule {
+  width: 58px;
+  height: 1px;
+  background: var(--sienna);
+  margin: 28px 0;
+}
+.aldel-home .rice-line {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: clamp(16px, 2vw, 23px);
+  line-height: 1.85;
+  letter-spacing: 0.08em;
+  margin: 32px 0;
+}
+/* process */
+.aldel-home .process {
+  padding: 108px 0 110px;
+}
+.aldel-home .process-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: end;
+  margin-bottom: 50px;
+}
+.aldel-home .process-top h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 500;
+  font-size: clamp(31px, 3.5vw, 49px);
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  margin: 14px 0 0;
+}
+.aldel-home .process-top p {
+  font-size: 13px;
+  line-height: 2.3;
+  color: #62685b;
+}
+.aldel-home .fact-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.aldel-home .fact {
+  padding: 29px 28px 35px;
+  background: var(--paper);
+}
+.aldel-home .fact small {
+  display: block;
+  color: var(--sienna);
+  font-family: Georgia, serif;
+  letter-spacing: 0.13em;
+  font-size: 10px;
+  margin-bottom: 16px;
+}
+.aldel-home .fact strong {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 20px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 12px;
+}
+.aldel-home .fact p {
+  font-size: 12px;
+  line-height: 2.05;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.aldel-home .process-note {
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 20px;
+  line-height: 1.9;
+}
+/* shop */
+.aldel-home .shop {
+  padding: 82px 0;
+  background: var(--forest);
+  color: white;
+}
+.aldel-home .shop-inner {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  align-items: center;
+  gap: 60px;
+}
+.aldel-home .shop h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.65;
+  letter-spacing: 0.07em;
+  margin: 18px 0;
+}
+.aldel-home .shop p {
+  font-size: 13px;
+  line-height: 2.3;
+  color: #d9e0d6;
+  max-width: 560px;
+}
+.aldel-home .shop-action {
+  text-align: center;
+}
+.aldel-home .shop-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 60px;
+  padding: 0 34px;
+  background: #faf6eb;
+  color: var(--forest);
+  border: 1px solid #faf6eb;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.aldel-home .shop-button:hover {
+  transform: translateY(-2px);
+  background: #ebdfca;
+}
+.aldel-home .shop-action p {
+  font-size: 11px;
+  margin: 16px auto 0;
+  max-width: 265px;
+}
+/* everyday */
+.aldel-home .life {
+  padding: 114px 0 112px;
+}
+.aldel-home .life-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+.aldel-home .life-heading h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+.aldel-home .life-intro {
+  font-size: 13px;
+  line-height: 2.15;
+  color: var(--ink-soft);
+  max-width: 300px;
+}
+.aldel-home .life-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.aldel-home .life-card {
+  border-top: 2px solid var(--forest);
+  padding: 25px 3px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s;
+}
+.aldel-home .life-card:hover {
+  transform: translateY(-3px);
+}
+.aldel-home .life-card .eyebrow {
+  font-size: 10px;
+}
+.aldel-home .life-card h3 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 22px;
+  line-height: 1.55;
+  font-weight: 500;
+  margin: 0;
+}
+.aldel-home .life-card p {
+  font-size: 12px;
+  line-height: 2.2;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.aldel-home .life-card .read {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--sienna);
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid #ad8c78;
+  padding: 8px 0;
+}
+/* journal */
+.aldel-home .journal {
+  background: #ece8df;
+  padding: 90px 0 100px;
+}
+.aldel-home .journal-titlemain {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 500;
+  font-size: 36px;
+  margin: 14px 0 32px;
+}
+.aldel-home .journal-entry {
+  border-top: 1px solid #c4bbaa;
+}
+.aldel-home .journal-entry:last-child {
+  border-bottom: 1px solid #c4bbaa;
+}
+.aldel-home .journal-entry summary {
+  cursor: pointer;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 175px 1fr 85px;
+  gap: 20px;
+  align-items: center;
+  padding: 26px 8px;
+}
+.aldel-home .journal-entry summary::-webkit-details-marker {
+  display: none;
+}
+.aldel-home .journal-label {
+  font-family: Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--sienna);
+}
+.aldel-home .journal-title {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 20px;
+  line-height: 1.5;
+}
+.aldel-home .journal-open {
+  font-size: 11px;
+  color: var(--sienna);
+  white-space: nowrap;
+}
+.aldel-home .journal-text {
+  max-width: 770px;
+  margin-left: clamp(0px, 13vw, 180px);
+  padding: 5px 15px 55px;
+  font-size: 14px;
+  line-height: 2.25;
+  color: #555b51;
+}
+.aldel-home .journal-text h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.7;
+  margin: 38px 0 15px;
+  color: var(--ink);
+}
+.aldel-home .journal-text p {
+  margin: 0 0 15px;
+}
+.aldel-home .journal-text h2:first-child {
+  margin-top: 0;
+}
+/* community */
+.aldel-home .community {
+  padding: 115px 0;
+}
+.aldel-home .community-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.aldel-home .community-image {
+  background: #d8c8ac;
+  aspect-ratio: 4/4.2;
+  overflow: hidden;
+  position: relative;
+}
+.aldel-home .community-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 37%;
+  filter: saturate(0.78);
+}
+.aldel-home .community-image .image-stamp {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(35, 50, 40, 0.9);
+  color: #f6ebd9;
+  padding: 13px 17px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.aldel-home .community-copy h2 {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-weight: 500;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1.55;
+  margin: 18px 0 28px;
+}
+.aldel-home .community-copy p {
+  font-size: 13px;
+  line-height: 2.35;
+  color: var(--ink-soft);
+  margin: 0 0 17px;
+}
+.aldel-home .community-status {
+  font-size: 11px;
+  color: var(--sienna);
+  display: inline-block;
+  border: 1px solid #c6b7a0;
+  padding: 7px 14px;
+  margin: 16px 0 25px;
+}
+.aldel-home .community-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.aldel-home .community-links a {
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--sienna);
+  padding: 5px 0;
+}
+.aldel-home .community-footnote {
+  margin-top: 12px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #8b8e81;
+}
+/* footer */
+.aldel-home footer {
+  background: #202b23;
+  color: #e7e6df;
+  padding: 62px 0 24px;
+}
+.aldel-home .footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 35px;
+  padding-bottom: 55px;
+  border-bottom: 1px solid #405044;
+}
+.aldel-home .footer-logo {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 27px;
+  letter-spacing: 0.13em;
+}
+.aldel-home .footer-copy {
+  font-family: "Noto Serif CJK JP", "Yu Mincho", serif;
+  font-size: 16px;
+  line-height: 1.75;
+  margin-top: 22px;
+  color: #d2d5ca;
+}
+.aldel-home .footer-links {
+  display: flex;
+  gap: 55px;
+  flex-wrap: wrap;
+}
+.aldel-home .footer-links div {
+  display: grid;
+  gap: 13px;
+  align-content: start;
+}
+.aldel-home .footer-links a {
+  font-size: 11px;
+  color: #dedfd5;
+}
+.aldel-home .footer-links a:hover {
+  color: white;
+  text-decoration: underline;
+}
+.aldel-home .footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 21px;
+  color: #abb7aa;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.aldel-home .disclaimer {
+  font-size: 10px;
+  line-height: 1.9;
+  color: #a9aa9e;
+  padding: 20px 0 35px;
+  border-top: 1px solid var(--line);
+  margin-top: 0;
+}
+.aldel-home .reveal {
+  opacity: 1;
+}
+@media (max-width: 1080px) {
+  .aldel-home .main-nav {
+    gap: 16px;
+  }
+  .aldel-home .main-nav a {
+    font-size: 11px;
+  }
+  .aldel-home .hero-copy {
+    padding-left: 40px;
+  }
+  .aldel-home .hero h1 {
+    font-size: clamp(35px, 4.6vw, 56px);
+  }
+  .aldel-home .rice-inner {
+    gap: 50px;
+  }
+  .aldel-home .chapter {
+    grid-template-columns: 13% 46% 1fr;
+    gap: 18px;
+  }
+  .aldel-home .chapter-quote {
+    margin-left: 0;
+  }
+}
+@media (max-width: 760px) {
+  .aldel-home :is(section[id], details[id]) {
+    scroll-margin-top: 75px;
+  }
+  .aldel-home .annex {
+    height: 25px;
+    font-size: 8px;
+  }
+  .aldel-home .header-inner {
+    height: 67px;
+  }
+  .aldel-home .main-nav {
+    display: none;
+  }
+  .aldel-home .menu-btn {
+    display: block;
+  }
+  .aldel-home .mobile-panel.open {
+    display: grid;
+    position: absolute;
+    top: 67px;
+    left: 0;
+    right: 0;
+    gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 23px 25px;
+    box-shadow: 0 15px 25px #2728211c;
+  }
+  .aldel-home .mobile-panel a {
+    padding: 12px 5px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .aldel-home .hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+  .aldel-home .hero-copy {
+    padding: 67px 27px 72px;
+  }
+  .aldel-home .hero h1 {
+    font-size: clamp(35px, 9.1vw, 55px);
+    line-height: 1.65;
+    margin-top: 25px;
+  }
+  .aldel-home .hero-lead {
+    font-size: 13px;
+  }
+  .aldel-home .hero-visual {
+    min-height: 365px;
+    max-height: 480px;
+  }
+  .aldel-home .hero-visual img {
+    position: absolute;
+    object-position: center 49%;
+  }
+  .aldel-home .hero-caption {
+    bottom: 15px;
+    left: 18px;
+    right: 18px;
+  }
+  .aldel-home .philosophy-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 75px;
+    padding-bottom: 70px;
+  }
+  .aldel-home .philosophy h2 {
+    font-size: 31px;
+  }
+  .aldel-home .philosophy-copy {
+    font-size: 13px;
+  }
+  .aldel-home .story-wrap {
+    padding-top: 75px;
+    padding-bottom: 70px;
+  }
+  .aldel-home .section-heading {
+    display: block;
+  }
+  .aldel-home .section-heading .section-aside {
+    margin-top: 17px;
+  }
+  .aldel-home .chapter {
+    grid-template-columns: 56px 1fr;
+    gap: 14px;
+    padding: 45px 0;
+  }
+  .aldel-home .chapter-number {
+    font-size: 30px;
+  }
+  .aldel-home .chapter h3 {
+    font-size: 25px;
+    margin-bottom: 17px;
+  }
+  .aldel-home .chapter p {
+    font-size: 13px;
+  }
+  .aldel-home .chapter-quote {
+    grid-column: 2;
+    margin: 7px 0 0;
+    padding-left: 16px;
+    font-size: 20px;
+  }
+  .aldel-home .rice-inner {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-top: 75px;
+    padding-bottom: 76px;
+  }
+  .aldel-home .rice-big {
+    font-size: 85px;
+  }
+  .aldel-home .rice-explainer {
+    padding-top: 25px;
+  }
+  .aldel-home .rice-explainer p {
+    font-size: 13px;
+  }
+  .aldel-home .process {
+    padding: 76px 0;
+  }
+  .aldel-home .process-top {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .aldel-home .fact-row {
+    grid-template-columns: 1fr;
+  }
+  .aldel-home .fact {
+    padding: 26px;
+  }
+  .aldel-home .shop {
+    padding: 75px 0;
+  }
+  .aldel-home .shop-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .aldel-home .shop-action {
+    text-align: left;
+  }
+  .aldel-home .shop-action p {
+    margin-left: 0;
+  }
+  .aldel-home .life {
+    padding: 78px 0;
+  }
+  .aldel-home .life-heading {
+    display: block;
+  }
+  .aldel-home .life-intro {
+    margin-top: 17px;
+  }
+  .aldel-home .life-cards {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .aldel-home .life-card {
+    padding: 26px 3px;
+  }
+  .aldel-home .life-card:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .aldel-home .journal {
+    padding: 74px 0;
+  }
+  .aldel-home .journal-entry summary {
+    grid-template-columns: 1fr 76px;
+    gap: 5px;
+    padding: 24px 3px;
+  }
+  .aldel-home .journal-label {
+    grid-column: 1/-1;
+  }
+  .aldel-home .journal-title {
+    font-size: 18px;
+  }
+  .aldel-home .journal-open {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right;
+  }
+  .aldel-home .journal-text {
+    margin-left: 0;
+    padding: 5px 10px 42px;
+    font-size: 13px;
+  }
+  .aldel-home .community {
+    padding: 79px 0;
+  }
+  .aldel-home .community-inner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .aldel-home .community-image {
+    aspect-ratio: 5/4;
+  }
+  .aldel-home .community-copy h2 {
+    font-size: 32px;
+  }
+  .aldel-home .footer-top {
+    display: block;
+  }
+  .aldel-home .footer-links {
+    margin-top: 42px;
+    gap: 36px;
+  }
+  .aldel-home .footer-bottom {
+    display: block;
+  }
+  .aldel-home .footer-bottom span {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aldel-home *,
+  .aldel-home *:before,
+  .aldel-home *:after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+.aldel-home .brand-english,
+.aldel-home .brand-sub {
+  display: block;
+}
+.aldel-home .brand-english {
+  white-space: nowrap;
+}
+.aldel-home .brand-sub {
+  white-space: nowrap;
+}
+.aldel-home .menu-btn {
+  white-space: nowrap;
+  min-width: 76px;
+}
+.aldel-home .hero h1 {
+  font-feature-settings: "palt" 1;
+}
+
+.aldel-home .journal-expanded-label,
+.aldel-home details[open] .journal-closed-label {
+  display: none;
+}
+.aldel-home details[open] .journal-expanded-label {
+  display: inline;
+}
+.aldel-home .journal-permalink {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  text-decoration: underline;
+}
