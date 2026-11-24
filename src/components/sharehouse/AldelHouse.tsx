@@ -146,18 +146,20 @@ function HouseLiving() {
               暮らしの一部。
             </h2>
           </div>
-          <p>
-            アルデルハウスには、個室のほか、食事や会話をする共有スペース、共同キッチンや浴室などがあります。建物の中だけでなく、畑や田んぼ、集落とのつながりも、ここでの日常の一部です。
-          </p>
+          <div>
+            <p>
+              アルデルハウスには、個室のほか、食事や会話をする共有スペース、共同キッチンや浴室などがあります。建物の中だけでなく、畑や田んぼ、集落とのつながりも、ここでの日常の一部です。
+            </p>
+            <Image
+              className="places-dining-image"
+              src="/images/aldel-house-dining.webp"
+              alt="古民家の和室で食卓を囲む人々"
+              width={1600}
+              height={901}
+              sizes="(max-width: 360px) 90vw, 320px"
+            />
+          </div>
         </div>
-        <Image
-          className="places-dining-image"
-          src="/images/aldel-house-dining.webp"
-          alt="古民家の和室で食卓を囲む人々"
-          width={1600}
-          height={901}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1120px"
-        />
         <div className="equipment">
           <div>
             <h3>ここにあるもの。</h3>
@@ -203,9 +205,9 @@ function HouseLiving() {
           <div>
             <div className="eyebrow">LIVING TOGETHER / 大切にしたいこと</div>
             <h2 className="section-title serif">
-              「一緒に暮らす」を、
-              <br />
-              急がない。
+              <span className="real-title-phrase">「一緒に暮らす」を、</span>
+              <wbr />
+              <span className="real-title-phrase">急がない。</span>
             </h2>
             <p>
               暮らしの形も、心地よい距離感も、一人ひとり違います。だからこそ、住む前にお互いのことを知り、日々の過ごし方や関わり方を話せることを大切にしたいと思っています。
