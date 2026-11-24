@@ -150,6 +150,14 @@ function HouseLiving() {
             アルデルハウスには、個室のほか、食事や会話をする共有スペース、共同キッチンや浴室などがあります。建物の中だけでなく、畑や田んぼ、集落とのつながりも、ここでの日常の一部です。
           </p>
         </div>
+        <Image
+          className="places-dining-image"
+          src="/images/aldel-house-dining.webp"
+          alt="古民家の和室で食卓を囲む人々"
+          width={1600}
+          height={901}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1120px"
+        />
         <div className="equipment">
           <div>
             <h3>ここにあるもの。</h3>
@@ -169,7 +177,7 @@ function HouseLiving() {
             </p>
           </div>
           <div>
-            <h3>場所のこと。</h3>
+            <h3>アルデルハウスの場所</h3>
             <p>
               兵庫県赤穂郡上郡町、八保地区の金内（かなえ）。山と田んぼに囲まれた集落です。季節によって風景も、日々の仕事も変わります。
             </p>
