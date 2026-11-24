@@ -1207,3 +1207,12 @@
   max-width: 100%;
   text-wrap: balance;
 }
+
+.aldel-home .chapter-quote:has(.chapter-quote-lines) {
+  container-type: inline-size;
+}
+
+.aldel-home .chapter-quote-lines {
+  font-size: min(1em, 9cqi);
+  white-space: nowrap;
+}

@@ -132,11 +132,13 @@ function FarmStory() {
           </div>
           <blockquote className="chapter-quote">
             <span className="quote-tag">A QUESTION WE HAD</span>
-            当たり前に受け取っているものを、
-            <br />
-            自分たちで生み出したら、
-            <br />
-            世界はどう見えるのだろう。
+            <span className="chapter-quote-lines">
+              暮らしの当たり前を
+              <br />
+              自給できたら
+              <br />
+              世界はどう見えるか？
+            </span>
           </blockquote>
         </div>
         <div className="chapter">
@@ -156,9 +158,15 @@ function FarmStory() {
           </div>
           <blockquote className="chapter-quote">
             <span className="quote-tag">WHAT THE LAND TAUGHT US</span>
-            豊かさは、生み出すだけでなく、
-            <br />
-            受け継いでいくものでもある。
+            <span className="chapter-quote-lines">
+              豊かさは
+              <br />
+              生み出すだけでなく
+              <br />
+              受け継いでいくもの
+              <br />
+              でもある。
+            </span>
           </blockquote>
         </div>
         <div className="chapter">
@@ -432,8 +440,11 @@ function FarmCommunity() {
         <div className="community-copy">
           <div className="eyebrow">THE NEXT CHAPTER / COMMUNITY</div>
           <h2>
-            <span className="heading-phrase">一人では、</span>
-            <span className="heading-phrase">つくれない暮らしがある。</span>
+            一人では、
+            <br />
+            つくれない
+            <br />
+            暮らしがある。
           </h2>
           <p>
             私たちは、土地を耕すことも、家を直すことも、食べ物を育てることも、それぞれの力を持ち寄って続けてきました。力を合わせて育てたものを分け合う時間に、暮らしの豊かさを感じています。
