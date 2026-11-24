@@ -5,9 +5,6 @@ import { getLineOfficialUrl } from "@/libs/line-official";
 import { FarmHomeInteractions, MobileFarmMenu } from "./FarmHomeInteractions";
 import "./farm-home.css";
 
-const HERO_FALLBACK =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDBWYB1nuktR8iDjjUe-4cm8jAxzBtTp6yZt3qolxR9AOwa6WRTlqCQkej7rozeAJd1OQEssx0giUbC1WQ0LsmfJ2mvOqP8K42aTrXJKGPTT2YrH_iS51bRYmrONcBeZJW4iBLqUJkRn-y9lq10rrg1QrByhhdjYUWXjLXpNcxonW4dHMq2s-ui3fgrKql4xFTtEkT4bzDRBMoqzFHMGL816vpg8qVJnD93hF76GnwCrW0RaDXTMAmxAqhc-LphS0I1nFhtenMa5MyF";
-
 function FarmHeader({ lineUrl }: { lineUrl: string }) {
   return (
     <header className="site-header">
@@ -40,7 +37,7 @@ function FarmHeader({ lineUrl }: { lineUrl: string }) {
   );
 }
 
-function FarmHero({ imageUrl }: { imageUrl: string }) {
+function FarmHero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-copy">
@@ -65,7 +62,7 @@ function FarmHero({ imageUrl }: { imageUrl: string }) {
         </div>
       </div>
       <div className="hero-visual">
-        <img src={imageUrl} alt="" />
+        <img src="/images/home/rice-hero.webp" alt="実った稲穂と赤い農機具" />
         <div className="hero-caption">
           <span>暮らしをつくる、という選択。</span>
           <strong>KANAE / HARIMA</strong>
@@ -232,6 +229,7 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
             <div className="rice-subtitle">
               土地から受け取った実りを、暮らしへ。
             </div>
+            <img className="rice-label-image" src="/images/home/kanahe-label.webp" alt="金瓮（かなへ）のラベル" width={1200} height={1500} loading="lazy" />
           </div>
           <div className="rice-explainer">
             <h3>
@@ -273,25 +271,34 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
         </div>
         <div className="fact-row">
           <div className="fact">
-            <small>SPRING / 05—06</small>
-            <strong>苗から田植えへ</strong>
-            <p>
-              籾をまいて苗を育て、田んぼに植える。はじまりの季節。仲間と手を動かす喜びも、初めて知りました。
-            </p>
+            <div>
+              <small>SPRING / 05—06</small>
+              <strong>苗から田植えへ</strong>
+              <p>
+                籾をまいて苗を育て、田んぼに植える。はじまりの季節。仲間と手を動かす喜びも、初めて知りました。
+              </p>
+            </div>
+            <img className="fact-image" src="/images/home/rice-seedbed.webp" alt="山里の畑で苗床をつくる人々" width={1200} height={900} loading="lazy" />
           </div>
           <div className="fact">
-            <small>SUMMER / 07—08</small>
-            <strong>稲と草と向き合う</strong>
-            <p>
-              田んぼを見回り、草の勢いに合わせて道具や手作業を使い分ける。稲の変化に目が離せない夏。
-            </p>
+            <div>
+              <small>SUMMER / 07—08</small>
+              <strong>稲と草と向き合う</strong>
+              <p>
+                田んぼを見回り、草の勢いに合わせて道具や手作業を使い分ける。稲の変化に目が離せない夏。
+              </p>
+            </div>
+            <img className="fact-image" src="/images/home/rice-weeding.webp" alt="田んぼでの除草作業" width={1200} height={900} loading="lazy" />
           </div>
           <div className="fact">
-            <small>AUTUMN / 09—10</small>
-            <strong>収穫を食卓へ</strong>
-            <p>
-              稲を刈り、乾燥させ、籾殻を取り除く。はじめて、一袋のお米の向こうにある仕事の多さを知りました。
-            </p>
+            <div>
+              <small>AUTUMN / 09—10</small>
+              <strong>収穫を食卓へ</strong>
+              <p>
+                稲を刈り、乾燥させ、籾殻を取り除く。はじめて、一袋のお米の向こうにある仕事の多さを知りました。
+              </p>
+            </div>
+            <img className="fact-image" src="/images/home/rice-cooking.webp" alt="釜で炊き上がったごはん" width={1200} height={900} loading="lazy" />
           </div>
         </div>
         <p className="process-note">
@@ -315,6 +322,7 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
             </p>
           </div>
           <div className="shop-action">
+            <img className="shop-rice-image" src="/images/home/kanahe-rice-bag.webp" alt="夕暮れの田園と金瓮の米袋" width={1536} height={1024} loading="lazy" />
             <a
               className="shop-button"
               href={lineUrl}
@@ -419,13 +427,13 @@ function FarmJournal({ articles }: { articles: FarmArticle[] }) {
   );
 }
 
-function FarmCommunity({ imageUrl }: { imageUrl: string }) {
+function FarmCommunity() {
   return (
     <section className="community" id="community">
       <div className="container community-inner">
         <div>
           <div className="community-image">
-            <img src={imageUrl} loading="lazy" alt="" />
+            <img src="/images/home/community-night.webp" loading="lazy" alt="星空の下、古民家の庭に集う人々" />
             <div className="image-stamp">LIVING TOGETHER / HYŌGO</div>
           </div>
         </div>
@@ -500,27 +508,16 @@ export function FarmHome({
   articles: FarmArticle[];
 }) {
   const lineUrl = getLineOfficialUrl(globals);
-  const hero = globals?.farmHeroImage;
-  const life = globals?.farmLifeImage;
   return (
     <div className="aldel-home" id="top">
       <FarmHomeInteractions />
       <FarmHeader lineUrl={lineUrl} />
       <main>
-        <FarmHero
-          imageUrl={
-            (Array.isArray(hero) ? hero[0]?.url : hero?.url) || HERO_FALLBACK
-          }
-        />
+        <FarmHero />
         <FarmStory />
         <FarmRice lineUrl={lineUrl} />
         <FarmJournal articles={articles} />
-        <FarmCommunity
-          imageUrl={
-            (Array.isArray(life) ? life[0]?.url : life?.url) ||
-            "/images/life-made-by-many-hands.jpg"
-          }
-        />
+        <FarmCommunity />
       </main>
       <FarmFooter lineUrl={lineUrl} />
     </div>
