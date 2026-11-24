@@ -13,7 +13,7 @@ function FarmHeader({ lineUrl }: { lineUrl: string }) {
           <span className="brand-seal">稲</span>
           <span>
             <span className="brand-english">ALDEL FARM</span>
-            <span className="brand-sub">暮らしをつくる、里山の農園</span>
+            <span className="brand-sub">風土を育む里山の農園</span>
           </span>
         </a>
         <nav className="main-nav" aria-label="メインナビゲーション">
@@ -43,13 +43,15 @@ function FarmHero() {
       <div className="hero-copy">
         <div className="hero-kicker">ALDEL FARM / OUR LIFE & RICE</div>
         <h1 id="hero-title" className="serif">
-          <span>生きることを、</span>
-          <span>もっと</span>
-          <span>味わい深く。</span>
+          <span>当たり前の暮らしの中に</span>
+          <span>生きてる実感を。</span>
         </h1>
-        <p className="hero-lead">
-          当たり前に手に入るものを、自分たちの手で生み出してみたら、世界はどんなふうに見えるのだろう。そんな好奇心から始まった、兵庫県上郡町での私たちの里山暮らしです。
-        </p>
+        <div className="hero-lead">
+          <p>食べる。寝る。遊ぶ。</p>
+          <p>当たり前をどれだけ味わえていますか？</p>
+          <p>当たり前の暮らしを、お気に入りの暮らしへ。</p>
+          <p><strong>お気に入りの暮らしを、風土を育む営みへ。</strong></p>
+        </div>
         <div className="hero-actions">
           <a className="arrow-link" href="#story">
             <span>私たちとお米の物語を読む</span>
