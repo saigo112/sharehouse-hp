@@ -351,6 +351,11 @@
   line-height: 2.35;
   margin: 0;
 }
+.aldel-house .places-dining-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .aldel-house .gallery {
   display: grid;
   grid-template-columns: 1.15fr 1fr 1fr;

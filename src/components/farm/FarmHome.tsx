@@ -109,7 +109,7 @@ function FarmStory() {
         <div className="section-heading">
           <div>
             <div className="eyebrow">OUR STORY / FOUR CHAPTERS</div>
-            <h2>私たちと、田んぼの物語。</h2>
+            <h2><span className="heading-phrase">私たちと、</span><span className="heading-phrase">田んぼの物語。</span></h2>
           </div>
           <p className="section-aside">
             里山暮らしを始めたきっかけから、季節に合わせて田んぼに立つ毎日まで。私たちが米づくりを続ける理由を綴りました。
@@ -120,9 +120,8 @@ function FarmStory() {
           <div className="chapter-body">
             <div className="eyebrow">ORIGIN / 原点</div>
             <h3>
-              便利な暮らしのなかで、
-              <br />
-              ふと浮かんだ問い。
+              <span className="heading-phrase">便利な暮らしのなかで、</span>
+              <span className="heading-phrase">ふと浮かんだ問い。</span>
             </h3>
             <p>
               何もかも便利になった現代の暮らし。当たり前に手に入るものを、自分たちの手で生み出してみたら、世界はどんなふうに見えるのだろう。
@@ -145,9 +144,8 @@ function FarmStory() {
           <div className="chapter-body">
             <div className="eyebrow">ENCOUNTER / 出会い</div>
             <h3>
-              この土地には、すでに
-              <br />
-              豊かさがあった。
+              <span className="heading-phrase">この土地には、すでに</span>
+              <span className="heading-phrase">豊かさがあった。</span>
             </h3>
             <p>
               導かれるようにたどり着いた、兵庫県上郡町の小さな集落。ここでは、人とのご縁を通じて、家や土地、農機具、知識や技術など、本当にたくさんのものを受け取ってきました。
@@ -168,9 +166,8 @@ function FarmStory() {
           <div className="chapter-body">
             <div className="eyebrow">PRACTICE / 実践</div>
             <h3>
-              自然の都合で、
-              <br />
-              一日が決まっていく。
+              <span className="heading-phrase">自然の都合で、</span>
+              <span className="heading-phrase">一日が決まっていく。</span>
             </h3>
             <p>
               2026年、仲間とともに約1.7町の田んぼで本格的なお米づくりを始めました。毎日、土と水と太陽と稲に向き合っています。
@@ -194,9 +191,8 @@ function FarmStory() {
           <div className="chapter-body">
             <div className="eyebrow">FUTURE / 未来</div>
             <h3>
-              この暮らしを、
-              <br />
-              次の世代へ。
+              <span className="heading-phrase">この暮らしを、</span>
+              <span className="heading-phrase">次の世代へ。</span>
             </h3>
             <p>
               私たちは、お米も、野菜も、卵も、肉も、仲間と育て、分かち合う暮らしを育てたいと思っています。
@@ -231,13 +227,12 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
             <div className="rice-subtitle">
               土地から受け取った実りを、暮らしへ。
             </div>
-            <img className="rice-label-image" src="/images/home/kanahe-label.webp" alt="金瓮（かなへ）のラベル" width={1200} height={1500} loading="lazy" />
+            <img className="rice-label-image" src="/images/home/kanahe-label-a4.webp" alt="金瓮（かなへ）のラベル" width={1200} height={1698} loading="lazy" />
           </div>
           <div className="rice-explainer">
             <h3>
-              かつての地名と、
-              <br />
-              忘れられた暮らしの言葉を重ねて。
+              <span className="heading-phrase">かつての地名と、</span>
+              <span className="heading-phrase">忘れられた暮らしの言葉を重ねて。</span>
             </h3>
             <p>
               この土地には、かつて「金内（かなえ）」という名がありました。いまの住所からは姿を消しても、人の記憶や土地に残っている名前です。
@@ -262,9 +257,8 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
           <div>
             <div className="eyebrow">OUR RICE / THE WORK BEHIND EACH BOWL</div>
             <h2>
-              一杯のごはんの向こうに、
-              <br />
-              一年の暮らしがある。
+              <span className="heading-phrase">一杯のごはんの向こうに、</span>
+              <span className="heading-phrase">一年の暮らしがある。</span>
             </h2>
           </div>
           <p>
@@ -315,9 +309,8 @@ function FarmRice({ lineUrl }: { lineUrl: string }) {
               FROM OUR FIELD TO YOUR TABLE
             </div>
             <h2>
-              この物語のつづきを、
-              <br />
-              あなたの食卓へ。
+              <span className="heading-phrase">この物語のつづきを、</span>
+              <span className="heading-phrase">あなたの食卓へ。</span>
             </h2>
             <p>
               毎日のごはんに、土地の実りと、そこに暮らす人たちの営みを。金瓮米はアルデルファームの公式LINEからご注文いただけます。
@@ -350,7 +343,7 @@ function FarmJournal({ articles }: { articles: FarmArticle[] }) {
         <div className="life-heading">
           <div>
             <div className="eyebrow">JOURNAL / THE EVERYDAY</div>
-            <h2>私たちの、日々の記録。</h2>
+            <h2><span className="heading-phrase">私たちの、</span><span className="heading-phrase">日々の記録。</span></h2>
           </div>
           <p className="life-intro">
             米づくりだけではありません。鶏や畑、古い家の手入れ。暮らしをつくる現場には、いつも新しい発見があります。
@@ -360,9 +353,8 @@ function FarmJournal({ articles }: { articles: FarmArticle[] }) {
           <a className="life-card" href="#aldel-rice-year">
             <div className="eyebrow">01 — RICE</div>
             <h3>
-              籾から食卓へ。
-              <br />
-              アルデルファームの米づくり
+              <span className="heading-phrase">籾から食卓へ。</span>
+              <span className="heading-phrase">アルデルファームの米づくり</span>
             </h3>
             <p>
               種まき、夏の除草、機械の引き取り、秋の収穫。一年の手仕事をたどる記録。
@@ -372,9 +364,8 @@ function FarmJournal({ articles }: { articles: FarmArticle[] }) {
           <a className="life-card" href="#aldel-chicken-life">
             <div className="eyebrow">02 — CHICKENS</div>
             <h3>
-              鶏小屋を建てて、
-              <br />
-              鶏と暮らす
+              <span className="heading-phrase">鶏小屋を建てて、</span>
+              <span className="heading-phrase">鶏と暮らす</span>
             </h3>
             <p>
               仲間と小屋をつくり、小さなひよこを迎え、暮らしの循環を少しずつつくる。
@@ -384,9 +375,8 @@ function FarmJournal({ articles }: { articles: FarmArticle[] }) {
           <a className="life-card" href="#aldel-shared-field">
             <div className="eyebrow">03 — FIELDS</div>
             <h3>
-              みんなの畑は、
-              <br />
-              自然とのキャッチボール
+              <span className="heading-phrase">みんなの畑は、</span>
+              <span className="heading-phrase">自然とのキャッチボール</span>
             </h3>
             <p>
               育てたいものを持ち寄り、試して、失敗して、時々思いがけない収穫に笑う。
@@ -442,9 +432,8 @@ function FarmCommunity() {
         <div className="community-copy">
           <div className="eyebrow">THE NEXT CHAPTER / COMMUNITY</div>
           <h2>
-            一人では、
-            <br />
-            つくれない暮らしがある。
+            <span className="heading-phrase">一人では、</span>
+            <span className="heading-phrase">つくれない暮らしがある。</span>
           </h2>
           <p>
             私たちは、土地を耕すことも、家を直すことも、食べ物を育てることも、それぞれの力を持ち寄って続けてきました。力を合わせて育てたものを分け合う時間に、暮らしの豊かさを感じています。
