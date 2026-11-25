@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const links = [
-  ["#about", "この場所について"],
-  ["#life", "暮らしの風景"],
-  ["#place", "住まいのこと"],
-  ["#visit", "内覧について"],
+  ["#about", "アルデルハウスについて"],
+  ["#life", "暮らし"],
+  ["#place", "住まいについて"],
+  ["#visit", "内覧・入居相談"],
 ];
 
 export function HouseNavigation({ lineUrl }: { lineUrl: string }) {
