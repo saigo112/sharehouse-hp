@@ -3,18 +3,31 @@ import { AldelHouse } from "@/components/sharehouse/AldelHouse";
 import { getFarmSiteGlobals } from "@/libs/farm-microcms";
 import { getLineOfficialUrl } from "@/libs/line-official";
 
+const title = "アルデルハウス｜暮らしを、もっと遊ぼう。｜ALDEL FARM";
+const description =
+  "兵庫県赤穂郡上郡町の里山にある古民家シェアハウス、アルデルハウス。米づくりや畑、DIYなど、仲間とともに暮らしをつくりながら、都市と集落をつなぐ場所です。";
+const url = "https://www.aldel08.com/sharehouse";
+const image = {
+  url: "https://www.aldel08.com/images/aldel-house-hero.jpg",
+  width: 1365,
+  height: 2047,
+  alt: "アルデルハウスの古民家の前に並ぶ人たち",
+};
+
 export const metadata: Metadata = {
-  title: "アルデルハウス | 暮らしを、ともにつくる場所。",
-  description:
-    "兵庫県上郡町のアルデルハウス。ここでの暮らしと、住まい・内覧についてご案内します。",
+  title: { absolute: title },
+  description,
+  alternates: { canonical: url },
   openGraph: {
-    title: "アルデルハウス | 暮らしを、ともにつくる場所。",
-    description: "兵庫県上郡町の住まいと内覧のご案内。",
+    title,
+    description,
+    url,
+    type: "website",
+    locale: "ja_JP",
+    siteName: "ALDEL FARM",
+    images: [image],
   },
-  twitter: {
-    title: "アルデルハウス | 暮らしを、ともにつくる場所。",
-    description: "兵庫県上郡町の住まいと内覧のご案内。",
-  },
+  twitter: { card: "summary_large_image", title, description, images: [image] },
 };
 
 export const revalidate = 60;
