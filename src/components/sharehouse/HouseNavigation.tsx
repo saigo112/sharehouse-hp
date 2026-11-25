@@ -6,7 +6,7 @@ import { useState } from "react";
 const links = [
   ["#about", "アルデルハウスについて"],
   ["#life", "暮らし"],
-  ["#place", "住まいについて"],
+  ["#place", "住居について"],
   ["#visit", "内覧・入居相談"],
 ];
 
